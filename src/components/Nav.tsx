@@ -13,6 +13,7 @@ const links = [
   { href: "/about", label: "About" },
   { href: "/focus-areas", label: "Focus Areas" },
   { href: "/events", label: "Events" },
+  { href: "/innovation-challenge", label: "SIC 2026" },
   { href: "/team", label: "Team" },
   { href: "/join", label: "Membership" },
 ];

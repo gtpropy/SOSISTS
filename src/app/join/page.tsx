@@ -8,7 +8,7 @@ import {
   memberExpectations,
   safetyPolicies,
   membershipStatus,
-  upcomingEvents,
+  challenge,
 } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -17,7 +17,6 @@ export const metadata: Metadata = {
 };
 
 const safetyIcons = [FlaskConical, Zap, Eye];
-const challenge = upcomingEvents[0];
 
 export default function JoinPage() {
   return (
@@ -42,17 +41,15 @@ export default function JoinPage() {
                 Want to get involved right now? Register for the School Innovation Challenge below.
               </p>
             </div>
-            {challenge?.registrationUrl && (
-              <a
-                href={challenge.registrationUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white shadow-md shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-lg"
-              >
-                Register
-                <ArrowUpRight size={14} />
-              </a>
-            )}
+            <a
+              href={challenge.registration.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white shadow-md shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-lg"
+            >
+              Register
+              <ArrowUpRight size={14} />
+            </a>
           </div>
         </Reveal>
       </section>
@@ -132,30 +129,28 @@ export default function JoinPage() {
       </section>
 
       {/* FINAL CTA */}
-      {challenge?.registrationUrl && (
-        <section className="px-5 pb-24 sm:px-8">
-          <Reveal className="mx-auto max-w-4xl">
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-violet px-8 py-14 text-center shadow-2xl shadow-primary/30 sm:px-14">
-              <div className="absolute inset-0 bg-dot-grid opacity-20" />
-              <h2 className="relative font-display text-2xl font-bold text-white sm:text-3xl">
-                {challenge.title}
-              </h2>
-              <p className="relative mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/85 sm:text-base">
-                Registrations for the School Innovation Challenge are open now.
-              </p>
-              <a
-                href={challenge.registrationUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-primary shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
-              >
-                Register Your Team
-                <ArrowUpRight size={16} />
-              </a>
-            </div>
-          </Reveal>
-        </section>
-      )}
+      <section className="px-5 pb-24 sm:px-8">
+        <Reveal className="mx-auto max-w-4xl">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-violet px-8 py-14 text-center shadow-2xl shadow-primary/30 sm:px-14">
+            <div className="absolute inset-0 bg-dot-grid opacity-20" />
+            <h2 className="relative font-display text-2xl font-bold text-white sm:text-3xl">
+              {challenge.title}
+            </h2>
+            <p className="relative mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/85 sm:text-base">
+              Registrations for the School Innovation Challenge are open now.
+            </p>
+            <a
+              href={challenge.registration.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-primary shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
+            >
+              Register Your Team
+              <ArrowUpRight size={16} />
+            </a>
+          </div>
+        </Reveal>
+      </section>
     </div>
   );
 }

@@ -14,12 +14,11 @@ import { ShowcaseGallery } from "@/components/ShowcaseGallery";
 import { UpcomingEvents } from "@/components/UpcomingEvents";
 import { Scrollytelling } from "@/components/Scrollytelling";
 import { useSound } from "@/components/SoundProvider";
-import { siteMeta, stats, focusAreas, executiveTeam, upcomingEvents, journey } from "@/lib/data";
+import { siteMeta, stats, focusAreas, executiveTeam, challenge, journey } from "@/lib/data";
 
 export default function Home() {
   const { play } = useSound();
   const president = executiveTeam[0];
-  const challenge = upcomingEvents[0];
 
   return (
     <div>
@@ -68,7 +67,7 @@ export default function Home() {
               className="mt-8 flex flex-wrap items-center gap-4"
             >
               <a
-                href={challenge.registrationUrl}
+                href={challenge.registration.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseEnter={() => play("hover")}
@@ -139,7 +138,7 @@ export default function Home() {
             }
           />
           <div className="mt-8">
-            <UpcomingEvents events={upcomingEvents} />
+            <UpcomingEvents challenge={challenge} />
           </div>
         </div>
       </section>
@@ -228,7 +227,7 @@ export default function Home() {
               registered teams.
             </p>
             <a
-              href={challenge.registrationUrl}
+              href={challenge.registration.url}
               target="_blank"
               rel="noopener noreferrer"
               onMouseEnter={() => play("hover")}

@@ -5,6 +5,7 @@ import { SoundProvider } from "@/components/SoundProvider";
 import { CodeBackground } from "@/components/CodeBackground";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { SICAnnouncementModal } from "@/components/SICAnnouncementModal";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Nav />
           <main className="flex-1">{children}</main>
           <Footer />
+          <SICAnnouncementModal />
         </SoundProvider>
       </body>
     </html>
