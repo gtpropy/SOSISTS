@@ -4,8 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Volume2, VolumeX, Cpu } from "lucide-react";
+import { Menu, X, Volume2, VolumeX, Cpu, Lock } from "lucide-react";
 import { useSound } from "@/components/SoundProvider";
+import { membershipStatus } from "@/lib/data";
 
 const links = [
   { href: "/", label: "Home" },
@@ -13,7 +14,7 @@ const links = [
   { href: "/focus-areas", label: "Focus Areas" },
   { href: "/events", label: "Events" },
   { href: "/team", label: "Team" },
-  { href: "/join", label: "Join" },
+  { href: "/join", label: "Membership" },
 ];
 
 export function Nav() {
@@ -101,9 +102,17 @@ export function Nav() {
             href="/join"
             onMouseEnter={() => play("hover")}
             onClick={() => play("click")}
-            className="hidden rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white shadow-md shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/35 sm:inline-block"
+            className={
+              membershipStatus.open
+                ? "hidden rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white shadow-md shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/35 sm:inline-block"
+                : "hidden items-center gap-1.5 rounded-full border border-border bg-background-alt px-4 py-2 font-mono text-xs font-medium text-muted transition-colors hover:border-primary/30 hover:text-primary sm:inline-flex"
+            }
           >
-            Join ISTS
+            {membershipStatus.open ? "Join ISTS" : (
+              <>
+                <Lock size={12} /> {membershipStatus.label}
+              </>
+            )}
           </Link>
 
           <button

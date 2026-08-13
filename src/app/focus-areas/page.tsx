@@ -15,13 +15,13 @@ export default function FocusAreasPage() {
   return (
     <div>
       <PageHero
-        eyebrow="Section 7 — Core Focus Areas"
+        eyebrow="Focus Areas"
         title="Four disciplines. One mission."
-        description="From safe chemistry demonstrations to robotics builds and research showcases — every focus area is hands-on, supervised, and built for beginners and builders alike."
+        description="Hands-on, supervised, and built for beginners and builders alike."
       />
 
       <section className="px-5 py-10 sm:px-8">
-        <div className="mx-auto flex max-w-6xl flex-col gap-24 pb-10">
+        <div className="mx-auto flex max-w-6xl flex-col gap-16 pb-10">
           {focusAreas.map((area, i) => (
             <FocusAreaDetail key={area.id} area={area} reverse={i % 2 === 1} />
           ))}
@@ -33,10 +33,8 @@ export default function FocusAreasPage() {
               <ShieldAlert size={20} strokeWidth={2.2} />
             </span>
             <p className="text-sm leading-relaxed text-muted">
-              <strong className="text-foreground">Safety first.</strong> All chemistry, electronics,
-              and robotics activities are conducted only under teacher supervision, using
-              low-voltage components and approved materials. No experiment or project is
-              considered successful if it isn&apos;t safe, ethical, and responsible.
+              <strong className="text-foreground">Safety first.</strong> Every hands-on activity
+              runs under teacher supervision with approved, low-voltage equipment.
             </p>
           </div>
         </Reveal>

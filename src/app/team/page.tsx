@@ -20,9 +20,9 @@ export default function TeamPage() {
   return (
     <div>
       <PageHero
-        eyebrow="Section 8 — Organizational Structure"
+        eyebrow="Team"
         title="The people building ISTS"
-        description="A student-led executive committee working under faculty supervision — every role built for accountability, leadership, and growth."
+        description="A student-led executive committee, working under faculty supervision."
       />
 
       {/* PRESIDENT / FOUNDER */}
@@ -46,9 +46,7 @@ export default function TeamPage() {
                 {president.name}
               </h2>
               <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
-                Provides overall leadership to the society — planning major initiatives,
-                coordinating with faculty supervisors, guiding executive members, and
-                representing {siteMeta.shortName} before the school administration.
+                Leads {siteMeta.shortName} and represents the society to the school administration.
               </p>
             </div>
           </div>
@@ -58,11 +56,7 @@ export default function TeamPage() {
       {/* EXECUTIVE COMMITTEE */}
       <section className="px-5 py-16 sm:px-8">
         <div className="mx-auto max-w-6xl">
-          <SectionHeading
-            eyebrow="Executive Committee"
-            title="One role each. One team together."
-            description="Coordinators spanning operations, finance, technology, events, and research."
-          />
+          <SectionHeading eyebrow="Executive Committee" title="One role each. One team together." />
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {restOfExec.map((member, i) => (
@@ -83,9 +77,7 @@ export default function TeamPage() {
               <h3 className="font-display text-lg font-semibold text-foreground">
                 Media &amp; Outreach Team
               </h3>
-              <p className="text-sm text-muted">
-                Posters, announcements, photography, and promotional content.
-              </p>
+              <p className="text-sm text-muted">Posters, photography &amp; promotion.</p>
             </div>
           </Reveal>
 
@@ -100,11 +92,7 @@ export default function TeamPage() {
       {/* GENERAL MEMBERS */}
       <section className="px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-6xl">
-          <SectionHeading
-            eyebrow="General Members"
-            title="The builders behind every project"
-            description="Every member — new or experienced — contributes directly to seminars, workshops, and showcases."
-          />
+          <SectionHeading eyebrow="Members" title="The builders behind every project" />
 
           <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {generalMembers.map((member, i) => (
@@ -118,9 +106,8 @@ export default function TeamPage() {
                 <Users2 size={20} strokeWidth={2.2} />
               </span>
               <p className="text-sm leading-relaxed text-muted">
-                ISTS is inclusive by design — membership welcomes both talented and beginner
-                students. No prior experience in science, coding, or robotics is required, only
-                curiosity, discipline, and a willingness to learn.
+                No prior experience required — just curiosity, discipline, and a willingness to
+                learn.
               </p>
             </div>
           </Reveal>

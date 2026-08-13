@@ -10,33 +10,23 @@ export const siteMeta = {
 
 export const vision = {
   heading: "Vision",
-  body: [
-    "The vision of the Innovation, Science & Technology Society (ISTS) is to establish a vibrant culture of scientific excellence, innovation, research, and technological creativity at SOS Hermann Minor School.",
-    "ISTS envisions a school environment where students are encouraged to question deeply, experiment responsibly, build confidently, and think creatively. The society aims to develop future leaders who are capable of solving problems through science, technology, collaboration, and ethical innovation.",
-    "The long-term vision of ISTS is to make SOS Hermann Minor School recognized not only for academic discipline but also for practical STEM learning, student-led innovation, research-based thinking, robotics, computing, and meaningful participation in science and technology competitions.",
-  ],
+  body: "A vibrant culture of scientific excellence and technological creativity at SOS Hermann Minor School — where students question, experiment, build, and lead with integrity.",
   aspirations: [
-    "Scientific thinkers who observe, analyze, and investigate.",
-    "Innovators who design solutions to real problems.",
-    "Technological learners who understand modern tools and future trends.",
-    "Responsible leaders who work with discipline, integrity, and teamwork.",
-    "Confident presenters who can communicate ideas clearly.",
-    "Future-ready students prepared for higher education, competitions, and global challenges.",
+    "Scientific thinkers who investigate",
+    "Innovators who solve real problems",
+    "Confident, ethical, future-ready leaders",
   ],
 };
 
 export const mission = {
   heading: "Mission",
   intro:
-    "The mission of the Innovation, Science & Technology Society (ISTS) is to provide students with a structured and inspiring platform to explore STEM subjects through practical learning, research, collaboration, innovation, and leadership.",
+    "A structured platform for hands-on STEM learning, research, and leadership — open to every student from Grade 6 and above.",
   items: [
-    "Promote interest in science, technology, engineering, mathematics, research, and innovation among students from Grade 6 and above.",
-    "Provide hands-on learning opportunities through experiments, workshops, demonstrations, projects, and competitions.",
-    "Encourage students to explore emerging technologies such as artificial intelligence, robotics, automation, cybersecurity, renewable energy, and modern computing.",
-    "Develop problem-solving skills by encouraging students to identify challenges and design practical solutions.",
-    "Build leadership, teamwork, communication, and event management skills through student-led activities.",
-    "Support students in preparing for science competitions, Olympiads, coding contests, robotics challenges, and innovation fairs.",
-    "Create a safe, disciplined, and inclusive environment where beginners and experienced students can learn together.",
+    "Hands-on learning through experiments, workshops, and projects",
+    "Emerging tech: AI, robotics, automation, cybersecurity",
+    "Leadership and teamwork through student-led events",
+    "An inclusive space for beginners and experts alike",
   ],
 };
 
@@ -51,92 +41,68 @@ export interface ObjectiveGroup {
 export const objectives: ObjectiveGroup[] = [
   {
     id: "academic",
-    number: "5.1",
-    title: "Academic Objectives",
-    intro:
-      "The society will support academic growth by connecting classroom concepts with practical applications.",
+    number: "01",
+    title: "Academic",
+    intro: "Connecting classroom concepts to practical application.",
     items: [
-      "Strengthen understanding of science, mathematics, computing, and engineering through practical demonstrations and project-based learning.",
-      "Organize weekly discussions that connect school syllabus topics with real-life applications.",
-      "Develop better analytical thinking, observation, reasoning, and scientific explanation skills.",
-      "Support students preparing for Olympiads, quiz competitions, coding contests, and STEM-related academic events.",
-      "Encourage students to present scientific topics clearly, improving subject knowledge and communication.",
-      "Develop a culture where academic excellence is supported by curiosity, questioning, and experimentation.",
+      "Project-based learning in science & computing",
+      "Olympiad, quiz, and coding contest preparation",
+      "Stronger analytical & presentation skills",
     ],
   },
   {
     id: "innovation",
-    number: "5.2",
-    title: "Innovation Objectives",
-    intro:
-      "Innovation will be one of the central pillars of ISTS — students are encouraged to think beyond existing solutions.",
+    number: "02",
+    title: "Innovation",
+    intro: "Turning curiosity into real prototypes.",
     items: [
-      "Motivate students to identify problems in school, community, environment, and daily life.",
-      "Guide students in developing simple prototypes, models, systems, or proposals as solutions.",
-      "Promote design thinking, creativity, brainstorming, and structured problem-solving.",
-      "Organize innovation challenges where students work individually or in teams.",
-      "Develop at least one student-led innovation project per term.",
-      "Encourage students to document ideas, test concepts, and improve designs through feedback.",
+      "Identify real problems worth solving",
+      "Design thinking & rapid prototyping",
+      "One student-led innovation project per term",
     ],
   },
   {
     id: "technology",
-    number: "5.3",
-    title: "Technology Objectives",
-    intro:
-      "ISTS will help students understand technology as both a learning tool and a field of future opportunity.",
+    number: "03",
+    title: "Technology",
+    intro: "Technology as both a tool and a career path.",
     items: [
-      "Introduce programming, web development, software tools, robotics, electronics, AI, and cybersecurity awareness.",
-      "Conduct beginner-friendly sessions so students with no prior experience can start confidently.",
-      "Organize workshops on Python, HTML/CSS, web development, Arduino, robotics, and AI fundamentals.",
-      "Encourage responsible and ethical use of technology.",
-      "Promote digital literacy and awareness of future technologies.",
-      "Develop small technology-based projects such as websites, apps, automation systems, and sensor-based devices.",
+      "Programming, web dev, robotics, AI basics",
+      "Beginner-friendly — no experience required",
+      "Ethical, responsible use of technology",
     ],
   },
   {
     id: "competition",
-    number: "5.4",
-    title: "Competition Objectives",
-    intro:
-      "Competitions help students test their knowledge, build confidence, and represent their school with pride.",
+    number: "04",
+    title: "Competition",
+    intro: "Testing skills, building confidence.",
     items: [
-      "Prepare students for intra-school and inter-school science, technology, robotics, coding, and innovation competitions.",
-      "Organize one major monthly event such as a hackathon, Olympiad, robotics competition, or STEM quiz.",
-      "Provide opportunities in judging-based events, presentations, demonstrations, and team challenges.",
-      "Recognize outstanding performance through certificates, awards, and public appreciation.",
-      "Improve the school's performance and visibility in STEM-related competitions.",
-      "Build a trained student team able to represent SOS Hermann Minor School externally.",
+      "One major monthly hackathon / Olympiad / quiz",
+      "Certificates & recognition for top performance",
+      "A trained team representing the school externally",
     ],
   },
   {
     id: "leadership",
-    number: "5.5",
-    title: "Leadership Objectives",
-    intro:
-      "ISTS will be a student-led society working under faculty supervision, teaching responsibility and leadership.",
+    number: "05",
+    title: "Leadership",
+    intro: "Student-run, faculty-supervised.",
     items: [
-      "Develop student leaders capable of organizing events, managing teams, and communicating professionally.",
-      "Provide leadership roles such as President, Vice President, Secretary, Coordinators, and team members.",
-      "Encourage students to lead seminars, moderate discussions, and coordinate workshops.",
-      "Develop professionalism, punctuality, teamwork, and accountability.",
-      "Create a culture where senior students mentor junior students.",
-      "Prepare students for leadership roles in higher education and future professional environments.",
+      "Real roles: President to project leads",
+      "Seniors mentoring juniors",
+      "Professionalism, accountability, ownership",
     ],
   },
   {
     id: "research",
-    number: "5.6",
-    title: "Research Objectives",
-    intro:
-      "Research teaches students how to ask meaningful questions, gather information, and present findings.",
+    number: "06",
+    title: "Research",
+    intro: "Asking good questions, backing them with evidence.",
     items: [
-      "Encourage exploration of scientific discoveries, emerging technologies, and environmental issues.",
-      "Guide students in preparing short research presentations and project reports.",
-      "Organize student research showcases at the end of each term.",
-      "Promote proper citation, academic honesty, and evidence-based thinking.",
-      "Encourage students to compare ideas, evaluate sources, and present conclusions responsibly.",
-      "Develop research habits that benefit students in higher studies and competitions.",
+      "Short research presentations each term",
+      "Academic honesty & proper citation",
+      "End-of-term research showcases",
     ],
   },
 ];
@@ -154,69 +120,53 @@ export interface FocusArea {
 export const focusAreas: FocusArea[] = [
   {
     id: "chemistry",
-    number: "7.1",
+    number: "01",
     title: "Chemistry & Scientific Exploration",
     shortTitle: "Chemistry",
-    description:
-      "Safe, supervised, and meaningful demonstrations that build curiosity and understanding through responsible scientific activity — never unsafe or uncontrolled experiments.",
+    description: "Safe, supervised demonstrations that build real scientific understanding.",
     activities: [
-      "Safe classroom demonstrations of chemical reactions",
-      "Basic laboratory skill awareness",
-      "Environmental chemistry: water testing, pollution awareness, waste management",
-      "Acids and bases, indicators, crystallization, filtration, separation techniques",
-      "Applied chemistry in medicine, agriculture, food, and industry",
-      "Chemistry-based science fair projects and presentations",
+      "Safe reaction demonstrations",
+      "Environmental & applied chemistry",
+      "Science fair projects",
     ],
     accent: "lime",
   },
   {
     id: "physics-engineering",
-    number: "7.2",
+    number: "02",
     title: "Physics & Engineering",
     shortTitle: "Physics & Engineering",
-    description:
-      "Connecting theoretical concepts with practical models — understanding how scientific principles power machines, structures, circuits, and everyday technology.",
+    description: "From theory to working models — circuits, structures, and machines.",
     activities: [
-      "Simple mechanics: force, motion, levers, pulleys, energy",
-      "Electricity demos: circuits, resistors, switches, LEDs, measurements",
-      "Magnetism and electromagnetism-based projects",
-      "Engineering design challenges: bridges, towers, vehicles",
-      "Renewable energy models: solar-powered devices, wind demonstrations",
-      "Design → test → improve → present problem-solving challenges",
+      "Circuits, electricity & renewable energy",
+      "Engineering design challenges",
+      "Build → test → improve → present",
     ],
     accent: "primary",
   },
   {
     id: "robotics",
-    number: "7.4",
+    number: "03",
     title: "Robotics & Automation",
     shortTitle: "Robotics & Automation",
-    description:
-      "One of the most exciting focus areas — learning how electronics, programming, sensors, and mechanical design combine to create automated systems.",
+    description: "Electronics, sensors, and code combined to build automated systems.",
     activities: [
-      "Introduction to Arduino and microcontroller-based systems",
-      "Basic electronics: LEDs, buzzers, resistors, motors, sensors, breadboards",
-      "Sensor projects: obstacle detection, light/temperature sensing, line-following",
-      "Robotics builds: simple moving robots, automated alarms, smart dustbins",
-      "Understanding automation in industry, homes, agriculture, medicine",
-      "Robotics demonstrations at exhibitions and grand term events",
+      "Arduino & microcontroller basics",
+      "Sensor-based robotics builds",
+      "Live demos at exhibitions",
     ],
     accent: "cyan",
   },
   {
     id: "innovation-research",
-    number: "7.5",
+    number: "04",
     title: "Innovation & Research",
     shortTitle: "Innovation & Research",
-    description:
-      "Encouraging students to think deeply about problems and solutions — exploring emerging technologies, scientific breakthroughs, and real-world challenges.",
+    description: "Deep dives into emerging tech and real-world problem-solving.",
     activities: [
-      "Student presentations on recent scientific discoveries and future technologies",
-      "Research discussions: space exploration, climate change, AI, biotechnology, cybersecurity",
-      "Innovation challenges proposing solutions to school or community problems",
-      "Research poster presentations and project documentation",
-      "Team-based problem-solving sessions",
-      "Term-end innovation showcases of models, prototypes, and ideas",
+      "Research posters & presentations",
+      "Innovation challenges",
+      "Term-end showcases",
     ],
     accent: "violet",
   },
@@ -235,57 +185,72 @@ export const events: EventBlock[] = [
     id: "weekly",
     cadence: "Every Monday",
     title: "Weekly Innovation Seminars",
-    description:
-      "Short, focused, interactive seminars during break time (~30–60 minutes) — the regular intellectual foundation of the society.",
-    details: [
-      "Explore STEM topics beyond textbooks",
-      "Develop presentation and public speaking skills",
-      "Discussion-based learning culture with open Q&A",
-      "Guest speakers: teachers, alumni, STEM professionals, engineers",
-      "Sample topics: AI, robotics, cybersecurity, space exploration, renewable energy, Arduino",
-    ],
+    description: "Short, interactive STEM talks during break time.",
+    details: ["Student & guest speakers", "Open Q&A", "AI, robotics, space & more"],
   },
   {
     id: "monthly",
     cadence: "Once a Month",
     title: "Monthly Major Event",
-    description:
-      "One well-planned monthly event to maintain quality, discipline, and sustainability instead of too many shallow activities.",
-    details: [
-      "Hackathons, Science Olympiads, coding & robotics competitions",
-      "STEM quizzes, science model competitions, innovation challenges",
-      "Research showcases and practical workshops (Python, Arduino, AI, web dev)",
-      "Planned by the executive committee under faculty supervision",
-      "Judged on creativity, accuracy, teamwork, and presentation quality",
-    ],
+    description: "One well-planned hackathon, Olympiad, or workshop.",
+    details: ["Hackathons & coding contests", "Practical workshops", "Judged & certified"],
   },
   {
     id: "grand-term",
     cadence: "Every 4 Months",
     title: "Grand Term Event",
-    description:
-      "The flagship program of the society — showcasing the best student work before teachers, school leaders, parents, and guests.",
-    details: [
-      "Science Expo, STEM Fair, Innovation Showcase, Robotics Demonstrations",
-      "Research presentations, hackathons, Olympiads, technology exhibitions",
-      "Awards ceremony and guest speaker sessions",
-      "Categories: Best Innovation Project, Best Robotics Demo, Best Research Presentation, Most Promising Young Scientist",
-    ],
+    description: "The flagship showcase — the best student work on display.",
+    details: ["Science & innovation expo", "Awards ceremony", "Open to parents & guests"],
   },
   {
     id: "inter-school",
     cadence: "Ongoing",
     title: "Inter-School Collaboration",
-    description:
-      "Respectful, meaningful collaboration with neighboring schools, subject to administration approval.",
-    details: [
-      "Inter-school STEM quizzes and coding competitions",
-      "Science Olympiads and robotics tournaments",
-      "Innovation expos, joint workshops, and friendly challenges",
-      "Wider exposure and stronger school reputation in STEM education",
-    ],
+    description: "Friendly competition and joint events with neighboring schools.",
+    details: ["Quizzes & tournaments", "Joint workshops", "Wider STEM exposure"],
   },
 ];
+
+export interface UpcomingEvent {
+  id: string;
+  status: string;
+  title: string;
+  tagline: string;
+  description: string;
+  highlights: string[];
+  meta: { label: string; value: string }[];
+  registrationUrl?: string;
+}
+
+export const upcomingEvents: UpcomingEvent[] = [
+  {
+    id: "innovation-challenge",
+    status: "Registrations Open",
+    title: "School Innovation Challenge",
+    tagline: "Problem Statement: Smart Attendance & Classroom Display System",
+    description:
+      "Teams will design a system that automates classroom attendance and displays live class info on the smart board — replacing manual roll-call with something students actually build.",
+    highlights: [
+      "Barcode-based attendance using existing school ID cards",
+      "Live smart-board display: schedule, teacher & substitute info",
+      "Central dashboard for schedules, substitutes & notices",
+      "Built for Android — the platform classroom smart boards run",
+    ],
+    meta: [
+      { label: "Format", value: "Team Challenge" },
+      { label: "Platform", value: "Android" },
+      { label: "Hosted by", value: "ISTS" },
+    ],
+    registrationUrl: "https://forms.gle/GcPCBLfNXfyGcWdb7",
+  },
+];
+
+export const membershipStatus = {
+  open: false,
+  label: "Applications Closed",
+  message:
+    "Membership for this cycle is closed — the current roster below is final. Follow ISTS announcements for the next opening.",
+};
 
 export type ExecMember = {
   name: string;
@@ -307,25 +272,16 @@ export const executiveTeam: ExecMember[] = [
 ];
 
 export const roleDescriptions: Record<string, string> = {
-  President:
-    "Provides overall leadership, coordinates with faculty supervisors, and represents ISTS before the school administration.",
-  "Vice President":
-    "Supports the President in planning and execution, and steps in during the President's absence.",
-  Secretary:
-    "Maintains official records of meetings, membership, attendance, and society communication.",
-  "Joint Secretary":
-    "Assists the Secretary with record-keeping, notices, and day-to-day organizational coordination.",
-  "Finance Coordinator":
-    "Maintains transparent financial records for approved expenses, sponsorships, and event resources.",
-  "IT & Robotics Coordinator":
-    "Leads programming, web development, electronics, Arduino, and robotics project teams.",
-  "Event Coordinator":
-    "Plans and manages seminars, competitions, workshops, and term-end programs.",
-  "Media & Outreach":
-    "Prepares posters, announcements, reports, and promotional content for approved school channels.",
-  "Research Coordinator":
-    "Guides research presentations, project reports, and term showcase materials.",
-  Member: "Active contributor to ISTS seminars, projects, and events.",
+  President: "Overall leadership and school administration liaison.",
+  "Vice President": "Supports planning and execution.",
+  Secretary: "Official records, meetings & communication.",
+  "Joint Secretary": "Record-keeping & day-to-day coordination.",
+  "Finance Coordinator": "Transparent financial tracking.",
+  "IT & Robotics Coordinator": "Leads programming & robotics projects.",
+  "Event Coordinator": "Plans seminars, workshops & term events.",
+  "Media & Outreach": "Posters, announcements & promotion.",
+  "Research Coordinator": "Guides research & showcase materials.",
+  Member: "Active contributor to ISTS projects & events.",
 };
 
 export const generalMembers: ExecMember[] = [
@@ -339,55 +295,71 @@ export const generalMembers: ExecMember[] = [
 ];
 
 export const eligibility = [
-  "Currently studying in Grade 6 or above.",
-  "Show interest in science, technology, innovation, research, robotics, computing, or STEM.",
-  "Willing to participate actively in seminars, workshops, projects, and competitions.",
-  "Agree to follow the rules, safety policies, and code of conduct of the society.",
-  "Demonstrate discipline, respect, teamwork, and responsibility.",
+  "Grade 6 or above",
+  "Curious about science, tech, or STEM",
+  "Willing to show up and participate",
+  "Respectful, disciplined, team-first",
 ];
 
 export const memberExpectations = [
-  "Attend regular club meetings and weekly seminars whenever possible.",
-  "Participate in at least one major activity, competition, workshop, or project per term.",
-  "Respect teachers, coordinators, fellow members, guests, equipment, and school property.",
-  "Work responsibly during experiments, electronics activities, robotics projects, and events.",
-  "Maintain academic honesty in research, presentations, and competitions.",
-  "Support beginners and encourage teamwork rather than unhealthy competition.",
-  "Represent the school positively during inter-school events and collaborations.",
+  "Attend seminars whenever possible",
+  "One major activity per term, minimum",
+  "Respect people, equipment & school property",
+  "Academic honesty in all work",
 ];
 
 export const safetyPolicies = [
   {
-    title: "Chemistry Safety",
-    points: [
-      "Teacher supervision at all times.",
-      "No handling of dangerous chemicals without permission.",
-      "No mixing of unknown substances, fire, explosion, or toxic-gas experiments.",
-      "Proper disposal of materials and immediate reporting of spills or accidents.",
-    ],
+    title: "Chemistry",
+    points: ["Teacher supervision always", "No unauthorized chemicals", "Immediate incident reporting"],
   },
   {
-    title: "Electronics & Robotics Safety",
-    points: [
-      "Use of low-voltage circuits only.",
-      "No direct handling of mains electricity.",
-      "Supervisor approval required before testing circuits.",
-      "Safe storage of tools and components at all times.",
-    ],
+    title: "Electronics & Robotics",
+    points: ["Low-voltage circuits only", "No mains electricity handling", "Supervisor sign-off before testing"],
   },
   {
-    title: "Responsible Experimentation",
-    points: [
-      "All experiments, demonstrations, and projects must be planned and reviewed.",
-      "Any activity that risks students, property, or the environment is not allowed.",
-      "Principle: no experiment is successful if it is not safe, ethical, and responsible.",
-    ],
+    title: "General",
+    points: ["Every activity planned & reviewed", "No risk to people or property", "Safe, ethical, responsible — always"],
+  },
+];
+
+export interface JourneyStep {
+  step: string;
+  title: string;
+  body: string;
+  accent: "primary" | "cyan" | "violet" | "lime";
+}
+
+export const journey: JourneyStep[] = [
+  {
+    step: "01",
+    title: "Learn",
+    body: "Weekly seminars and hands-on fundamentals across chemistry, physics, robotics, and code — beginner-friendly, always.",
+    accent: "primary",
+  },
+  {
+    step: "02",
+    title: "Build",
+    body: "Monthly workshops turn theory into circuits, robots, and working software — real tools, real projects.",
+    accent: "cyan",
+  },
+  {
+    step: "03",
+    title: "Innovate",
+    body: "Original solutions to real problems — like this term's School Innovation Challenge.",
+    accent: "violet",
+  },
+  {
+    step: "04",
+    title: "Showcase",
+    body: "The Grand Term Event: present your work, compete, and get recognized.",
+    accent: "lime",
   },
 ];
 
 export const stats = [
   { label: "Grade & Above", value: "6+" },
-  { label: "Core Focus Areas", value: "4" },
-  { label: "Weekly Seminars", value: "52/yr" },
-  { label: "Grand Term Events", value: "3/yr" },
+  { label: "Focus Areas", value: "4" },
+  { label: "Seminars / Year", value: "52" },
+  { label: "Term Events", value: "3" },
 ];
