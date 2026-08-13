@@ -12,6 +12,7 @@ const columns = [
       { href: "/about", label: "Vision & Mission" },
       { href: "/focus-areas", label: "Focus Areas" },
       { href: "/events", label: "Events & Calendar" },
+      { href: "/innovation-challenge", label: "SIC 2026 Challenge" },
     ],
   },
   {

@@ -211,39 +211,135 @@ export const events: EventBlock[] = [
   },
 ];
 
-export interface UpcomingEvent {
+export interface Challenge {
   id: string;
+  slug: string;
+  edition: string;
   status: string;
   title: string;
   tagline: string;
-  description: string;
-  highlights: string[];
-  meta: { label: string; value: string }[];
-  registrationUrl?: string;
+  organizer: string;
+  hook: string;
+  problemTitle: string;
+  problemBody: string;
+  requirements: string[];
+  howItWorks: string[];
+  simpleRules: string[];
+  quickFacts: { label: string; value: string }[];
+  fullRules: {
+    who: string[];
+    problemScope: string[];
+    solutionMustDo: string[];
+    conduct: string[];
+  };
+  registration: {
+    url: string;
+    note: string;
+  };
+  eventDaySchedule: string[];
+  judging: string[];
+  prizes: {
+    winner: string;
+    participation: string;
+  };
+  contact: {
+    name: string;
+    role: string;
+  };
 }
 
-export const upcomingEvents: UpcomingEvent[] = [
-  {
-    id: "innovation-challenge",
-    status: "Registrations Open",
-    title: "School Innovation Challenge",
-    tagline: "Problem Statement: Smart Attendance & Classroom Display System",
-    description:
-      "Teams will design a system that automates classroom attendance and displays live class info on the smart board — replacing manual roll-call with something students actually build.",
-    highlights: [
-      "Barcode-based attendance using existing school ID cards",
-      "Live smart-board display: schedule, teacher & substitute info",
-      "Central dashboard for schedules, substitutes & notices",
-      "Built for Android — the platform classroom smart boards run",
+export const challenge: Challenge = {
+  id: "innovation-challenge",
+  slug: "innovation-challenge",
+  edition: "SIC 2026",
+  status: "Registrations Open",
+  title: "School Innovation Challenge",
+  tagline: "Solving a Problem at School — organised by ISTSOS",
+  organizer: "ISTSOS",
+  hook: "Got an idea for how our school could work better? Here's your chance to build it — and win a prize for it.",
+  problemTitle: "Smart Attendance & Classroom Display System",
+  problemBody:
+    "Right now, attendance is taken by hand, and there's no easy way to know who's teaching a class, whether a substitute has stepped in, or how attendance is going. Your challenge: build a system that fixes this, using the classroom smart board and the barcode already printed on your school ID card.",
+  requirements: [
+    "Let a teacher manage everything — schedule, substitutes, notices — from one dashboard",
+    "Take attendance automatically by scanning ID card barcodes",
+    "Show the current subject, teacher, and time on the smart board",
+    "Show if a substitute is covering the class",
+    "Work on Android — that's what the smart boards run",
+  ],
+  howItWorks: [
+    "Register your team (up to 4 people, Grades 6–12)",
+    "Research the problem and come up with your solution",
+    "Submit your idea as a PDF through the Google Form",
+    "Present it to the judges on event day — the winner is announced the same day",
+  ],
+  simpleRules: [
+    "Stick to the problem above — no side projects",
+    "Attendance must use the ID card barcode, and your app must run on Android",
+    "Do your own work — getting help is fine, just be upfront about it",
+    "Don't damage school property or do anything unsafe",
+    "Ask permission before taking photos, doing interviews, or testing anything on campus",
+  ],
+  quickFacts: [
+    { label: "Venue", value: "AV Hall" },
+    { label: "When", value: "Sunday, 11:00 AM – 2:00 PM" },
+    { label: "Team Size", value: "Up to 4" },
+    { label: "Eligibility", value: "Grades 6–12" },
+  ],
+  fullRules: {
+    who: [
+      "Open to students in Grades 6–12",
+      "Teams of up to 4 members",
+      "Members can be from different grades or sections",
     ],
-    meta: [
-      { label: "Format", value: "Team Challenge" },
-      { label: "Platform", value: "Android" },
-      { label: "Hosted by", value: "ISTS" },
+    problemScope: [
+      "This year's challenge is fixed: build a Smart Attendance & Classroom Display System",
+      "Every team works on this same problem — you can't swap it out for a different idea",
     ],
-    registrationUrl: "https://forms.gle/GcPCBLfNXfyGcWdb7",
+    solutionMustDo: [
+      "Let the teacher in charge manage everything — schedule, substitutes, notices — from one central dashboard",
+      "Take attendance automatically using the barcode already on your school ID card — no new cards, no fingerprint scanners, no writing names on paper",
+      "Show on the smart board: the current time, the subject and teacher for that period, and who's covering if there's a substitute",
+      "Show live attendance for the class, right on the board",
+      "Be able to send notices to a single class or to every class at once",
+      "Run on Android, since that's what the classroom smart boards use",
+      "Be realistic for students to actually build, install, and keep running",
+    ],
+    conduct: [
+      "Do your own work. Looking things up, using AI tools, or asking for help is fine — just be upfront about it, don't pass it off as entirely solo",
+      "Everything you present — research, data, demos — has to be real and true, no faking results",
+      "Don't damage any school property",
+      "No dangerous materials or methods: chemicals, open flames, high-voltage wiring, or anything unsafe is not allowed",
+      "Get permission first before taking photos, interviewing anyone, or testing something on campus",
+      "The school has the final say on whether and how the winning idea actually gets built",
+    ],
   },
-];
+  registration: {
+    url: "https://forms.gle/GcPCBLfNXfyGcWdb7",
+    note: "Your idea proposal must be uploaded as a PDF through the same form. One submission per team.",
+  },
+  eventDaySchedule: [
+    "Teams get 20–25 minutes to gather and finalize their presentation",
+    "Teams are then called up one by one, in order of their team number",
+    "Judges may ask a few questions after each presentation",
+  ],
+  judging: [
+    "Understanding of the problem",
+    "Research",
+    "Creativity",
+    "Feasibility",
+    "Technical approach",
+    "Presentation",
+  ],
+  prizes: {
+    winner: "NRS 4,000 cash + a trophy",
+    participation: "Every participating team receives a certificate",
+  },
+  contact: {
+    name: "Anuja Gautam",
+    role: "Event Coordinator, Class 11",
+  },
+};
 
 export const membershipStatus = {
   open: false,
