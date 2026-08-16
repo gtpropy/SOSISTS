@@ -60,7 +60,7 @@ export function Nav() {
               ISTS<span className="text-primary">.</span>
             </span>
             <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-soft">
-              SOS Hermann Minor
+              SOS Hermann Gmeiner
             </span>
           </span>
         </Link>

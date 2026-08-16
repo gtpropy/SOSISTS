@@ -1,7 +1,8 @@
 export const siteMeta = {
   name: "Innovation, Science & Technology Society",
   shortName: "ISTS",
-  school: "SOS Hermann Minor School",
+  school: "SOS Hermann Gmeiner School",
+  location: "Pokhara-15, Rambazar",
   motto: "Learn. Build. Innovate.",
   tagline: "A student-led, teacher-supervised platform for science, technology, robotics, research, and innovation.",
   founder: "Ryan Dhakal",
@@ -10,7 +11,7 @@ export const siteMeta = {
 
 export const vision = {
   heading: "Vision",
-  body: "A vibrant culture of scientific excellence and technological creativity at SOS Hermann Minor School — where students question, experiment, build, and lead with integrity.",
+  body: "A vibrant culture of scientific excellence and technological creativity at SOS Hermann Gmeiner School — where students question, experiment, build, and lead with integrity.",
   aspirations: [
     "Scientific thinkers who investigate",
     "Innovators who solve real problems",

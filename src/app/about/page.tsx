@@ -9,7 +9,7 @@ import { vision, mission, objectives } from "@/lib/data";
 export const metadata: Metadata = {
   title: "About — Vision & Mission | ISTS",
   description:
-    "The vision, mission, and objectives of the Innovation, Science & Technology Society (ISTS) at SOS Hermann Minor School.",
+    "The vision, mission, and objectives of the Innovation, Science & Technology Society (ISTS) at SOS Hermann Gmeiner School.",
 };
 
 export default function AboutPage() {

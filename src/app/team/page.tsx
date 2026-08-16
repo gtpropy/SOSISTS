@@ -9,7 +9,7 @@ import { executiveTeam, generalMembers, siteMeta } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Executive Team | ISTS",
   description:
-    "Meet the executive committee and members of the Innovation, Science & Technology Society (ISTS) at SOS Hermann Minor School.",
+    "Meet the executive committee and members of the Innovation, Science & Technology Society (ISTS) at SOS Hermann Gmeiner School.",
 };
 
 const president = executiveTeam[0];

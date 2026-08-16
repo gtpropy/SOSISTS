@@ -57,7 +57,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.25 }}
               className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
             >
-              A student-led, teacher-supervised STEM society at SOS Hermann Minor School.
+              A student-led, teacher-supervised STEM society at {siteMeta.school}, {siteMeta.location}.
             </motion.p>
 
             <motion.div

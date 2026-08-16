@@ -26,13 +26,14 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ISTS — Innovation, Science & Technology Society | SOS Hermann Minor School",
+  title: "ISTS — Innovation, Science & Technology Society | SOS Hermann Gmeiner School",
   description:
-    "Innovation, Science & Technology Society (ISTS) at SOS Hermann Minor School — a student-led, teacher-supervised platform for science, robotics, coding, research, and innovation. Learn. Build. Innovate.",
+    "Innovation, Science & Technology Society (ISTS) at SOS Hermann Gmeiner School, Pokhara-15, Rambazar — a student-led, teacher-supervised platform for science, robotics, coding, research, and innovation. Learn. Build. Innovate.",
   keywords: [
     "ISTS",
     "Innovation Science Technology Society",
-    "SOS Hermann Minor School",
+    "SOS Hermann Gmeiner School",
+    "Pokhara",
     "STEM club",
     "robotics club",
     "science club Nepal",
