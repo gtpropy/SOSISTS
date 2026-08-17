@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, Sparkles, ArrowRight, MapPin, CalendarClock } from "lucide-react";
 import { useSound } from "@/components/SoundProvider";
+import { useJourneyMode } from "@/components/JourneyModeProvider";
 import { challenge } from "@/lib/data";
 
 const SEEN_KEY = "sic-2026-announcement-seen";
@@ -12,10 +13,23 @@ const SEEN_KEY = "sic-2026-announcement-seen";
 export function SICAnnouncementModal() {
   const [open, setOpen] = useState(false);
   const { play } = useSound();
+  const { active: journeyActive } = useJourneyMode();
+
+  const [trackedJourneyActive, setTrackedJourneyActive] = useState(journeyActive);
+  if (journeyActive !== trackedJourneyActive) {
+    setTrackedJourneyActive(journeyActive);
+    if (journeyActive) setOpen(false);
+  }
+
+  const journeyActiveRef = useRef(journeyActive);
+  useEffect(() => {
+    journeyActiveRef.current = journeyActive;
+  }, [journeyActive]);
 
   useEffect(() => {
     if (sessionStorage.getItem(SEEN_KEY)) return;
     const timeout = setTimeout(() => {
+      if (journeyActiveRef.current) return;
       sessionStorage.setItem(SEEN_KEY, "true");
       setOpen(true);
       play("open");

@@ -17,8 +17,14 @@ const BG_LAYERS: Record<BgStage, string> = {
   cool: "radial-gradient(circle at 55% 45%, rgba(99,102,241,0.35) 0%, rgba(8,8,20,0.92) 55%, #05040a 100%)",
 };
 
-export function IntroSequence({ onComplete }: { onComplete: () => void }) {
-  const [phase, setPhase] = useState<Phase>("gate");
+export function IntroSequence({
+  onComplete,
+  autoStart = false,
+}: {
+  onComplete: () => void;
+  autoStart?: boolean;
+}) {
+  const [phase, setPhase] = useState<Phase>(autoStart ? "playing" : "gate");
   const [lineIndex, setLineIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const rafRef = useRef<number | null>(null);
@@ -30,6 +36,13 @@ export function IntroSequence({ onComplete }: { onComplete: () => void }) {
     document.body.style.overflow = "hidden";
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       onComplete();
+    } else if (autoStart) {
+      play("open");
+      const audio = audioRef.current;
+      if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+      }
     }
     return () => {
       document.body.style.overflow = "";

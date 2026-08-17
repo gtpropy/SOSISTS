@@ -2,10 +2,14 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SoundProvider } from "@/components/SoundProvider";
+import { MusicProvider } from "@/components/MusicProvider";
 import { CodeBackground } from "@/components/CodeBackground";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { IntroGate } from "@/components/IntroGate";
+import { CommandPalette } from "@/components/CommandPalette";
+import { JourneyModeProvider } from "@/components/JourneyModeProvider";
+import { JourneyModeOverlay } from "@/components/JourneyModeOverlay";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -48,11 +52,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <SoundProvider>
-          <CodeBackground />
-          <Nav />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <IntroGate />
+          <MusicProvider>
+            <JourneyModeProvider>
+              <CodeBackground />
+              <Nav />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <IntroGate />
+              <CommandPalette />
+              <JourneyModeOverlay />
+            </JourneyModeProvider>
+          </MusicProvider>
         </SoundProvider>
       </body>
     </html>

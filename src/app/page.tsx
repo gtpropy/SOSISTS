@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative overflow-hidden px-5 pb-16 pt-16 sm:px-8 sm:pt-24">
+      <section id="section-hero" className="relative scroll-mt-20 overflow-hidden px-5 pb-16 pt-16 sm:px-8 sm:pt-24">
         <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <motion.span
@@ -108,7 +108,7 @@ export default function Home() {
       </section>
 
       {/* SHOWCASE GALLERY */}
-      <section className="px-5 py-14 sm:px-8">
+      <section id="section-gallery" className="scroll-mt-20 px-5 py-14 sm:px-8">
         <div className="mx-auto max-w-6xl">
           <SectionHeading
             align="left"
@@ -126,7 +126,7 @@ export default function Home() {
       </section>
 
       {/* UPCOMING EVENTS */}
-      <section className="px-5 py-14 sm:px-8">
+      <section id="section-upcoming" className="scroll-mt-20 px-5 py-14 sm:px-8">
         <div className="mx-auto max-w-6xl">
           <SectionHeading
             align="left"
@@ -146,7 +146,7 @@ export default function Home() {
       <MarqueeStrip />
 
       {/* SCROLLYTELLING */}
-      <section className="px-5 py-24 sm:px-8">
+      <section id="section-journey" className="scroll-mt-20 px-5 py-24 sm:px-8">
         <div className="mx-auto max-w-6xl">
           <SectionHeading
             eyebrow="How It Works"
@@ -158,7 +158,7 @@ export default function Home() {
       </section>
 
       {/* FOCUS AREAS */}
-      <section className="relative px-5 py-16 sm:px-8">
+      <section id="section-focus" className="relative scroll-mt-20 px-5 py-16 sm:px-8">
         <div className="mx-auto max-w-6xl">
           <SectionHeading eyebrow="Core Focus Areas" title="Four disciplines. One mission." />
 
@@ -171,7 +171,7 @@ export default function Home() {
       </section>
 
       {/* TEAM TEASER */}
-      <section className="px-5 py-16 sm:px-8">
+      <section id="section-team-teaser" className="scroll-mt-20 px-5 py-16 sm:px-8">
         <div className="mx-auto max-w-6xl">
           <div className="card-surface relative overflow-hidden p-8 shadow-sm sm:p-12">
             <div className="animate-blob absolute -right-20 -top-20 h-72 w-72 rounded-full bg-gradient-to-br from-primary/20 to-violet/20 blur-3xl" />
@@ -215,7 +215,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="px-5 pb-24 pt-4 sm:px-8">
+      <section id="section-cta" className="scroll-mt-20 px-5 pb-24 pt-4 sm:px-8">
         <Reveal className="mx-auto max-w-4xl">
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-violet px-8 py-14 text-center shadow-2xl shadow-primary/30 sm:px-14">
             <div className="absolute inset-0 bg-dot-grid opacity-20" />
