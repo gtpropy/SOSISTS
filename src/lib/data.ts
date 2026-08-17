@@ -80,6 +80,8 @@ export const membershipStatus = content.membershipStatus;
 export type ExecMember = {
   name: string;
   role: string;
+  image?: string;
+  bio?: string;
 };
 
 export const executiveTeam: ExecMember[] = content.executiveTeam;

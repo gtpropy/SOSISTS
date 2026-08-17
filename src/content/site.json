@@ -254,17 +254,72 @@
     "message": "Membership for this cycle is closed — the current roster below is final. Follow ISTS announcements for the next opening."
   },
   "executiveTeam": [
-    { "name": "Ryan Rabi Dhakal", "role": "President" },
-    { "name": "Aagaman Basnet", "role": "Vice President" },
-    { "name": "Biplove Timilsina", "role": "Secretary" },
-    { "name": "Prashish Khanal", "role": "Joint Secretary" },
-    { "name": "Gaurab Sapkota", "role": "Finance Coordinator" },
-    { "name": "Agrim Raj Tiwari", "role": "IT & Robotics Coordinator" },
-    { "name": "Anuja Gautam", "role": "Event Coordinator" },
-    { "name": "Prapti Poudel", "role": "Media & Outreach" },
-    { "name": "Harshika Singh", "role": "Media & Outreach" },
-    { "name": "Rajat Adhikari", "role": "Media & Outreach" },
-    { "name": "Kristina Poudel", "role": "Research Coordinator" }
+    {
+      "name": "Ryan Rabi Dhakal",
+      "role": "President",
+      "image": "/team/cutouts/ryan-rabi-dhakal.png",
+      "bio": "Founder, developer, and dreamer. Fueled by a love for programming, electronics, and space, he leads with curiosity and code. He built ISTS from the ground up to unite young minds under one mission — to explore science, create technology, and solve real-world problems together."
+    },
+    {
+      "name": "Aagaman Basnet",
+      "role": "Vice President",
+      "image": "/team/cutouts/aagaman-basnet.png",
+      "bio": "Aagaman blends a love for art, cinema, and technology with curiosity and critical thought. A natural leader and collaborative spirit, he enjoys taking on challenges, exploring ideas, and turning memories and observations into creative endeavours."
+    },
+    {
+      "name": "Biplove Timilsina",
+      "role": "Secretary",
+      "image": "/team/cutouts/biplove-timilsina.png",
+      "bio": "Biplove thrives at the intersection of science and creativity, always curious and eager to explore new ideas. Organized and team-driven, he keeps things running smoothly behind the scenes, connects people and ideas, and loves helping others learn and grow along the way."
+    },
+    {
+      "name": "Prashish Khanal",
+      "role": "Joint Secretary",
+      "image": "/team/cutouts/prashish-khanal.png",
+      "bio": "A student at SOS HGS Gandaki, Prashish is passionate about public speaking, MUN, and game development, and enjoys drawing, swimming, and basketball. He's driven, curious, and always eager to learn."
+    },
+    {
+      "name": "Gaurab Sapkota",
+      "role": "Finance Coordinator",
+      "image": "/team/cutouts/gaurab-sapkota.png",
+      "bio": "Gaurab is drawn to numbers, precision, accountability, and clear planning. Responsible and detail-oriented, he gives top priority to safeguarding funds and allocating resources correctly, honestly dedicated to using every rupee for a better future of this society."
+    },
+    {
+      "name": "Agrim Raj Tiwari",
+      "role": "IT & Robotics Coordinator",
+      "image": "/team/cutouts/agrim-raj-tiwari.png",
+      "bio": "Driven by a love for mathematics sparked by video games, he creates virtually anything his heart desires, primarily utilizing recycled materials. He joined the society to promote and share these innovative ideas with a broader audience."
+    },
+    {
+      "name": "Anuja Gautam",
+      "role": "Event Coordinator",
+      "image": "/team/cutouts/anuja-gautam.png",
+      "bio": "Anuja brings a fun energy to every event she plans by combining creative ideas with a structured approach. Naturally energetic with a keen attention to detail, she brainstorms creative themes and stays composed on-site to make every event unforgettable."
+    },
+    {
+      "name": "Prapti Paudel",
+      "role": "Media & Outreach",
+      "image": "/team/cutouts/prapti-paudel.png",
+      "bio": "Curious about the world and eager to learn, Prapti values creativity, collaboration, and thinking differently. She looks forward to connecting, contributing, and growing with ISTS to create meaningful impact."
+    },
+    {
+      "name": "Harshika Singh",
+      "role": "Media & Outreach",
+      "image": "/team/cutouts/harshika-singh.png",
+      "bio": "Harshika is always curious about why and how things work, and loves discovering new interests through new people and communities. Her love for creating brought her to this society, where she shares ideas and works with other curious, innovative minds."
+    },
+    {
+      "name": "Rajat Adhikari",
+      "role": "Media & Outreach",
+      "image": "/team/cutouts/rajat-adhikari.png",
+      "bio": "Rajat is always eager to learn something new. Curious and enthusiastic, he enjoys exploring new ideas and experiences — and outside of academics, loves playing football and sketching."
+    },
+    {
+      "name": "Kristina Poudel",
+      "role": "Research Coordinator",
+      "image": "/team/cutouts/kristina-poudel.png",
+      "bio": "Kristina is passionate about art and loves learning new things. Naturally curious, she's always questioning why and how things work, researching her questions and looking forward to discovering something new every day."
+    }
   ],
   "roleDescriptions": {
     "President": "Overall leadership and school administration liaison.",
@@ -279,13 +334,48 @@
     "Member": "Active contributor to ISTS projects & events."
   },
   "generalMembers": [
-    { "name": "Jeewani Shah", "role": "Member" },
-    { "name": "Suhani Gautam", "role": "Member" },
-    { "name": "Prasin Sapkota", "role": "Member" },
-    { "name": "Prashamsa Thapa", "role": "Member" },
-    { "name": "Rabin Poudel", "role": "Member" },
-    { "name": "Brabim Subedi", "role": "Member" },
-    { "name": "Hashika Baral", "role": "Member" }
+    {
+      "name": "Jeewani Shah",
+      "role": "Member",
+      "image": "/team/cutouts/jeewani-shah.png",
+      "bio": "Jeewani truly believes that creativity when infused with science can move mountains. She utilizes her creative and technological sides together and believes fostering both aspects in today's society can create an ever-lasting change."
+    },
+    {
+      "name": "Suhani Gautam",
+      "role": "Member",
+      "image": "/team/cutouts/suhani-gautam.png",
+      "bio": "Suhani loves performing scientific experiments, visualizing and creating scientific models of textual concepts. She uses simple household items to understand high-level scientific concepts, and joined this society to ignite the same fire in others."
+    },
+    {
+      "name": "Prasin Sapkota",
+      "role": "Member",
+      "image": "/team/cutouts/prasin-sapkota.png",
+      "bio": "Prasin is dedicated to innovating the world around him through the power of science and technology, solving problems through robotics and technical thinking. He aims to bring innovation by joining this society."
+    },
+    {
+      "name": "Prashamsa Thapa",
+      "role": "Member",
+      "image": "/team/cutouts/prashamsa-thapa.png",
+      "bio": "Prashamsa is curious about the world around her and enjoys discovering new ideas and exploring different perspectives. She believes creativity begins with curiosity, and being part of ISTS gives her a chance to explore, contribute, and discover new possibilities every day."
+    },
+    {
+      "name": "Rabin Poudel",
+      "role": "Member",
+      "image": "/team/cutouts/rabin-poudel.png",
+      "bio": "Rabin feels science and technology is an area where he shines. Attached to the fun world of science as long as he remembers, he joined this society to help others feel the fun of science and teach what its true essence is."
+    },
+    {
+      "name": "Brabim Subedi",
+      "role": "Member",
+      "image": "/team/cutouts/brabim-subedi.png",
+      "bio": "Passionate about the world both technically and politically, Brabim is fascinated by innovation for the betterment of humanity and society. He's fully committed to growing together with the society to make an impact for the better."
+    },
+    {
+      "name": "Aashika Baral",
+      "role": "Member",
+      "image": "/team/cutouts/aashika-baral.png",
+      "bio": "Guided by empathy and a strong desire to learn, Aashika believes in growing authentically into her true potential — softly channeling that vision into ISTS, helping foster a warm and inspiring environment for everyone."
+    }
   ],
   "eligibility": [
     "Grade 6 or above",

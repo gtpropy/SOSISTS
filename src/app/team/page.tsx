@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Crown, Megaphone, Users2 } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -28,25 +29,43 @@ export default function TeamPage() {
       {/* PRESIDENT / FOUNDER */}
       <section className="px-5 py-10 sm:px-8">
         <Reveal className="mx-auto max-w-3xl">
-          <div className="card-surface glow-primary relative overflow-hidden p-8 text-center shadow-lg sm:p-10">
-            <div className="animate-blob absolute -top-16 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-gradient-to-br from-primary/20 to-violet/20 blur-3xl" />
-            <div className="relative">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3.5 py-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.15em] text-primary">
+          <div className="card-surface glow-primary relative overflow-hidden text-center shadow-lg">
+            <div className="relative h-64 overflow-hidden bg-background-alt sm:h-72">
+              <div className="bg-dot-grid absolute inset-0 opacity-70" />
+              <div className="animate-blob absolute -top-16 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-gradient-to-br from-primary/25 to-violet/25 blur-3xl" />
+              <span aria-hidden className="absolute left-4 top-4 h-3 w-3 border-l border-t border-border" />
+              <span aria-hidden className="absolute right-4 top-4 h-3 w-3 border-r border-t border-border" />
+              <span className="absolute left-1/2 top-5 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-primary/10 px-3.5 py-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.15em] text-primary">
                 <Crown size={13} /> President &amp; Founder
               </span>
-              <div className="mx-auto mt-5 flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-primary via-violet to-cyan font-display text-2xl font-bold text-white shadow-lg">
-                {president.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")
-                  .slice(0, 2)
-                  .toUpperCase()}
-              </div>
-              <h2 className="mt-4 font-display text-2xl font-bold text-foreground sm:text-3xl">
+              {president.image ? (
+                <Image
+                  src={president.image}
+                  alt={president.name}
+                  fill
+                  sizes="320px"
+                  className="object-contain object-bottom drop-shadow-[0_18px_22px_rgba(15,23,42,0.3)]"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-primary via-violet to-cyan font-display text-2xl font-bold text-white shadow-lg">
+                    {president.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")
+                      .slice(0, 2)
+                      .toUpperCase()}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="relative p-8 sm:p-10">
+              <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
                 {president.name}
               </h2>
               <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
-                Leads {siteMeta.shortName} and represents the society to the school administration.
+                {president.bio ??
+                  `Leads ${siteMeta.shortName} and represents the society to the school administration.`}
               </p>
             </div>
           </div>
