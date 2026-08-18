@@ -2,10 +2,14 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SoundProvider } from "@/components/SoundProvider";
+import { MusicProvider } from "@/components/MusicProvider";
 import { CodeBackground } from "@/components/CodeBackground";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { SICAnnouncementModal } from "@/components/SICAnnouncementModal";
+import { IntroGate } from "@/components/IntroGate";
+import { CommandPalette } from "@/components/CommandPalette";
+import { JourneyModeProvider } from "@/components/JourneyModeProvider";
+import { JourneyModeOverlay } from "@/components/JourneyModeOverlay";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -26,13 +30,14 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ISTS — Innovation, Science & Technology Society | SOS Hermann Minor School",
+  title: "ISTS — Innovation, Science & Technology Society | SOS Hermann Gmeiner School",
   description:
-    "Innovation, Science & Technology Society (ISTS) at SOS Hermann Minor School — a student-led, teacher-supervised platform for science, robotics, coding, research, and innovation. Learn. Build. Innovate.",
+    "Innovation, Science & Technology Society (ISTS) at SOS Hermann Gmeiner School, Pokhara-15, Rambazar — a student-led, teacher-supervised platform for science, robotics, coding, research, and innovation. Learn. Build. Innovate.",
   keywords: [
     "ISTS",
     "Innovation Science Technology Society",
-    "SOS Hermann Minor School",
+    "SOS Hermann Gmeiner School",
+    "Pokhara",
     "STEM club",
     "robotics club",
     "science club Nepal",
@@ -47,11 +52,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <SoundProvider>
-          <CodeBackground />
-          <Nav />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <SICAnnouncementModal />
+          <MusicProvider>
+            <JourneyModeProvider>
+              <CodeBackground />
+              <Nav />
+              <main className="flex-1">{children}</main>
+              <Footer />
+              <IntroGate />
+              <CommandPalette />
+              <JourneyModeOverlay />
+            </JourneyModeProvider>
+          </MusicProvider>
         </SoundProvider>
       </body>
     </html>

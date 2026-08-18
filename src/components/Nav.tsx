@@ -4,8 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Volume2, VolumeX, Cpu, Lock } from "lucide-react";
+import { Menu, X, Volume2, VolumeX, Music2, Cpu, Lock } from "lucide-react";
 import { useSound } from "@/components/SoundProvider";
+import { useMusic } from "@/components/MusicProvider";
 import { membershipStatus } from "@/lib/data";
 
 const links = [
@@ -21,6 +22,7 @@ const links = [
 export function Nav() {
   const pathname = usePathname();
   const { enabled, toggle, play } = useSound();
+  const { enabled: musicEnabled, toggle: toggleMusic } = useMusic();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [lastPathname, setLastPathname] = useState(pathname);
@@ -60,7 +62,7 @@ export function Nav() {
               ISTS<span className="text-primary">.</span>
             </span>
             <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-soft">
-              SOS Hermann Minor
+              SOS Hermann Gmeiner
             </span>
           </span>
         </Link>
@@ -97,6 +99,22 @@ export function Nav() {
             className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface text-muted transition-colors hover:border-primary/40 hover:text-primary cursor-pointer"
           >
             {enabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
+          </button>
+
+          <button
+            aria-label={musicEnabled ? "Mute background music" : "Play background music"}
+            onClick={() => {
+              toggleMusic();
+              play("click");
+            }}
+            onMouseEnter={() => play("hover")}
+            className={`flex h-9 w-9 items-center justify-center rounded-full border transition-colors cursor-pointer ${
+              musicEnabled
+                ? "border-primary/30 bg-primary/5 text-primary"
+                : "border-border bg-surface text-muted-soft hover:border-primary/40 hover:text-primary"
+            }`}
+          >
+            <Music2 size={16} />
           </button>
 
           <Link

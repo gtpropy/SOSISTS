@@ -1,0 +1,438 @@
+{
+  "siteMeta": {
+    "name": "Innovation, Science & Technology Society",
+    "shortName": "ISTS",
+    "school": "SOS Hermann Gmeiner School",
+    "location": "Pokhara-15, Rambazar",
+    "motto": "Learn. Build. Innovate.",
+    "tagline": "A student-led, teacher-supervised platform for science, technology, robotics, research, and innovation.",
+    "founder": "Ryan Dhakal",
+    "founderRole": "Founder & Chair"
+  },
+  "vision": {
+    "heading": "Vision",
+    "body": "A vibrant culture of scientific excellence and technological creativity at SOS Hermann Gmeiner School — where students question, experiment, build, and lead with integrity.",
+    "aspirations": [
+      "Scientific thinkers who investigate",
+      "Innovators who solve real problems",
+      "Confident, ethical, future-ready leaders"
+    ]
+  },
+  "mission": {
+    "heading": "Mission",
+    "intro": "A structured platform for hands-on STEM learning, research, and leadership — open to every student from Grade 6 and above.",
+    "items": [
+      "Hands-on learning through experiments, workshops, and projects",
+      "Emerging tech: AI, robotics, automation, cybersecurity",
+      "Leadership and teamwork through student-led events",
+      "An inclusive space for beginners and experts alike"
+    ]
+  },
+  "objectives": [
+    {
+      "id": "academic",
+      "number": "01",
+      "title": "Academic",
+      "intro": "Connecting classroom concepts to practical application.",
+      "items": [
+        "Project-based learning in science & computing",
+        "Olympiad, quiz, and coding contest preparation",
+        "Stronger analytical & presentation skills"
+      ]
+    },
+    {
+      "id": "innovation",
+      "number": "02",
+      "title": "Innovation",
+      "intro": "Turning curiosity into real prototypes.",
+      "items": [
+        "Identify real problems worth solving",
+        "Design thinking & rapid prototyping",
+        "One student-led innovation project per term"
+      ]
+    },
+    {
+      "id": "technology",
+      "number": "03",
+      "title": "Technology",
+      "intro": "Technology as both a tool and a career path.",
+      "items": [
+        "Programming, web dev, robotics, AI basics",
+        "Beginner-friendly — no experience required",
+        "Ethical, responsible use of technology"
+      ]
+    },
+    {
+      "id": "competition",
+      "number": "04",
+      "title": "Competition",
+      "intro": "Testing skills, building confidence.",
+      "items": [
+        "One major monthly hackathon / Olympiad / quiz",
+        "Certificates & recognition for top performance",
+        "A trained team representing the school externally"
+      ]
+    },
+    {
+      "id": "leadership",
+      "number": "05",
+      "title": "Leadership",
+      "intro": "Student-run, faculty-supervised.",
+      "items": [
+        "Real roles: President to project leads",
+        "Seniors mentoring juniors",
+        "Professionalism, accountability, ownership"
+      ]
+    },
+    {
+      "id": "research",
+      "number": "06",
+      "title": "Research",
+      "intro": "Asking good questions, backing them with evidence.",
+      "items": [
+        "Short research presentations each term",
+        "Academic honesty & proper citation",
+        "End-of-term research showcases"
+      ]
+    }
+  ],
+  "focusAreas": [
+    {
+      "id": "chemistry",
+      "number": "01",
+      "title": "Chemistry & Scientific Exploration",
+      "shortTitle": "Chemistry",
+      "description": "Safe, supervised demonstrations that build real scientific understanding.",
+      "activities": ["Safe reaction demonstrations", "Environmental & applied chemistry", "Science fair projects"],
+      "accent": "lime"
+    },
+    {
+      "id": "physics-engineering",
+      "number": "02",
+      "title": "Physics & Engineering",
+      "shortTitle": "Physics & Engineering",
+      "description": "From theory to working models — circuits, structures, and machines.",
+      "activities": ["Circuits, electricity & renewable energy", "Engineering design challenges", "Build → test → improve → present"],
+      "accent": "primary"
+    },
+    {
+      "id": "robotics",
+      "number": "03",
+      "title": "Robotics & Automation",
+      "shortTitle": "Robotics & Automation",
+      "description": "Electronics, sensors, and code combined to build automated systems.",
+      "activities": ["Arduino & microcontroller basics", "Sensor-based robotics builds", "Live demos at exhibitions"],
+      "accent": "cyan"
+    },
+    {
+      "id": "innovation-research",
+      "number": "04",
+      "title": "Innovation & Research",
+      "shortTitle": "Innovation & Research",
+      "description": "Deep dives into emerging tech and real-world problem-solving.",
+      "activities": ["Research posters & presentations", "Innovation challenges", "Term-end showcases"],
+      "accent": "violet"
+    }
+  ],
+  "events": [
+    {
+      "id": "weekly",
+      "cadence": "Every Monday",
+      "title": "Weekly Innovation Seminars",
+      "description": "Short, interactive STEM talks during break time.",
+      "details": ["Student & guest speakers", "Open Q&A", "AI, robotics, space & more"]
+    },
+    {
+      "id": "monthly",
+      "cadence": "Once a Month",
+      "title": "Monthly Major Event",
+      "description": "One well-planned hackathon, Olympiad, or workshop.",
+      "details": ["Hackathons & coding contests", "Practical workshops", "Judged & certified"]
+    },
+    {
+      "id": "grand-term",
+      "cadence": "Every 4 Months",
+      "title": "Grand Term Event",
+      "description": "The flagship showcase — the best student work on display.",
+      "details": ["Science & innovation expo", "Awards ceremony", "Open to parents & guests"]
+    },
+    {
+      "id": "inter-school",
+      "cadence": "Ongoing",
+      "title": "Inter-School Collaboration",
+      "description": "Friendly competition and joint events with neighboring schools.",
+      "details": ["Quizzes & tournaments", "Joint workshops", "Wider STEM exposure"]
+    }
+  ],
+  "challenge": {
+    "id": "innovation-challenge",
+    "slug": "innovation-challenge",
+    "edition": "SIC 2026",
+    "status": "Registrations Open",
+    "title": "School Innovation Challenge",
+    "tagline": "Solving a Problem at School — organised by ISTSOS",
+    "organizer": "ISTSOS",
+    "hook": "Got an idea for how our school could work better? Here's your chance to build it — and win a prize for it.",
+    "problemTitle": "Smart Attendance & Classroom Display System",
+    "problemBody": "Right now, attendance is taken by hand, and there's no easy way to know who's teaching a class, whether a substitute has stepped in, or how attendance is going. Your challenge: build a system that fixes this, using the classroom smart board and the barcode already printed on your school ID card.",
+    "requirements": [
+      "Let a teacher manage everything — schedule, substitutes, notices — from one dashboard",
+      "Take attendance automatically by scanning ID card barcodes",
+      "Show the current subject, teacher, and time on the smart board",
+      "Show if a substitute is covering the class",
+      "Work on Android — that's what the smart boards run"
+    ],
+    "howItWorks": [
+      "Register your team (up to 4 people, Grades 6–12)",
+      "Research the problem and come up with your solution",
+      "Submit your idea as a PDF through the Google Form",
+      "Present it to the judges on event day — the winner is announced the same day"
+    ],
+    "simpleRules": [
+      "Stick to the problem above — no side projects",
+      "Attendance must use the ID card barcode, and your app must run on Android",
+      "Do your own work — getting help is fine, just be upfront about it",
+      "Don't damage school property or do anything unsafe",
+      "Ask permission before taking photos, doing interviews, or testing anything on campus"
+    ],
+    "quickFacts": [
+      { "label": "Venue", "value": "AV Hall" },
+      { "label": "When", "value": "Sunday, 11:00 AM – 2:00 PM" },
+      { "label": "Team Size", "value": "Up to 4" },
+      { "label": "Eligibility", "value": "Grades 6–12" }
+    ],
+    "fullRules": {
+      "who": [
+        "Open to students in Grades 6–12",
+        "Teams of up to 4 members",
+        "Members can be from different grades or sections"
+      ],
+      "problemScope": [
+        "This year's challenge is fixed: build a Smart Attendance & Classroom Display System",
+        "Every team works on this same problem — you can't swap it out for a different idea"
+      ],
+      "solutionMustDo": [
+        "Let the teacher in charge manage everything — schedule, substitutes, notices — from one central dashboard",
+        "Take attendance automatically using the barcode already on your school ID card — no new cards, no fingerprint scanners, no writing names on paper",
+        "Show on the smart board: the current time, the subject and teacher for that period, and who's covering if there's a substitute",
+        "Show live attendance for the class, right on the board",
+        "Be able to send notices to a single class or to every class at once",
+        "Run on Android, since that's what the classroom smart boards use",
+        "Be realistic for students to actually build, install, and keep running"
+      ],
+      "conduct": [
+        "Do your own work. Looking things up, using AI tools, or asking for help is fine — just be upfront about it, don't pass it off as entirely solo",
+        "Everything you present — research, data, demos — has to be real and true, no faking results",
+        "Don't damage any school property",
+        "No dangerous materials or methods: chemicals, open flames, high-voltage wiring, or anything unsafe is not allowed",
+        "Get permission first before taking photos, interviewing anyone, or testing something on campus",
+        "The school has the final say on whether and how the winning idea actually gets built"
+      ]
+    },
+    "registration": {
+      "url": "https://forms.gle/GcPCBLfNXfyGcWdb7",
+      "note": "Your idea proposal must be uploaded as a PDF through the same form. One submission per team."
+    },
+    "eventDaySchedule": [
+      "Teams get 20–25 minutes to gather and finalize their presentation",
+      "Teams are then called up one by one, in order of their team number",
+      "Judges may ask a few questions after each presentation"
+    ],
+    "judging": ["Understanding of the problem", "Research", "Creativity", "Feasibility", "Technical approach", "Presentation"],
+    "prizes": {
+      "winner": "NRS 4,000 cash + a trophy",
+      "participation": "Every participating team receives a certificate"
+    },
+    "contact": {
+      "name": "Anuja Gautam",
+      "role": "Event Coordinator, Class 11"
+    }
+  },
+  "membershipStatus": {
+    "open": false,
+    "label": "Applications Closed",
+    "message": "Membership for this cycle is closed — the current roster below is final. Follow ISTS announcements for the next opening."
+  },
+  "executiveTeam": [
+    {
+      "name": "Ryan Rabi Dhakal",
+      "role": "President",
+      "image": "/team/cutouts/ryan-rabi-dhakal.png",
+      "bio": "Founder, developer, and dreamer. Fueled by a love for programming, electronics, and space, he leads with curiosity and code. He built ISTS from the ground up to unite young minds under one mission — to explore science, create technology, and solve real-world problems together."
+    },
+    {
+      "name": "Aagaman Basnet",
+      "role": "Vice President",
+      "image": "/team/cutouts/aagaman-basnet.png",
+      "bio": "Aagaman blends a love for art, cinema, and technology with curiosity and critical thought. A natural leader and collaborative spirit, he enjoys taking on challenges, exploring ideas, and turning memories and observations into creative endeavours."
+    },
+    {
+      "name": "Biplove Timilsina",
+      "role": "Secretary",
+      "image": "/team/cutouts/biplove-timilsina.png",
+      "bio": "Biplove thrives at the intersection of science and creativity, always curious and eager to explore new ideas. Organized and team-driven, he keeps things running smoothly behind the scenes, connects people and ideas, and loves helping others learn and grow along the way."
+    },
+    {
+      "name": "Prashish Khanal",
+      "role": "Joint Secretary",
+      "image": "/team/cutouts/prashish-khanal.png",
+      "bio": "A student at SOS HGS Gandaki, Prashish is passionate about public speaking, MUN, and game development, and enjoys drawing, swimming, and basketball. He's driven, curious, and always eager to learn."
+    },
+    {
+      "name": "Gaurab Sapkota",
+      "role": "Finance Coordinator",
+      "image": "/team/cutouts/gaurab-sapkota.png",
+      "bio": "Gaurab is drawn to numbers, precision, accountability, and clear planning. Responsible and detail-oriented, he gives top priority to safeguarding funds and allocating resources correctly, honestly dedicated to using every rupee for a better future of this society."
+    },
+    {
+      "name": "Agrim Raj Tiwari",
+      "role": "IT & Robotics Coordinator",
+      "image": "/team/cutouts/agrim-raj-tiwari.png",
+      "bio": "Driven by a love for mathematics sparked by video games, he creates virtually anything his heart desires, primarily utilizing recycled materials. He joined the society to promote and share these innovative ideas with a broader audience."
+    },
+    {
+      "name": "Anuja Gautam",
+      "role": "Event Coordinator",
+      "image": "/team/cutouts/anuja-gautam.png",
+      "bio": "Anuja brings a fun energy to every event she plans by combining creative ideas with a structured approach. Naturally energetic with a keen attention to detail, she brainstorms creative themes and stays composed on-site to make every event unforgettable."
+    },
+    {
+      "name": "Prapti Paudel",
+      "role": "Media & Outreach",
+      "image": "/team/cutouts/prapti-paudel.png",
+      "bio": "Curious about the world and eager to learn, Prapti values creativity, collaboration, and thinking differently. She looks forward to connecting, contributing, and growing with ISTS to create meaningful impact."
+    },
+    {
+      "name": "Harshika Singh",
+      "role": "Media & Outreach",
+      "image": "/team/cutouts/harshika-singh.png",
+      "bio": "Harshika is always curious about why and how things work, and loves discovering new interests through new people and communities. Her love for creating brought her to this society, where she shares ideas and works with other curious, innovative minds."
+    },
+    {
+      "name": "Rajat Adhikari",
+      "role": "Media & Outreach",
+      "image": "/team/cutouts/rajat-adhikari.png",
+      "bio": "Rajat is always eager to learn something new. Curious and enthusiastic, he enjoys exploring new ideas and experiences — and outside of academics, loves playing football and sketching."
+    },
+    {
+      "name": "Kristina Poudel",
+      "role": "Research Coordinator",
+      "image": "/team/cutouts/kristina-poudel.png",
+      "bio": "Kristina is passionate about art and loves learning new things. Naturally curious, she's always questioning why and how things work, researching her questions and looking forward to discovering something new every day."
+    }
+  ],
+  "roleDescriptions": {
+    "President": "Overall leadership and school administration liaison.",
+    "Vice President": "Supports planning and execution.",
+    "Secretary": "Official records, meetings & communication.",
+    "Joint Secretary": "Record-keeping & day-to-day coordination.",
+    "Finance Coordinator": "Transparent financial tracking.",
+    "IT & Robotics Coordinator": "Leads programming & robotics projects.",
+    "Event Coordinator": "Plans seminars, workshops & term events.",
+    "Media & Outreach": "Posters, announcements & promotion.",
+    "Research Coordinator": "Guides research & showcase materials.",
+    "Member": "Active contributor to ISTS projects & events."
+  },
+  "generalMembers": [
+    {
+      "name": "Jeewani Shah",
+      "role": "Member",
+      "image": "/team/cutouts/jeewani-shah.png",
+      "bio": "Jeewani truly believes that creativity when infused with science can move mountains. She utilizes her creative and technological sides together and believes fostering both aspects in today's society can create an ever-lasting change."
+    },
+    {
+      "name": "Suhani Gautam",
+      "role": "Member",
+      "image": "/team/cutouts/suhani-gautam.png",
+      "bio": "Suhani loves performing scientific experiments, visualizing and creating scientific models of textual concepts. She uses simple household items to understand high-level scientific concepts, and joined this society to ignite the same fire in others."
+    },
+    {
+      "name": "Prasin Sapkota",
+      "role": "Member",
+      "image": "/team/cutouts/prasin-sapkota.png",
+      "bio": "Prasin is dedicated to innovating the world around him through the power of science and technology, solving problems through robotics and technical thinking. He aims to bring innovation by joining this society."
+    },
+    {
+      "name": "Prashamsa Thapa",
+      "role": "Member",
+      "image": "/team/cutouts/prashamsa-thapa.png",
+      "bio": "Prashamsa is curious about the world around her and enjoys discovering new ideas and exploring different perspectives. She believes creativity begins with curiosity, and being part of ISTS gives her a chance to explore, contribute, and discover new possibilities every day."
+    },
+    {
+      "name": "Rabin Poudel",
+      "role": "Member",
+      "image": "/team/cutouts/rabin-poudel.png",
+      "bio": "Rabin feels science and technology is an area where he shines. Attached to the fun world of science as long as he remembers, he joined this society to help others feel the fun of science and teach what its true essence is."
+    },
+    {
+      "name": "Brabim Subedi",
+      "role": "Member",
+      "image": "/team/cutouts/brabim-subedi.png",
+      "bio": "Passionate about the world both technically and politically, Brabim is fascinated by innovation for the betterment of humanity and society. He's fully committed to growing together with the society to make an impact for the better."
+    },
+    {
+      "name": "Aashika Baral",
+      "role": "Member",
+      "image": "/team/cutouts/aashika-baral.png",
+      "bio": "Guided by empathy and a strong desire to learn, Aashika believes in growing authentically into her true potential — softly channeling that vision into ISTS, helping foster a warm and inspiring environment for everyone."
+    }
+  ],
+  "eligibility": [
+    "Grade 6 or above",
+    "Curious about science, tech, or STEM",
+    "Willing to show up and participate",
+    "Respectful, disciplined, team-first"
+  ],
+  "memberExpectations": [
+    "Attend seminars whenever possible",
+    "One major activity per term, minimum",
+    "Respect people, equipment & school property",
+    "Academic honesty in all work"
+  ],
+  "safetyPolicies": [
+    {
+      "title": "Chemistry",
+      "points": ["Teacher supervision always", "No unauthorized chemicals", "Immediate incident reporting"]
+    },
+    {
+      "title": "Electronics & Robotics",
+      "points": ["Low-voltage circuits only", "No mains electricity handling", "Supervisor sign-off before testing"]
+    },
+    {
+      "title": "General",
+      "points": ["Every activity planned & reviewed", "No risk to people or property", "Safe, ethical, responsible — always"]
+    }
+  ],
+  "journey": [
+    {
+      "step": "01",
+      "title": "Learn",
+      "body": "Weekly seminars and hands-on fundamentals across chemistry, physics, robotics, and code — beginner-friendly, always.",
+      "accent": "primary"
+    },
+    {
+      "step": "02",
+      "title": "Build",
+      "body": "Monthly workshops turn theory into circuits, robots, and working software — real tools, real projects.",
+      "accent": "cyan"
+    },
+    {
+      "step": "03",
+      "title": "Innovate",
+      "body": "Original solutions to real problems — like this term's School Innovation Challenge.",
+      "accent": "violet"
+    },
+    {
+      "step": "04",
+      "title": "Showcase",
+      "body": "The Grand Term Event: present your work, compete, and get recognized.",
+      "accent": "lime"
+    }
+  ],
+  "stats": [
+    { "label": "Grade & Above", "value": "6+" },
+    { "label": "Focus Areas", "value": "4" },
+    { "label": "Seminars / Year", "value": "52" },
+    { "label": "Term Events", "value": "3" }
+  ]
+}
