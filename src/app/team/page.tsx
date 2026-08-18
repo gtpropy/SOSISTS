@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Crown, Megaphone, Users2 } from "lucide-react";
+import { Crown, Users2 } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { SectionHeading } from "@/components/SectionHeading";
-import { MemberCard } from "@/components/MemberCard";
+import { MemberStoryReel } from "@/components/MemberStoryReel";
 import { Reveal } from "@/components/Reveal";
 import { executiveTeam, generalMembers, siteMeta } from "@/lib/data";
 
@@ -14,8 +14,7 @@ export const metadata: Metadata = {
 };
 
 const president = executiveTeam[0];
-const restOfExec = executiveTeam.slice(1).filter((m) => m.role !== "Media & Outreach");
-const mediaTeam = executiveTeam.filter((m) => m.role === "Media & Outreach");
+const reelMembers = [...executiveTeam.slice(1), ...generalMembers];
 
 export default function TeamPage() {
   return (
@@ -72,54 +71,20 @@ export default function TeamPage() {
         </Reveal>
       </section>
 
-      {/* EXECUTIVE COMMITTEE */}
+      {/* MEMBER STORY REEL */}
       <section className="px-5 py-16 sm:px-8">
         <div className="mx-auto max-w-6xl">
-          <SectionHeading eyebrow="Executive Committee" title="One role each. One team together." />
+          <SectionHeading
+            eyebrow="Executive Committee & Members"
+            title="One role each. One team together."
+            description="Scroll through, or just let it play."
+          />
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {restOfExec.map((member, i) => (
-              <MemberCard key={member.name} member={member} index={i} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* MEDIA & OUTREACH POD */}
-      <section className="px-5 py-4 sm:px-8">
-        <div className="mx-auto max-w-6xl">
-          <Reveal className="mb-8 flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet/10 text-violet">
-              <Megaphone size={18} strokeWidth={2.2} />
-            </span>
-            <div>
-              <h3 className="font-display text-lg font-semibold text-foreground">
-                Media &amp; Outreach Team
-              </h3>
-              <p className="text-sm text-muted">Posters, photography &amp; promotion.</p>
-            </div>
-          </Reveal>
-
-          <div className="grid gap-5 sm:grid-cols-3">
-            {mediaTeam.map((member, i) => (
-              <MemberCard key={member.name} member={member} index={i} compact />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* GENERAL MEMBERS */}
-      <section className="px-5 py-20 sm:px-8">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeading eyebrow="Members" title="The builders behind every project" />
-
-          <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {generalMembers.map((member, i) => (
-              <MemberCard key={member.name} member={member} index={i} compact />
-            ))}
+          <div className="mt-14">
+            <MemberStoryReel members={reelMembers} />
           </div>
 
-          <Reveal className="mt-10">
+          <Reveal className="mt-16">
             <div className="card-surface flex items-center gap-4 p-6 shadow-sm">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-lime/10 text-lime">
                 <Users2 size={20} strokeWidth={2.2} />
