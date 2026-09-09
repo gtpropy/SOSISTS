@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { X, Sparkles, ArrowRight, MapPin, CalendarClock } from "lucide-react";
+import { X, Sparkles, ArrowRight, Trophy, Camera } from "lucide-react";
 import { useSound } from "@/components/SoundProvider";
 import { useJourneyMode } from "@/components/JourneyModeProvider";
 import { challenge } from "@/lib/data";
 
-const SEEN_KEY = "sic-2026-announcement-seen";
+const SEEN_KEY = "sic-2026-success-seen";
 
 export function SICAnnouncementModal() {
   const [open, setOpen] = useState(false);
@@ -51,9 +51,6 @@ export function SICAnnouncementModal() {
     };
   }, [open]);
 
-  const venue = challenge.quickFacts.find((f) => f.label === "Venue")?.value;
-  const when = challenge.quickFacts.find((f) => f.label === "When")?.value;
-
   return (
     <AnimatePresence>
       {open && (
@@ -65,7 +62,7 @@ export function SICAnnouncementModal() {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-foreground/40 p-5 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
-          aria-label={`${challenge.title} announcement`}
+          aria-label={`${challenge.title} — event recap`}
           onClick={() => setOpen(false)}
         >
           <motion.div
@@ -76,7 +73,7 @@ export function SICAnnouncementModal() {
             className="card-surface glow-primary relative w-full max-w-md overflow-hidden p-7 shadow-2xl sm:p-8"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="animate-blob absolute -right-14 -top-14 h-48 w-48 rounded-full bg-gradient-to-br from-primary/20 to-violet/20 blur-3xl" />
+            <div className="animate-blob absolute -right-14 -top-14 h-48 w-48 rounded-full bg-gradient-to-br from-lime/20 to-primary/20 blur-3xl" />
 
             <button
               aria-label="Close"
@@ -90,41 +87,40 @@ export function SICAnnouncementModal() {
               <Sparkles size={12} /> {challenge.edition}
             </span>
 
-            <h2 className="relative mt-4 font-display text-xl font-bold leading-snug text-foreground sm:text-2xl">
-              We&apos;re hosting the {challenge.title}
+            <h2 className="relative mt-4 font-display text-2xl font-bold leading-snug text-foreground sm:text-3xl">
+              SIC was a huge success! 🎉
             </h2>
-            <p className="relative mt-2.5 text-sm leading-relaxed text-muted">{challenge.hook}</p>
+            <p className="relative mt-2.5 text-sm leading-relaxed text-muted">
+              Thank you to every team, mentor, and judge who made the{" "}
+              {challenge.title} unforgettable. The projects blew us away.
+            </p>
 
             <div className="relative mt-4 flex flex-wrap gap-2">
-              {venue && (
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background-alt px-3 py-1 font-mono text-[11px] text-muted">
-                  <MapPin size={11} /> {venue}
-                </span>
-              )}
-              {when && (
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background-alt px-3 py-1 font-mono text-[11px] text-muted">
-                  <CalendarClock size={11} /> {when}
-                </span>
-              )}
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background-alt px-3 py-1 font-mono text-[11px] text-muted">
+                <Trophy size={11} className="text-lime" /> Winners crowned
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background-alt px-3 py-1 font-mono text-[11px] text-muted">
+                <Camera size={11} className="text-primary" /> Photos are in
+              </span>
             </div>
 
             <div className="relative mt-6 flex items-center gap-3">
               <Link
-                href={`/${challenge.slug}`}
+                href="/events"
                 onClick={() => {
                   play("click");
                   setOpen(false);
                 }}
                 className="group inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-lg"
               >
-                View Details &amp; Register
+                See the Photos
                 <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
               </Link>
               <button
                 onClick={() => setOpen(false)}
                 className="text-sm font-medium text-muted-soft transition-colors hover:text-foreground cursor-pointer"
               >
-                Maybe later
+                Close
               </button>
             </div>
           </motion.div>

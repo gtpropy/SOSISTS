@@ -10,7 +10,7 @@ import { IntroSequence } from "@/components/IntroSequence";
 const SECTIONS: { id: string; label: string }[] = [
   { id: "section-hero", label: "Welcome" },
   { id: "section-gallery", label: "Gallery" },
-  { id: "section-upcoming", label: "Upcoming Events" },
+  { id: "section-upcoming", label: "SIC Recap" },
   { id: "section-journey", label: "How It Works" },
   { id: "section-focus", label: "Focus Areas" },
   { id: "section-team-teaser", label: "The Team" },

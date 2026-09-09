@@ -106,3 +106,16 @@ export interface JourneyStep {
 export const journey: JourneyStep[] = content.journey as JourneyStep[];
 
 export const stats: { label: string; value: string }[] = content.stats;
+
+export interface Gallery {
+  baseUrl: string;
+  caption: string;
+  images: string[];
+}
+
+export const sicGallery: Gallery = content.sicGallery;
+
+/** Full public URLs for the SIC gallery photos, in order. */
+export const sicGalleryUrls: string[] = sicGallery.images.map(
+  (name) => `${sicGallery.baseUrl}${name}`,
+);

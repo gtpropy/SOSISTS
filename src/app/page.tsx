@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Users, ImageIcon, CalendarClock } from "lucide-react";
+import { ArrowRight, Users, ImageIcon, Camera } from "lucide-react";
 import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Typewriter } from "@/components/Typewriter";
@@ -66,17 +66,15 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.35 }}
               className="mt-8 flex flex-wrap items-center gap-4"
             >
-              <a
-                href={challenge.registration.url}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={`/${challenge.slug}`}
                 onMouseEnter={() => play("hover")}
                 onClick={() => play("click")}
                 className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/35"
               >
-                Register for Innovation Challenge
-                <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
+                See the SIC 2026 Recap
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              </Link>
               <Link
                 href="/focus-areas"
                 onMouseEnter={() => play("hover")}
@@ -130,10 +128,10 @@ export default function Home() {
         <div className="mx-auto max-w-6xl">
           <SectionHeading
             align="left"
-            eyebrow="Upcoming"
+            eyebrow="Recap"
             title={
               <span className="inline-flex items-center gap-2">
-                <CalendarClock size={22} className="text-primary" /> What&apos;s next
+                <Camera size={22} className="text-primary" /> How SIC went
               </span>
             }
           />
@@ -220,23 +218,21 @@ export default function Home() {
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-violet px-8 py-14 text-center shadow-2xl shadow-primary/30 sm:px-14">
             <div className="absolute inset-0 bg-dot-grid opacity-20" />
             <h2 className="relative font-display text-2xl font-bold text-white sm:text-3xl">
-              Ready to build something?
+              SIC 2026 was a huge success 🎉
             </h2>
             <p className="relative mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/85 sm:text-base">
-              Membership is closed for now — but the School Innovation Challenge is open to
-              registered teams.
+              Membership is closed for now — but our School Innovation Challenge just wrapped up.
+              See what our teams built.
             </p>
-            <a
-              href={challenge.registration.url}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/events"
               onMouseEnter={() => play("hover")}
               onClick={() => play("click")}
               className="relative mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-primary shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
             >
-              Register Your Team
-              <ArrowUpRight size={16} />
-            </a>
+              See the Photos
+              <Camera size={16} />
+            </Link>
           </div>
         </Reveal>
       </section>

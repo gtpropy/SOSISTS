@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
   Sparkles,
   ArrowUpRight,
+  ArrowRight,
+  Camera,
   ScanLine,
   MonitorPlay,
   BellRing,
@@ -45,7 +48,9 @@ export default function InnovationChallengePage() {
             </h1>
             <p className="mt-3 font-mono text-sm text-primary sm:text-base">{challenge.tagline}</p>
             <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-              {challenge.hook}
+              That&apos;s a wrap — and it was a huge success. Thank you to every team, mentor,
+              and judge who made {challenge.edition} unforgettable. Here&apos;s a look back at the
+              challenge our teams took on.
             </p>
           </Reveal>
 
@@ -60,15 +65,13 @@ export default function InnovationChallengePage() {
           </RevealGroup>
 
           <Reveal delay={0.1} className="mt-8">
-            <a
-              href={challenge.registration.url}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/events"
               className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/35"
             >
-              Register Your Team
-              <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
+              See the Photos
+              <Camera size={16} className="transition-transform group-hover:scale-110" />
+            </Link>
           </Reveal>
         </div>
       </section>
@@ -292,26 +295,24 @@ export default function InnovationChallengePage() {
         </div>
       </section>
 
-      {/* REGISTER CTA */}
+      {/* RECAP CTA */}
       <section className="px-5 pb-24 sm:px-8">
         <Reveal className="mx-auto max-w-4xl">
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-violet px-8 py-14 text-center shadow-2xl shadow-primary/30 sm:px-14">
             <div className="absolute inset-0 bg-dot-grid opacity-20" />
             <h2 className="relative font-display text-2xl font-bold text-white sm:text-3xl">
-              Register your team
+              {challenge.edition} was a huge success 🎉
             </h2>
             <p className="relative mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/85 sm:text-base">
-              {challenge.registration.note}
+              Thank you to everyone who took part. Relive the day through the photos from the event.
             </p>
-            <a
-              href={challenge.registration.url}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/events"
               className="relative mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-primary shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
             >
-              Open Registration Form
-              <ArrowUpRight size={16} />
-            </a>
+              See the Photos
+              <ArrowRight size={16} />
+            </Link>
             <p className="relative mt-6 inline-flex items-center gap-2 font-mono text-xs text-white/70">
               <Mail size={13} />
               Questions? Contact {challenge.contact.name}, {challenge.contact.role}
