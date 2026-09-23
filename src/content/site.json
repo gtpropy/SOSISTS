@@ -438,6 +438,7 @@
   "sicGallery": {
     "baseUrl": "https://internal-0aists1.ryan-dhakal.com/",
     "caption": "Moments from the School Innovation Challenge (SIC 2026).",
+    "rotations": {},
     "images": [
       "IMG_3417.JPG",
       "IMG_3436.JPG",

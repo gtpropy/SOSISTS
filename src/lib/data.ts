@@ -111,11 +111,25 @@ export interface Gallery {
   baseUrl: string;
   caption: string;
   images: string[];
+  /** Filename -> clockwise degrees (90 | 180 | 270) to fix a sideways/upside-down photo. */
+  rotations?: Record<string, number>;
 }
 
-export const sicGallery: Gallery = content.sicGallery;
+export const sicGallery: Gallery = content.sicGallery as Gallery;
+
+export interface GalleryPhoto {
+  url: string;
+  file: string;
+  /** Clockwise degrees to rotate this image to correct its orientation. */
+  rotate: number;
+}
+
+/** SIC gallery photos with resolved URLs and any orientation correction applied. */
+export const sicGalleryPhotos: GalleryPhoto[] = sicGallery.images.map((file) => ({
+  url: `${sicGallery.baseUrl}${file}`,
+  file,
+  rotate: sicGallery.rotations?.[file] ?? 0,
+}));
 
 /** Full public URLs for the SIC gallery photos, in order. */
-export const sicGalleryUrls: string[] = sicGallery.images.map(
-  (name) => `${sicGallery.baseUrl}${name}`,
-);
+export const sicGalleryUrls: string[] = sicGalleryPhotos.map((p) => p.url);
