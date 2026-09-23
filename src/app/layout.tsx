@@ -10,6 +10,9 @@ import { IntroGate } from "@/components/IntroGate";
 import { CommandPalette } from "@/components/CommandPalette";
 import { JourneyModeProvider } from "@/components/JourneyModeProvider";
 import { JourneyModeOverlay } from "@/components/JourneyModeOverlay";
+import { AdminProvider } from "@/components/AdminProvider";
+import { AdminKeyModal } from "@/components/AdminKeyModal";
+import { AdminBar } from "@/components/AdminBar";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -54,13 +57,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SoundProvider>
           <MusicProvider>
             <JourneyModeProvider>
-              <CodeBackground />
-              <Nav />
-              <main className="flex-1">{children}</main>
-              <Footer />
-              <IntroGate />
-              <CommandPalette />
-              <JourneyModeOverlay />
+              <AdminProvider>
+                <CodeBackground />
+                <Nav />
+                <main className="flex-1">{children}</main>
+                <Footer />
+                <IntroGate />
+                <CommandPalette />
+                <JourneyModeOverlay />
+                <AdminKeyModal />
+                <AdminBar />
+              </AdminProvider>
             </JourneyModeProvider>
           </MusicProvider>
         </SoundProvider>
