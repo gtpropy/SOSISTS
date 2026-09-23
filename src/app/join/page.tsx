@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { UserCheck, ClipboardCheck, FlaskConical, Zap, Eye, Lock, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { UserCheck, ClipboardCheck, FlaskConical, Zap, Eye, Lock, Camera, ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
@@ -38,18 +39,16 @@ export default function JoinPage() {
                 {membershipStatus.label} — the roster on the Team page is final for this cycle.
               </p>
               <p className="mt-1 text-sm text-muted">
-                Want to get involved right now? Register for the School Innovation Challenge below.
+                Our School Innovation Challenge has wrapped up — take a look at how it went.
               </p>
             </div>
-            <a
-              href={challenge.registration.url}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/events"
               className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white shadow-md shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-lg"
             >
-              Register
-              <ArrowUpRight size={14} />
-            </a>
+              See the Photos
+              <Camera size={14} />
+            </Link>
           </div>
         </Reveal>
       </section>
@@ -134,20 +133,18 @@ export default function JoinPage() {
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-violet px-8 py-14 text-center shadow-2xl shadow-primary/30 sm:px-14">
             <div className="absolute inset-0 bg-dot-grid opacity-20" />
             <h2 className="relative font-display text-2xl font-bold text-white sm:text-3xl">
-              {challenge.title}
+              {challenge.edition} was a huge success 🎉
             </h2>
             <p className="relative mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/85 sm:text-base">
-              Registrations for the School Innovation Challenge are open now.
+              Our School Innovation Challenge just wrapped up — see what our teams built.
             </p>
-            <a
-              href={challenge.registration.url}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/events"
               className="relative mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-primary shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
             >
-              Register Your Team
-              <ArrowUpRight size={16} />
-            </a>
+              See the Photos
+              <ArrowRight size={16} />
+            </Link>
           </div>
         </Reveal>
       </section>

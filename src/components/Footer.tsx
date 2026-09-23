@@ -1,9 +1,17 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
 import { Cpu, ArrowUpRight } from "lucide-react";
 import { useSound } from "@/components/SoundProvider";
+import { useAdmin } from "@/components/AdminProvider";
 import { siteMeta } from "@/lib/data";
+
+// Hidden admin unlock: tap the copyright line this many times, quickly, to
+// reveal the admin key prompt. Deliberately invisible otherwise — no hint,
+// no styling change — so it stays out of the way for every other visitor.
+const SECRET_TAPS = 6;
+const SECRET_WINDOW_MS = 2500;
 
 const columns = [
   {
@@ -12,7 +20,8 @@ const columns = [
       { href: "/about", label: "Vision & Mission" },
       { href: "/focus-areas", label: "Focus Areas" },
       { href: "/events", label: "Events & Calendar" },
-      { href: "/innovation-challenge", label: "SIC 2026 Challenge" },
+      { href: "/robotoshop", label: "RobotoShop" },
+      { href: "/innovation-challenge", label: "SIC 2026 Recap" },
     ],
   },
   {
@@ -27,6 +36,23 @@ const columns = [
 
 export function Footer() {
   const { play } = useSound();
+  const { openModal, unlocked } = useAdmin();
+  const tapCount = useRef(0);
+  const tapTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleSecretTap = () => {
+    if (unlocked) return;
+    tapCount.current += 1;
+    if (tapTimer.current) clearTimeout(tapTimer.current);
+    if (tapCount.current >= SECRET_TAPS) {
+      tapCount.current = 0;
+      openModal();
+      return;
+    }
+    tapTimer.current = setTimeout(() => {
+      tapCount.current = 0;
+    }, SECRET_WINDOW_MS);
+  };
 
   return (
     <footer className="relative mt-24 border-t border-border bg-surface/70 backdrop-blur-sm">
@@ -74,9 +100,13 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-soft sm:flex-row">
-          <p>
+          <button
+            type="button"
+            onClick={handleSecretTap}
+            className="cursor-default select-none bg-transparent p-0 text-left text-xs text-muted-soft"
+          >
             © {new Date().getFullYear()} {siteMeta.shortName} · {siteMeta.school}
-          </p>
+          </button>
           <p className="font-mono">
             founded by {siteMeta.founder} — {siteMeta.founderRole}
           </p>

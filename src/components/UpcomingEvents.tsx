@@ -4,9 +4,33 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Sparkles, ArrowUpRight, ArrowRight } from "lucide-react";
 import { useSound } from "@/components/SoundProvider";
-import type { Challenge } from "@/lib/data";
 
-export function UpcomingEvents({ challenge }: { challenge: Challenge }) {
+export interface SpotlightCta {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+export interface SpotlightProps {
+  status: string;
+  title: string;
+  subtitle?: string;
+  blurb: string;
+  quickFacts: { label: string; value: string }[];
+  primaryCta: SpotlightCta;
+  secondaryCta?: SpotlightCta;
+}
+
+/** Generic homepage "what's happening" spotlight card — feed it whichever event is current. */
+export function UpcomingEvents({
+  status,
+  title,
+  subtitle,
+  blurb,
+  quickFacts,
+  primaryCta,
+  secondaryCta,
+}: SpotlightProps) {
   const { play } = useSound();
 
   return (
@@ -21,9 +45,9 @@ export function UpcomingEvents({ challenge }: { challenge: Challenge }) {
 
       <div className="relative flex flex-wrap items-center gap-3">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-lime/15 px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-wide text-lime">
-          <Sparkles size={12} /> {challenge.status}
+          <Sparkles size={12} /> {status}
         </span>
-        {challenge.quickFacts.map((m) => (
+        {quickFacts.map((m) => (
           <span
             key={m.label}
             className="rounded-full border border-border bg-background-alt px-3 py-1 font-mono text-[11px] text-muted"
@@ -34,34 +58,48 @@ export function UpcomingEvents({ challenge }: { challenge: Challenge }) {
       </div>
 
       <h3 className="relative mt-4 font-display text-2xl font-bold text-foreground sm:text-3xl">
-        {challenge.title} <span className="text-muted-soft">· {challenge.edition}</span>
+        {title} {subtitle && <span className="text-muted-soft">· {subtitle}</span>}
       </h3>
-      <p className="relative mt-1.5 font-mono text-sm text-primary">{challenge.problemTitle}</p>
       <p className="relative mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
-        {challenge.hook}
+        {blurb}
       </p>
 
       <div className="relative mt-6 flex flex-wrap items-center gap-3">
-        <a
-          href={challenge.registration.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          onMouseEnter={() => play("hover")}
-          onClick={() => play("click")}
-          className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/35"
-        >
-          Register Your Team
-          <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </a>
-        <Link
-          href={`/${challenge.slug}`}
-          onMouseEnter={() => play("hover")}
-          onClick={() => play("click")}
-          className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
-        >
-          View Full Details
-          <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-        </Link>
+        {primaryCta.external ? (
+          <a
+            href={primaryCta.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            onMouseEnter={() => play("hover")}
+            onClick={() => play("click")}
+            className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/35"
+          >
+            {primaryCta.label}
+            <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+        ) : (
+          <Link
+            href={primaryCta.href}
+            onMouseEnter={() => play("hover")}
+            onClick={() => play("click")}
+            className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/35"
+          >
+            {primaryCta.label}
+            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+          </Link>
+        )}
+
+        {secondaryCta && (
+          <Link
+            href={secondaryCta.href}
+            onMouseEnter={() => play("hover")}
+            onClick={() => play("click")}
+            className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
+          >
+            {secondaryCta.label}
+            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+          </Link>
+        )}
       </div>
     </motion.div>
   );

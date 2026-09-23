@@ -75,6 +75,32 @@ export interface Challenge {
 
 export const challenge: Challenge = content.challenge;
 
+export interface WorkshopDay {
+  day: string;
+  date: string;
+  title: string;
+  items: string[];
+}
+
+export interface Workshop {
+  id: string;
+  slug: string;
+  status: string;
+  title: string;
+  tagline: string;
+  hook: string;
+  audience: string;
+  quickFacts: { label: string; value: string }[];
+  whatYoullLearn: string[];
+  days: WorkshopDay[];
+  funStuff: string[];
+  whatToBring: string[];
+  registration: { url: string; note: string };
+  contact: { name: string; role: string };
+}
+
+export const roboWorkshop: Workshop = content.roboWorkshop;
+
 export const membershipStatus = content.membershipStatus;
 
 export type ExecMember = {
@@ -106,3 +132,30 @@ export interface JourneyStep {
 export const journey: JourneyStep[] = content.journey as JourneyStep[];
 
 export const stats: { label: string; value: string }[] = content.stats;
+
+export interface Gallery {
+  baseUrl: string;
+  caption: string;
+  images: string[];
+  /** Filename -> clockwise degrees (90 | 180 | 270) to fix a sideways/upside-down photo. */
+  rotations?: Record<string, number>;
+}
+
+export const sicGallery: Gallery = content.sicGallery as Gallery;
+
+export interface GalleryPhoto {
+  url: string;
+  file: string;
+  /** Clockwise degrees to rotate this image to correct its orientation. */
+  rotate: number;
+}
+
+/** SIC gallery photos with resolved URLs and any orientation correction applied. */
+export const sicGalleryPhotos: GalleryPhoto[] = sicGallery.images.map((file) => ({
+  url: `${sicGallery.baseUrl}${file}`,
+  file,
+  rotate: sicGallery.rotations?.[file] ?? 0,
+}));
+
+/** Full public URLs for the SIC gallery photos, in order. */
+export const sicGalleryUrls: string[] = sicGalleryPhotos.map((p) => p.url);
