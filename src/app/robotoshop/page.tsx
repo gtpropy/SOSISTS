@@ -9,6 +9,7 @@ import {
   GraduationCap,
   CalendarDays,
   Clock,
+  MapPin,
   Bot,
   Trophy,
   Gamepad2,
@@ -18,6 +19,7 @@ import {
   Mail,
   ArrowUpRight,
   Users,
+  type LucideIcon,
 } from "lucide-react";
 import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -28,7 +30,13 @@ export const metadata: Metadata = {
   description: `${roboWorkshop.tagline}. ${roboWorkshop.hook}`,
 };
 
-const quickFactIcons = [CalendarDays, Clock, GraduationCap, Cpu];
+const quickFactIcons: Record<string, LucideIcon> = {
+  Dates: CalendarDays,
+  Venue: MapPin,
+  Length: Clock,
+  Level: GraduationCap,
+  Kit: Cpu,
+};
 const learnIcons = [CircuitBoard, Code2, Lightbulb, Wrench];
 const funIcons = [Gamepad2, Gift, PartyPopper];
 const dayIcons = [Bot, Trophy];
@@ -69,8 +77,8 @@ export default function RobotoShopPage() {
           </Reveal>
 
           <RevealGroup className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            {roboWorkshop.quickFacts.map((f, i) => {
-              const Icon = quickFactIcons[i % quickFactIcons.length];
+            {roboWorkshop.quickFacts.map((f) => {
+              const Icon = quickFactIcons[f.label] ?? Sparkles;
               return (
                 <RevealItem key={f.label}>
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3.5 py-1.5 font-mono text-xs text-muted shadow-sm">
