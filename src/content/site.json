@@ -487,5 +487,78 @@
       "IMG_3662.JPG",
       "IMG_3668.JPG"
     ]
+  },
+  "roboWorkshop": {
+    "id": "robotoshop",
+    "slug": "robotoshop",
+    "status": "2 Days Only",
+    "title": "RobotoShop",
+    "tagline": "A hands-on Arduino workshop for absolute beginners",
+    "hook": "Never touched a circuit before? Perfect \u2014 that's who this is for. In two days you'll wire, code, and play games you built yourself on a real Arduino, including your own Simon Says.",
+    "audience": "Junior students & complete beginners \u2014 no experience needed",
+    "quickFacts": [
+      {
+        "label": "Dates",
+        "value": "Sat 26 \u2013 Sun 27 Sep"
+      },
+      {
+        "label": "Length",
+        "value": "2\u20133 hrs / day"
+      },
+      {
+        "label": "Level",
+        "value": "Beginner"
+      },
+      {
+        "label": "Kit",
+        "value": "Arduino Uno"
+      }
+    ],
+    "whatYoullLearn": [
+      "How an Arduino board actually works \u2014 pins, power, and the code loop",
+      "Breadboards & wiring: LEDs, buttons, buzzers, and sensors",
+      "Reading and writing real Arduino (C++) code, not just copy-pasting",
+      "Debugging \u2014 what to check when a circuit or program doesn't work"
+    ],
+    "days": [
+      {
+        "day": "Day 1",
+        "date": "Saturday, 26 September",
+        "title": "Meet Arduino",
+        "items": [
+          "What Arduino is, and what it can actually do",
+          "Your first circuit: wiring & blinking an LED",
+          "Inputs & outputs \u2014 buttons, buzzers, sensors",
+          "Mini-game break with mini prizes",
+          "Start building the logic behind Simon Says"
+        ]
+      },
+      {
+        "day": "Day 2",
+        "date": "Sunday, 27 September",
+        "title": "Build, Play & Show Off",
+        "items": [
+          "Finish and polish your Simon Says game",
+          "Try a couple more mini Arduino games",
+          "Mini-game break with mini prizes",
+          "Capstone project \u2014 design your own mini game or gadget",
+          "Show & tell \u2014 everyone demos what they built"
+        ]
+      }
+    ],
+    "funStuff": [
+      "Mini-games woven through both days",
+      "Mini prizes for the mini-game winners",
+      "A capstone project at the end of Day 2 that's entirely yours to design"
+    ],
+    "whatToBring": [
+      "Just yourself \u2014 no experience or equipment required",
+      "Arduino kits & laptops provided for the workshop",
+      "Curiosity, and patience for debugging"
+    ],
+    "contact": {
+      "name": "ISTS Events Team",
+      "role": "RobotoShop Organizers"
+    }
   }
 }

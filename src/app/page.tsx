@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Users, ImageIcon, Camera } from "lucide-react";
+import { ArrowRight, Users, ImageIcon, Rocket } from "lucide-react";
 import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Typewriter } from "@/components/Typewriter";
@@ -14,7 +14,7 @@ import { ShowcaseGallery } from "@/components/ShowcaseGallery";
 import { UpcomingEvents } from "@/components/UpcomingEvents";
 import { Scrollytelling } from "@/components/Scrollytelling";
 import { useSound } from "@/components/SoundProvider";
-import { siteMeta, stats, focusAreas, executiveTeam, challenge, journey } from "@/lib/data";
+import { siteMeta, stats, focusAreas, executiveTeam, roboWorkshop, journey } from "@/lib/data";
 
 export default function Home() {
   const { play } = useSound();
@@ -67,12 +67,12 @@ export default function Home() {
               className="mt-8 flex flex-wrap items-center gap-4"
             >
               <Link
-                href={`/${challenge.slug}`}
+                href={`/${roboWorkshop.slug}`}
                 onMouseEnter={() => play("hover")}
                 onClick={() => play("click")}
                 className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/35"
               >
-                See the SIC 2026 Recap
+                Explore {roboWorkshop.title}
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
@@ -128,15 +128,23 @@ export default function Home() {
         <div className="mx-auto max-w-6xl">
           <SectionHeading
             align="left"
-            eyebrow="Recap"
+            eyebrow="Upcoming"
             title={
               <span className="inline-flex items-center gap-2">
-                <Camera size={22} className="text-primary" /> How SIC went
+                <Rocket size={22} className="text-primary" /> What&apos;s next
               </span>
             }
           />
           <div className="mt-8">
-            <UpcomingEvents challenge={challenge} />
+            <UpcomingEvents
+              status={roboWorkshop.status}
+              title={roboWorkshop.title}
+              subtitle={roboWorkshop.tagline}
+              blurb={roboWorkshop.hook}
+              quickFacts={roboWorkshop.quickFacts}
+              primaryCta={{ label: "See Full Schedule", href: `/${roboWorkshop.slug}` }}
+              secondaryCta={{ label: "SIC 2026 Recap", href: "/innovation-challenge" }}
+            />
           </div>
         </div>
       </section>
@@ -218,20 +226,20 @@ export default function Home() {
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-violet px-8 py-14 text-center shadow-2xl shadow-primary/30 sm:px-14">
             <div className="absolute inset-0 bg-dot-grid opacity-20" />
             <h2 className="relative font-display text-2xl font-bold text-white sm:text-3xl">
-              SIC 2026 was a huge success 🎉
+              {roboWorkshop.title} is almost here 🤖
             </h2>
             <p className="relative mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/85 sm:text-base">
-              Membership is closed for now — but our School Innovation Challenge just wrapped up.
-              See what our teams built.
+              Membership is closed for now — but our 2-day Arduino workshop for beginners is just
+              around the corner. No experience needed.
             </p>
             <Link
-              href="/events"
+              href={`/${roboWorkshop.slug}`}
               onMouseEnter={() => play("hover")}
               onClick={() => play("click")}
               className="relative mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-primary shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
             >
-              See the Photos
-              <Camera size={16} />
+              See Full Schedule
+              <Rocket size={16} />
             </Link>
           </div>
         </Reveal>

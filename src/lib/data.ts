@@ -75,6 +75,31 @@ export interface Challenge {
 
 export const challenge: Challenge = content.challenge;
 
+export interface WorkshopDay {
+  day: string;
+  date: string;
+  title: string;
+  items: string[];
+}
+
+export interface Workshop {
+  id: string;
+  slug: string;
+  status: string;
+  title: string;
+  tagline: string;
+  hook: string;
+  audience: string;
+  quickFacts: { label: string; value: string }[];
+  whatYoullLearn: string[];
+  days: WorkshopDay[];
+  funStuff: string[];
+  whatToBring: string[];
+  contact: { name: string; role: string };
+}
+
+export const roboWorkshop: Workshop = content.roboWorkshop;
+
 export const membershipStatus = content.membershipStatus;
 
 export type ExecMember = {
