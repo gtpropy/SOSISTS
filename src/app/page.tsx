@@ -142,8 +142,12 @@ export default function Home() {
               subtitle={roboWorkshop.tagline}
               blurb={roboWorkshop.hook}
               quickFacts={roboWorkshop.quickFacts}
-              primaryCta={{ label: "See Full Schedule", href: `/${roboWorkshop.slug}` }}
-              secondaryCta={{ label: "SIC 2026 Recap", href: "/innovation-challenge" }}
+              primaryCta={{
+                label: "Register Now",
+                href: roboWorkshop.registration.url,
+                external: true,
+              }}
+              secondaryCta={{ label: "See Full Schedule", href: `/${roboWorkshop.slug}` }}
             />
           </div>
         </div>

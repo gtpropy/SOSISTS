@@ -95,6 +95,7 @@ export interface Workshop {
   days: WorkshopDay[];
   funStuff: string[];
   whatToBring: string[];
+  registration: { url: string; note: string };
   contact: { name: string; role: string };
 }
 

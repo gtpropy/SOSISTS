@@ -556,6 +556,10 @@
       "Arduino kits & laptops provided for the workshop",
       "Curiosity, and patience for debugging"
     ],
+    "registration": {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSfw-Qek2-5fm6CIZLM467ikbX1MvALNTWDzKUF3M4aw3888sA/viewform?usp=sharing&ouid=112939901897223602595",
+      "note": "Free to join. Spots are capped to keep it hands-on \u2014 if more than 30 people sign up, a selection process will be run to fill the seats."
+    },
     "contact": {
       "name": "ISTS Events Team",
       "role": "RobotoShop Organizers"

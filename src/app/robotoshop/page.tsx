@@ -16,7 +16,8 @@ import {
   PartyPopper,
   CheckCircle2,
   Mail,
-  ArrowRight,
+  ArrowUpRight,
+  Users,
 } from "lucide-react";
 import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -81,14 +82,19 @@ export default function RobotoShopPage() {
             })}
           </RevealGroup>
 
-          <Reveal delay={0.1} className="mt-8">
+          <Reveal delay={0.1} className="mt-8 flex flex-col items-center gap-3">
             <a
-              href="#get-a-seat"
+              href={roboWorkshop.registration.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan via-primary to-violet px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/35"
             >
-              How to Grab a Seat
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              Register Now
+              <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
+            <p className="inline-flex max-w-md items-center gap-1.5 text-center font-mono text-[11px] text-muted-soft">
+              <Users size={12} className="shrink-0" /> {roboWorkshop.registration.note}
+            </p>
           </Reveal>
         </div>
       </section>
@@ -257,10 +263,18 @@ export default function RobotoShopPage() {
               Seats are limited, on purpose
             </h2>
             <p className="relative mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/85 sm:text-base">
-              We keep RobotoShop small so every beginner gets real hands-on help. Talk to your
-              homeroom teacher or any ISTS member to reserve your spot for {" "}
-              {roboWorkshop.quickFacts.find((f) => f.label === "Dates")?.value}.
+              We keep RobotoShop small so every beginner gets real hands-on help.{" "}
+              {roboWorkshop.registration.note}
             </p>
+            <a
+              href={roboWorkshop.registration.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-primary shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
+            >
+              Register Now
+              <ArrowUpRight size={16} />
+            </a>
             <p className="relative mt-6 inline-flex items-center gap-2 font-mono text-xs text-white/70">
               <Mail size={13} />
               Questions? Reach out to the {roboWorkshop.contact.name}
