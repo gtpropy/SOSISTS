@@ -1,12 +1,13 @@
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { SoundProvider } from "@/components/SoundProvider";
 import { MusicProvider } from "@/components/MusicProvider";
 import { CodeBackground } from "@/components/CodeBackground";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { IntroGate } from "@/components/IntroGate";
+import { SICAnnouncementModal } from "@/components/SICAnnouncementModal";
 import { CommandPalette } from "@/components/CommandPalette";
 import { JourneyModeProvider } from "@/components/JourneyModeProvider";
 import { JourneyModeOverlay } from "@/components/JourneyModeOverlay";
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
@@ -62,7 +63,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 <Nav />
                 <main className="flex-1">{children}</main>
                 <Footer />
-                <IntroGate />
+                <SICAnnouncementModal />
                 <CommandPalette />
                 <JourneyModeOverlay />
                 <AdminKeyModal />

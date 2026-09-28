@@ -13,7 +13,6 @@ import {
 interface MusicContextValue {
   enabled: boolean;
   toggle: () => void;
-  attemptPlay: () => void;
 }
 
 const MusicContext = createContext<MusicContextValue | null>(null);
@@ -70,18 +69,12 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     }
   }, [enabled]);
 
-  const attemptPlay = useCallback(() => {
-    const audio = audioRef.current;
-    if (!audio || !cachedEnabled) return;
-    audio.play().catch(() => {});
-  }, []);
-
   const toggle = useCallback(() => {
     setEnabled(!cachedEnabled);
   }, []);
 
   return (
-    <MusicContext.Provider value={{ enabled, toggle, attemptPlay }}>
+    <MusicContext.Provider value={{ enabled, toggle }}>
       {children}
       <audio ref={audioRef} src="/audio/background-music.mp3" loop preload="none" />
     </MusicContext.Provider>
