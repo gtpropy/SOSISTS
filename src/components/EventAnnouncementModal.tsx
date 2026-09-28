@@ -3,14 +3,18 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { X, Sparkles, ArrowRight, Trophy, Camera } from "lucide-react";
+import { X, Sparkles, ArrowRight, ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
 import { useSound } from "@/components/SoundProvider";
 import { useJourneyMode } from "@/components/JourneyModeProvider";
-import { challenge } from "@/lib/data";
+import { roboWorkshop } from "@/lib/data";
 
-const SEEN_KEY = "sic-2026-success-seen";
+// Bump this key whenever the promoted event/content changes, so returning
+// visitors who dismissed a previous announcement still see the new one.
+const SEEN_KEY = "robotoshop-announcement-seen";
 
-export function SICAnnouncementModal() {
+/** Announces whatever the current event is (currently RobotoShop). Swap the
+ * `roboWorkshop` import/content below when a new event takes over. */
+export function EventAnnouncementModal() {
   const [open, setOpen] = useState(false);
   const { play } = useSound();
   const { active: journeyActive } = useJourneyMode();
@@ -51,6 +55,9 @@ export function SICAnnouncementModal() {
     };
   }, [open]);
 
+  const dates = roboWorkshop.quickFacts.find((f) => f.label === "Dates")?.value;
+  const venue = roboWorkshop.quickFacts.find((f) => f.label === "Venue")?.value;
+
   return (
     <AnimatePresence>
       {open && (
@@ -62,7 +69,7 @@ export function SICAnnouncementModal() {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-foreground/40 p-5 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
-          aria-label={`${challenge.title} — event recap`}
+          aria-label={`${roboWorkshop.title} announcement`}
           onClick={() => setOpen(false)}
         >
           <motion.div
@@ -73,7 +80,7 @@ export function SICAnnouncementModal() {
             className="card-surface glow-primary relative w-full max-w-md overflow-hidden p-7 shadow-2xl sm:p-8"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="animate-blob absolute -right-14 -top-14 h-48 w-48 rounded-full bg-gradient-to-br from-lime/20 to-primary/20 blur-3xl" />
+            <div className="animate-blob absolute -right-14 -top-14 h-48 w-48 rounded-full bg-gradient-to-br from-cyan/20 to-violet/20 blur-3xl" />
 
             <button
               aria-label="Close"
@@ -84,44 +91,52 @@ export function SICAnnouncementModal() {
             </button>
 
             <span className="relative inline-flex items-center gap-1.5 rounded-full bg-lime/15 px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-wide text-lime">
-              <Sparkles size={12} /> {challenge.edition}
+              <Sparkles size={12} /> {roboWorkshop.status}
             </span>
 
-            <h2 className="relative mt-4 font-display text-2xl font-bold leading-snug text-foreground sm:text-3xl">
-              SIC was a huge success! 🎉
+            <h2 className="relative mt-4 font-display text-xl font-bold leading-snug text-foreground sm:text-2xl">
+              We&apos;re running {roboWorkshop.title}
             </h2>
-            <p className="relative mt-2.5 text-sm leading-relaxed text-muted">
-              Thank you to every team, mentor, and judge who made the{" "}
-              {challenge.title} unforgettable. The projects blew us away.
-            </p>
+            <p className="relative mt-2.5 text-sm leading-relaxed text-muted">{roboWorkshop.hook}</p>
 
             <div className="relative mt-4 flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background-alt px-3 py-1 font-mono text-[11px] text-muted">
-                <Trophy size={11} className="text-lime" /> Winners crowned
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background-alt px-3 py-1 font-mono text-[11px] text-muted">
-                <Camera size={11} className="text-primary" /> Photos are in
-              </span>
+              {dates && (
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background-alt px-3 py-1 font-mono text-[11px] text-muted">
+                  <CalendarDays size={11} /> {dates}
+                </span>
+              )}
+              {venue && (
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background-alt px-3 py-1 font-mono text-[11px] text-muted">
+                  <MapPin size={11} /> {venue}
+                </span>
+              )}
             </div>
 
             <div className="relative mt-6 flex items-center gap-3">
-              <Link
-                href="/events"
+              <a
+                href={roboWorkshop.registration.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => {
                   play("click");
                   setOpen(false);
                 }}
                 className="group inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-primary/25 transition-all hover:-translate-y-0.5 hover:shadow-lg"
               >
-                See the Photos
-                <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-              <button
-                onClick={() => setOpen(false)}
-                className="text-sm font-medium text-muted-soft transition-colors hover:text-foreground cursor-pointer"
+                Register Now
+                <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+              <Link
+                href={`/${roboWorkshop.slug}`}
+                onClick={() => {
+                  play("click");
+                  setOpen(false);
+                }}
+                className="group inline-flex items-center gap-1.5 text-sm font-medium text-muted-soft transition-colors hover:text-foreground"
               >
-                Close
-              </button>
+                Details
+                <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
           </motion.div>
         </motion.div>
