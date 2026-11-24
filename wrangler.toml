@@ -4,14 +4,10 @@ compatibility_date = "2026-08-01"
 compatibility_flags = ["nodejs_compat"]
 
 # --- CATALYST bindings (functions/catalyst/*) ---
-# One-time setup, from this directory, with your own Cloudflare login:
-#   wrangler d1 create catalyst-db
-#   wrangler r2 bucket create catalyst-uploads
-# Then paste the database_id the first command prints below.
 [[d1_databases]]
 binding = "CATALYST_DB"
 database_name = "catalyst-db"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "8e6ca8ba-e67b-420f-a9d4-ec3504ff8bb0"
 
 [[r2_buckets]]
 binding = "CATALYST_UPLOADS"
