@@ -1,6 +1,6 @@
 import type { Env, PagesFunction } from "./_lib/env";
 import { createParticipantSession, hashSecret, isSameOrigin } from "./_lib/auth";
-import { generateRegNo } from "./_lib/regno";
+import { generateRegNo, generateVerifyCode } from "./_lib/regno";
 import { banner, button, esc, field, htmlResponse, page, wizardSteps } from "./_lib/html";
 import { firstIssueMessage, signupSchema } from "./_lib/validate";
 import { joinTeamByToken } from "./_lib/team";
@@ -108,14 +108,15 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   }
 
   const regNo = await generateRegNo(env.CATALYST_DB);
+  const verifyCode = await generateVerifyCode(env.CATALYST_DB);
   const pinHash = await hashSecret(data.pin);
 
   const insert = await env.CATALYST_DB
     .prepare(
-      `INSERT INTO participants (reg_no, name, phone, school, class, pin_hash)
-       VALUES (?1, ?2, ?3, ?4, ?5, ?6)`,
+      `INSERT INTO participants (reg_no, verify_code, name, phone, school, class, pin_hash)
+       VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)`,
     )
-    .bind(regNo, data.name, data.phone, data.school, data.class, pinHash)
+    .bind(regNo, verifyCode, data.name, data.phone, data.school, data.class, pinHash)
     .run();
 
   const participantId = insert.meta.last_row_id;

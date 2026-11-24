@@ -1,9 +1,10 @@
 import type { Env, PagesFunction } from "../../_lib/env";
 import { csvResponse } from "../../_lib/csv";
 
-export const onRequestGet: PagesFunction<Env, "type"> = async ({ env, params }) => {
+export const onRequestGet: PagesFunction<Env, "type"> = async ({ request, env, params }) => {
   const db = env.CATALYST_DB;
   const type = String(params.type);
+  const verifiedOnly = new URL(request.url).searchParams.get("verified") === "1";
 
   if (type === "participants") {
     const { results } = await db
@@ -11,10 +12,12 @@ export const onRequestGet: PagesFunction<Env, "type"> = async ({ env, params }) 
         `SELECT p.reg_no, p.name, p.phone, p.school, p.class, t.name as team, p.solo_mode,
                 (SELECT status FROM payments WHERE participant_id = p.id ORDER BY id DESC LIMIT 1) as payment_status
          FROM participants p LEFT JOIN teams t ON t.id = p.team_id
-         WHERE p.removed_at IS NULL ORDER BY p.created_at`,
+         WHERE p.removed_at IS NULL
+           ${verifiedOnly ? "AND EXISTS (SELECT 1 FROM payments pay WHERE pay.participant_id = p.id AND pay.status = 'verified')" : ""}
+         ORDER BY p.created_at`,
       )
       .all();
-    return csvResponse("participants.csv", results as Record<string, unknown>[]);
+    return csvResponse(verifiedOnly ? "participants-verified.csv" : "participants.csv", results as Record<string, unknown>[]);
   }
 
   if (type === "teams") {

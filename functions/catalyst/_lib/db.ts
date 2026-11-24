@@ -24,6 +24,7 @@ export interface ParticipantRow {
   created_at: string;
   why_join: string | null;
   cv_key: string | null;
+  verify_code: string | null;
 }
 
 export interface TeamRow {
