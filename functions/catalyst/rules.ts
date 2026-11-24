@@ -1,9 +1,15 @@
 import type { Env, PagesFunction } from "./_lib/env";
-import { htmlResponse, page } from "./_lib/html";
+import { esc, htmlResponse, page } from "./_lib/html";
 
-export const onRequestGet: PagesFunction<Env> = async () => {
+export const onRequestGet: PagesFunction<Env> = async ({ request }) => {
+  const url = new URL(request.url);
+  const next = url.searchParams.get("next");
+  const gated = Boolean(next); // arrived here because signup requires it first
+  const ackUrl = `/catalyst/rules-ack?next=${encodeURIComponent(next || "/catalyst/signup")}`;
+
   const body = `
     <h1>Rules &amp; Conditions</h1>
+    ${gated ? `<div class="cat-banner cat-banner-warn">Read through this once before you register — you'll be able to continue at the bottom.</div>` : ""}
     <p class="cat-muted">These rules apply to every participant of ISTS CATALYST, the first interschool hackathon in Pokhara (Sat 12 Dec build day, Sun 13 Dec showcase), organised by ISTSSOS at SOS Hermann Gmeiner Secondary School Gandaki and supported by Business Promotion Center (BPC).</p>
 
     <div class="card">
@@ -115,7 +121,11 @@ export const onRequestGet: PagesFunction<Env> = async () => {
       </ul>
     </div>
 
-    <p style="text-align:center"><a href="/catalyst">&larr; Back to CATALYST</a></p>
+    ${
+      gated
+        ? `<a class="cat-btn cat-btn-primary cat-btn-block" href="${esc(ackUrl)}">I've read this — continue to registration</a>`
+        : `<p style="text-align:center"><a href="/catalyst">&larr; Back to CATALYST</a></p>`
+    }
   `;
 
   return htmlResponse(page({ title: "Rules & Conditions — CATALYST", body }));
