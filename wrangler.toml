@@ -1,3 +1,23 @@
 name = "ists-sos"
 pages_build_output_dir = "out"
 compatibility_date = "2026-08-01"
+compatibility_flags = ["nodejs_compat"]
+
+# --- CATALYST bindings (functions/catalyst/*) ---
+# One-time setup, from this directory, with your own Cloudflare login:
+#   wrangler d1 create catalyst-db
+#   wrangler r2 bucket create catalyst-uploads
+# Then paste the database_id the first command prints below.
+[[d1_databases]]
+binding = "CATALYST_DB"
+database_name = "catalyst-db"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+[[r2_buckets]]
+binding = "CATALYST_UPLOADS"
+bucket_name = "catalyst-uploads"
+
+# Secrets (never put real values here — set them with wrangler instead):
+#   wrangler pages secret put SESSION_SECRET
+#   wrangler pages secret put UPLOAD_SIGNING_SECRET
+# Generate each with: openssl rand -hex 32
