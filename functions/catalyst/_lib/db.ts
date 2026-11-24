@@ -22,6 +22,9 @@ export interface ParticipantRow {
   pin_reset_requested: number;
   removed_at: string | null;
   created_at: string;
+  why_join: string | null;
+  cv_key: string | null;
+  verify_code: string | null;
 }
 
 export interface TeamRow {
@@ -95,6 +98,10 @@ export function hasCompleteProfile(p: ParticipantRow): boolean {
 
 export function hasTeam(p: ParticipantRow): boolean {
   return Boolean(p.team_id) || p.solo_mode !== "none";
+}
+
+export function hasApplication(p: ParticipantRow): boolean {
+  return Boolean(p.why_join);
 }
 
 export async function deriveStatus(

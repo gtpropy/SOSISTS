@@ -2,6 +2,8 @@ import type { Env, PagesFunction } from "../_lib/env";
 import { type AdminSession, hashSecret, isSameOrigin } from "../_lib/auth";
 import { banner, button, esc, htmlResponse, page } from "../_lib/html";
 import { logAction } from "../_lib/audit";
+import { generateReceiptNo } from "../_lib/regno";
+import { getConfig } from "../_lib/config";
 
 interface Row {
   id: number;
@@ -62,6 +64,17 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
             <td>${r.team_name ? esc(r.team_name) : r.solo_mode !== "none" ? `Solo (${esc(r.solo_mode)})` : "—"}</td>
             <td>${esc(r.payment_status ?? "unpaid")}</td>
             <td style="white-space:nowrap">
+              ${
+                r.payment_status === "verified"
+                  ? `<form method="post" action="/catalyst/admin/participants" style="display:inline" data-confirm="Mark ${esc(r.name)} as unverified?">
+                       <input type="hidden" name="action" value="mark_unverified" /><input type="hidden" name="id" value="${r.id}" />
+                       <button type="submit" class="cat-btn cat-btn-ghost" style="min-height:0;padding:4px 10px;font-size:0.8rem">Mark unverified</button>
+                     </form>`
+                  : `<form method="post" action="/catalyst/admin/participants" style="display:inline" data-confirm="Mark ${esc(r.name)} as payment verified?">
+                       <input type="hidden" name="action" value="mark_verified" /><input type="hidden" name="id" value="${r.id}" />
+                       <button type="submit" class="cat-btn cat-btn-ghost" style="min-height:0;padding:4px 10px;font-size:0.8rem">Mark verified</button>
+                     </form>`
+              }
               <form method="post" action="/catalyst/admin/participants" style="display:inline" data-confirm="Reset ${esc(r.name)}'s PIN?">
                 <input type="hidden" name="action" value="reset_pin" /><input type="hidden" name="id" value="${r.id}" />
                 <button type="submit" class="cat-btn cat-btn-ghost" style="min-height:0;padding:4px 10px;font-size:0.8rem">Reset PIN</button>
@@ -100,6 +113,44 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) 
       new URL(`/catalyst/admin/participants?notice=${encodeURIComponent(`New PIN: ${pin} — tell them in person, it won't be shown again.`)}`, request.url).toString(),
       303,
     );
+  }
+
+  if (action === "mark_verified") {
+    const latest = await env.CATALYST_DB
+      .prepare("SELECT id, status FROM payments WHERE participant_id = ?1 ORDER BY id DESC LIMIT 1")
+      .bind(id)
+      .first<{ id: number; status: string }>();
+    const receiptNo = await generateReceiptNo(env.CATALYST_DB);
+
+    if (latest) {
+      await env.CATALYST_DB
+        .prepare("UPDATE payments SET status = 'verified', receipt_no = COALESCE(receipt_no, ?1), verified_by = ?2, verified_at = ?3 WHERE id = ?4")
+        .bind(receiptNo, admin.adminId, new Date().toISOString(), latest.id)
+        .run();
+    } else {
+      const cfg = await getConfig(env.CATALYST_DB);
+      await env.CATALYST_DB
+        .prepare(
+          `INSERT INTO payments (participant_id, method, amount, status, receipt_no, verified_by, verified_at)
+           VALUES (?1, 'cash', ?2, 'verified', ?3, ?4, ?5)`,
+        )
+        .bind(id, cfg.fee_amount, receiptNo, admin.adminId, new Date().toISOString())
+        .run();
+    }
+    await logAction(env.CATALYST_DB, admin.adminId, "mark_verified", `participant:${id}`);
+    return Response.redirect(new URL("/catalyst/admin/participants?notice=Marked verified.", request.url).toString(), 303);
+  }
+
+  if (action === "mark_unverified") {
+    await env.CATALYST_DB
+      .prepare(
+        `UPDATE payments SET status = 'rejected', reject_reason = 'Marked unverified by admin'
+         WHERE id = (SELECT id FROM payments WHERE participant_id = ?1 ORDER BY id DESC LIMIT 1) AND status = 'verified'`,
+      )
+      .bind(id)
+      .run();
+    await logAction(env.CATALYST_DB, admin.adminId, "mark_unverified", `participant:${id}`);
+    return Response.redirect(new URL("/catalyst/admin/participants?notice=Marked unverified.", request.url).toString(), 303);
   }
 
   if (action === "remove") {

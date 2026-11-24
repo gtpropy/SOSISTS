@@ -1,13 +1,15 @@
 import type { Env, PagesFunction } from "../_lib/env";
-import { htmlResponse, page, statusPill } from "../_lib/html";
-import { deriveStatus, getLatestPayment, hasCompleteProfile, hasTeam, STATUS_LABELS, type ParticipantRow } from "../_lib/db";
+import { banner, htmlResponse, page, statusPill } from "../_lib/html";
+import { deriveStatus, getLatestPayment, hasApplication, hasCompleteProfile, hasTeam, STATUS_LABELS, type ParticipantRow } from "../_lib/db";
 import { getConfig } from "../_lib/config";
 
-export const onRequestGet: PagesFunction<Env> = async ({ env, data }) => {
+export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) => {
   const participant = data.participant as ParticipantRow;
   const cfg = await getConfig(env.CATALYST_DB);
+  const notice = new URL(request.url).searchParams.get("notice");
 
   const profileDone = hasCompleteProfile(participant);
+  const applicationDone = hasApplication(participant);
   const teamDone = hasTeam(participant);
   const payment = await getLatestPayment(env.CATALYST_DB, participant.id);
   const payDone = payment?.status === "verified";
@@ -15,6 +17,12 @@ export const onRequestGet: PagesFunction<Env> = async ({ env, data }) => {
 
   const steps = [
     { label: "Complete your profile", href: "/catalyst/dashboard/profile", done: profileDone },
+    {
+      label: "Tell us why you want to join",
+      href: "/catalyst/dashboard/application",
+      done: applicationDone,
+      locked: !profileDone,
+    },
     {
       label: teamDone
         ? participant.team_id
@@ -34,6 +42,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ env, data }) => {
   ];
 
   const body = `
+    ${banner(notice, "good")}
     <div class="cat-row" style="margin-bottom:14px">
       <h1 style="margin:0">Hi, ${participant.name.split(" ")[0]}</h1>
       ${statusPill(STATUS_LABELS[status], status === "confirmed" || status === "checked_in" ? "good" : status === "payment_under_review" ? "warn" : "neutral")}

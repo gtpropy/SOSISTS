@@ -37,7 +37,8 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
     <div class="card">
       <h3>Or type Reg.No</h3>
       <form id="manual-form">
-        <input class="cat-input" id="manual-regno" placeholder="CAT-XXXX" autocomplete="off" autocapitalize="characters" autofocus />
+        <input class="cat-input" id="manual-regno" placeholder="CAT-XXXX or CAT-XXXX:VERIFYCODE" autocomplete="off" autocapitalize="characters" autofocus />
+        <p class="cat-muted" style="margin-top:4px">Reg.No alone works if you can see them; add <code>:verification code</code> from their ticket for extra certainty.</p>
         <button type="submit" class="cat-btn cat-btn-primary cat-btn-block" style="margin-top:8px">Submit</button>
       </form>
     </div>

@@ -40,11 +40,17 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
             <td>${t.member_count}/4</td>
             <td>${t.verified_count}/${t.member_count}</td>
             <td>${t.verified_count === t.member_count && t.member_count > 0 ? "Complete" : "Incomplete"} ${t.locked ? "🔒" : ""}</td>
-            <td>
+            <td style="white-space:nowrap">
               <form method="post" action="/catalyst/admin/teams" style="display:inline">
                 <input type="hidden" name="action" value="${t.locked ? "unlock" : "lock"}" />
                 <input type="hidden" name="team_id" value="${t.id}" />
                 <button type="submit" class="cat-btn cat-btn-ghost" style="min-height:0;padding:4px 10px;font-size:0.8rem">${t.locked ? "Unlock" : "Lock"}</button>
+              </form>
+              <form method="post" action="/catalyst/admin/teams" style="display:inline" data-rename-form data-team-id="${t.id}" data-team-name="${esc(t.name)}">
+                <input type="hidden" name="action" value="rename" />
+                <input type="hidden" name="team_id" value="${t.id}" />
+                <input type="hidden" name="new_name" value="" />
+                <button type="button" class="cat-btn cat-btn-ghost" data-rename-btn style="min-height:0;padding:4px 10px;font-size:0.8rem">Rename</button>
               </form>
             </td>
           </tr>`,
@@ -94,6 +100,20 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) 
     await db.prepare("UPDATE teams SET locked = ?1 WHERE id = ?2").bind(action === "lock" ? 1 : 0, teamId).run();
     await logAction(db, admin.adminId, `${action}_team`, `team:${teamId}`);
     return redir(action === "lock" ? "Team locked." : "Team unlocked.");
+  }
+
+  if (action === "rename") {
+    const teamId = Number(form.get("team_id"));
+    const newName = String(form.get("new_name") ?? "").trim();
+    if (newName.length < 3 || newName.length > 30) {
+      return redir("Team name must be 3-30 characters.");
+    }
+    const clash = await db.prepare("SELECT id FROM teams WHERE name = ?1 AND id != ?2").bind(newName, teamId).first();
+    if (clash) return redir("Another team already has that name.");
+
+    await db.prepare("UPDATE teams SET name = ?1 WHERE id = ?2").bind(newName, teamId).run();
+    await logAction(db, admin.adminId, "rename_team", `team:${teamId}`, newName);
+    return redir("Renamed.");
   }
 
   if (action === "move") {

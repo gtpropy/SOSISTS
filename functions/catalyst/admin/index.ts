@@ -52,12 +52,26 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
       <div class="cat-grid-3">
         <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/payments">Payments queue</a>
         <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/participants">Participants</a>
+        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/applications">Applications</a>
         <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/teams">Teams</a>
         <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/solo">Solo matching</a>
         <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/config">Config</a>
         <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/audit">Audit log</a>
         <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/scan">Scanner</a>
-        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/badges">Badges</a>
+        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/badges">ID card sheet</a>
+        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/roster">Verified roster</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Exports (CSV)</h3>
+      <div class="cat-grid-3">
+        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/export/participants">All participants</a>
+        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/export/participants?verified=1">Verified only</a>
+        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/export/teams">Teams</a>
+        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/export/payments">Payments</a>
+        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/export/food">Food headcount</a>
+        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/export/donor">Donor summary</a>
       </div>
     </div>
   `;

@@ -23,6 +23,17 @@ export async function generateRegNo(db: D1Database): Promise<string> {
   throw new Error("Could not generate a unique Reg.No after 20 attempts");
 }
 
+/** A short code shown next to the Reg.No and encoded in the ticket QR, so a
+ * ticket can't be faked by just knowing someone's Reg.No. */
+export async function generateVerifyCode(db: D1Database): Promise<string> {
+  for (let attempt = 0; attempt < 20; attempt++) {
+    const candidate = randomCode(6);
+    const existing = await db.prepare("SELECT id FROM participants WHERE verify_code = ?1").bind(candidate).first();
+    if (!existing) return candidate;
+  }
+  throw new Error("Could not generate a unique verification code after 20 attempts");
+}
+
 export function randomToken(bytes = 24): string {
   const arr = crypto.getRandomValues(new Uint8Array(bytes));
   return Array.from(arr, (b) => b.toString(16).padStart(2, "0")).join("");

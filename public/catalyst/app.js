@@ -103,6 +103,20 @@
     reader.readAsDataURL(file);
   });
 
+  // Rename-via-prompt: <form data-rename-form data-team-name="Current">
+  //   <input type="hidden" name="new_name" /><button data-rename-btn>Rename</button></form>
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-rename-btn]");
+    if (!btn) return;
+    var form = btn.closest("[data-rename-form]");
+    if (!form) return;
+    var current = form.getAttribute("data-team-name") || "";
+    var next = window.prompt("New team name:", current);
+    if (!next || !next.trim() || next.trim() === current) return;
+    form.querySelector('input[name="new_name"]').value = next.trim();
+    form.submit();
+  });
+
   // Upload progress feedback for forms with a file input + data-upload-form.
   document.addEventListener("submit", function (e) {
     var form = e.target;
