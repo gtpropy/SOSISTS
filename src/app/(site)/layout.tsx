@@ -7,7 +7,7 @@ import { MusicProvider } from "@/components/MusicProvider";
 import { CodeBackground } from "@/components/CodeBackground";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { SICAnnouncementModal } from "@/components/SICAnnouncementModal";
+import { EventAnnouncementModal } from "@/components/EventAnnouncementModal";
 import { CommandPalette } from "@/components/CommandPalette";
 import { JourneyModeProvider } from "@/components/JourneyModeProvider";
 import { JourneyModeOverlay } from "@/components/JourneyModeOverlay";
@@ -63,7 +63,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <Nav />
                 <main className="flex-1">{children}</main>
                 <Footer />
-                <SICAnnouncementModal />
+                <EventAnnouncementModal />
                 <CommandPalette />
                 <JourneyModeOverlay />
                 <AdminKeyModal />
