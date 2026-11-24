@@ -58,9 +58,25 @@ function renderSuccess(regNo: string, name: string, waMessage: string) {
   `;
 }
 
+function hasReadRules(request: Request): boolean {
+  return /(?:^|;\s*)catalyst_rules_ack=1(?:;|$)/.test(request.headers.get("Cookie") ?? "");
+}
+
+function signupPath(invite: string | undefined): string {
+  return `/catalyst/signup${invite ? `?invite=${encodeURIComponent(invite)}` : ""}`;
+}
+
 export const onRequestGet: PagesFunction<Env> = async ({ request }) => {
   const url = new URL(request.url);
   const invite = url.searchParams.get("invite") ?? undefined;
+
+  if (!hasReadRules(request)) {
+    return Response.redirect(
+      new URL(`/catalyst/rules?next=${encodeURIComponent(signupPath(invite))}`, request.url).toString(),
+      303,
+    );
+  }
+
   return htmlResponse(page({ title: "Register — CATALYST", body: renderForm({ invite }) }));
 };
 
@@ -69,6 +85,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
   const form = await request.formData();
   const invite = String(form.get("invite") ?? "") || undefined;
+  if (!hasReadRules(request)) {
+    return Response.redirect(
+      new URL(`/catalyst/rules?next=${encodeURIComponent(signupPath(invite))}`, request.url).toString(),
+      303,
+    );
+  }
   const raw = {
     name: String(form.get("name") ?? ""),
     phone: String(form.get("phone") ?? ""),
