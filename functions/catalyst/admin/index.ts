@@ -52,6 +52,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
       <div class="cat-grid-3">
         <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/payments">Payments queue</a>
         <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/participants">Participants</a>
+        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/applications">Applications</a>
         <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/teams">Teams</a>
         <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/solo">Solo matching</a>
         <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/config">Config</a>

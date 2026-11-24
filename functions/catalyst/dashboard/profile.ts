@@ -1,11 +1,14 @@
 import type { Env, PagesFunction } from "../_lib/env";
 import { isSameOrigin } from "../_lib/auth";
-import { banner, button, field, htmlResponse, page, redirect } from "../_lib/html";
+import { banner, button, field, htmlResponse, page, redirect, wizardSteps } from "../_lib/html";
 import { firstIssueMessage, profileSchema } from "../_lib/validate";
-import type { ParticipantRow } from "../_lib/db";
+import { hasApplication, type ParticipantRow } from "../_lib/db";
+import { ONBOARDING_STEPS } from "../signup";
 
 function renderForm(p: ParticipantRow, error?: string | null) {
+  const onboarding = !hasApplication(p);
   return `
+    ${onboarding ? wizardSteps(2, ONBOARDING_STEPS) : ""}
     ${banner(error)}
     <div class="card">
       <h1>Your profile</h1>
@@ -37,10 +40,10 @@ function renderForm(p: ParticipantRow, error?: string | null) {
           <input type="checkbox" name="rules_agreed" required ${p.rules_agreed_at ? "checked" : ""} />
           <span>I agree to the fair-play rules: no pre-built projects, hardware is declared at check-in, and AI use is disclosed. *</span>
         </label>
-        ${button("Save profile", { type: "submit" })}
+        ${button(onboarding ? "Next: Tell us why →" : "Save profile", { type: "submit" })}
       </form>
     </div>
-    <p style="text-align:center"><a href="/catalyst/dashboard">&larr; Back to dashboard</a></p>
+    ${onboarding ? "" : `<p style="text-align:center"><a href="/catalyst/dashboard">&larr; Back to dashboard</a></p>`}
   `;
 }
 
@@ -89,5 +92,5 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) 
     )
     .run();
 
-  return redirect("/catalyst/dashboard");
+  return redirect(hasApplication(participant) ? "/catalyst/dashboard" : "/catalyst/dashboard/application");
 };

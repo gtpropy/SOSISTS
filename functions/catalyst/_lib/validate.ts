@@ -29,6 +29,14 @@ export const profileSchema = z.object({
   rules_agreed: z.literal("on"),
 });
 
+export const applicationSchema = z.object({
+  why_join: z
+    .string()
+    .trim()
+    .min(20, "Tell us a bit more — at least 20 characters")
+    .max(1000, "Keep it under 1000 characters"),
+});
+
 export const teamCreateSchema = z.object({
   name: z
     .string()

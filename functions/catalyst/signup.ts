@@ -1,13 +1,16 @@
 import type { Env, PagesFunction } from "./_lib/env";
 import { createParticipantSession, hashSecret, isSameOrigin } from "./_lib/auth";
 import { generateRegNo } from "./_lib/regno";
-import { banner, button, esc, field, htmlResponse, page } from "./_lib/html";
+import { banner, button, esc, field, htmlResponse, page, wizardSteps } from "./_lib/html";
 import { firstIssueMessage, signupSchema } from "./_lib/validate";
 import { joinTeamByToken } from "./_lib/team";
+
+export const ONBOARDING_STEPS = ["Create account", "Guardian & consent", "Tell us why", "You're set"];
 
 function renderForm(opts: { error?: string | null; invite?: string; values?: Record<string, string> } = {}) {
   const v = opts.values ?? {};
   return `
+    ${wizardSteps(1, ONBOARDING_STEPS)}
     ${banner(opts.error)}
     <div class="card">
       <h1>Register for CATALYST</h1>
@@ -40,6 +43,7 @@ function renderForm(opts: { error?: string | null; invite?: string; values?: Rec
 
 function renderSuccess(regNo: string, name: string, waMessage: string) {
   return `
+    ${wizardSteps(1, ONBOARDING_STEPS)}
     <div class="card" style="text-align:center">
       <h1>You're in, ${esc(name.split(" ")[0])}! 🎉</h1>
       <p>This is your Reg.No — you'll need it to log in. <strong>Save it now.</strong></p>
@@ -49,7 +53,7 @@ function renderSuccess(regNo: string, name: string, waMessage: string) {
         <a class="cat-btn cat-btn-ghost" href="https://wa.me/?text=${encodeURIComponent(waMessage)}" target="_blank" rel="noopener">Send to my WhatsApp</a>
       </div>
       <p class="cat-muted" style="margin-top:14px">📸 Take a screenshot of this screen too, just in case.</p>
-      <a class="cat-btn cat-btn-primary cat-btn-block" style="margin-top:10px" href="/catalyst/dashboard">Continue</a>
+      <a class="cat-btn cat-btn-primary cat-btn-block" style="margin-top:10px" href="/catalyst/dashboard/profile">Next: Guardian &amp; consent &rarr;</a>
     </div>
   `;
 }
