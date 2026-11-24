@@ -34,6 +34,7 @@ export interface TeamRow {
   invite_token: string;
   leader_id: number;
   locked: number;
+  finalized_at: string | null;
   created_at: string;
 }
 
@@ -104,11 +105,24 @@ export function hasApplication(p: ParticipantRow): boolean {
   return Boolean(p.why_join);
 }
 
+export function isFullyRegistered(p: ParticipantRow): boolean {
+  return hasCompleteProfile(p) && hasApplication(p);
+}
+
+/** Solo participants are always "ready"; team members need their leader to
+ * have finalized the roster (everyone on it fully registered first). */
+export async function isTeamReady(db: D1Database, p: ParticipantRow): Promise<boolean> {
+  if (p.solo_mode !== "none") return true;
+  if (!p.team_id) return false;
+  const team = await getTeamById(db, p.team_id);
+  return Boolean(team?.finalized_at);
+}
+
 export async function deriveStatus(
   db: D1Database,
   p: ParticipantRow,
 ): Promise<RegistrationStatus> {
-  if (!hasCompleteProfile(p) || !hasTeam(p)) return "incomplete";
+  if (!hasCompleteProfile(p) || !(await isTeamReady(db, p))) return "incomplete";
   const payment = await getLatestPayment(db, p.id);
   if (!payment || payment.status === "unpaid") return "awaiting_payment";
   if (payment.status === "submitted" || payment.status === "cash_pending") return "payment_under_review";

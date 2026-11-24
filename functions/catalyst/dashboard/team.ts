@@ -1,15 +1,17 @@
 import type { Env, PagesFunction } from "../_lib/env";
 import { isSameOrigin } from "../_lib/auth";
 import { banner, button, esc, field, htmlResponse, page, redirect } from "../_lib/html";
-import { getTeamById, getTeamMembers, type ParticipantRow } from "../_lib/db";
+import { getTeamById, getTeamMembers, isFullyRegistered, type ParticipantRow } from "../_lib/db";
 import {
   createTeam,
+  finalizeTeam,
   joinTeamByCode,
   leaveTeam,
   regenerateInvite,
   removeMember,
   setSoloMode,
   transferLeadership,
+  unfinalizeTeam,
 } from "../_lib/team";
 import { firstIssueMessage, teamCreateSchema } from "../_lib/validate";
 import { getConfig, isTeamLocked } from "../_lib/config";
@@ -81,6 +83,9 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) =
   const isLeader = team.leader_id === participant.id;
   const inviteUrl = new URL(`/catalyst/join/${team.invite_token}`, request.url).toString();
   const waMessage = `Join my CATALYST team "${team.name}": ${inviteUrl}`;
+  const finalized = Boolean(team.finalized_at);
+  const editsBlocked = locked || finalized;
+  const allRegistered = members.every((m) => isFullyRegistered(m));
 
   const body = `
     ${banner(error)}
@@ -90,6 +95,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) =
         <span class="cat-chip">${members.length}/4</span>
       </div>
       <p class="cat-muted">Team code: <strong>${esc(team.code)}</strong></p>
+      ${finalized ? banner("Team finalized — this is the roster going to the event.", "good") : ""}
 
       <div style="margin:14px 0">
         ${members
@@ -101,11 +107,11 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) =
               <div class="cat-muted">${esc(m.school)}</div>
             </div>
             <div class="cat-row" style="gap:6px">
-              ${m.guardian_permission && m.rules_agreed_at ? statusTag("Profile done", "good") : statusTag("Profile pending", "warn")}
+              ${isFullyRegistered(m) ? statusTag("Registered", "good") : statusTag("Not registered yet", "warn")}
             </div>
           </div>
           ${
-            isLeader && m.id !== participant.id && !locked
+            isLeader && m.id !== participant.id && !editsBlocked
               ? `<div class="cat-row" style="gap:8px;margin-bottom:8px">
                    <form method="post" action="/catalyst/dashboard/team" style="flex:1">
                      <input type="hidden" name="action" value="make_leader" /><input type="hidden" name="member_id" value="${m.id}" />
@@ -123,26 +129,41 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) =
           .join("")}
       </div>
 
-      ${members.length < 4 ? `
+      ${!editsBlocked && members.length < 4 ? `
       <p class="cat-field-label">Invite link</p>
       <div class="cat-row" style="gap:8px">
         <input class="cat-input" readonly value="${esc(inviteUrl)}" onclick="this.select()" />
         ${button("Copy", { type: "button", variant: "ghost", attrs: `data-copy="${esc(inviteUrl)}"` })}
       </div>
       <a class="cat-btn cat-btn-ghost cat-btn-block" style="margin-top:8px" href="https://wa.me/?text=${encodeURIComponent(waMessage)}" target="_blank" rel="noopener">Share on WhatsApp</a>
-      ` : `<p class="cat-muted">This team is full.</p>`}
+      ` : !editsBlocked ? `<p class="cat-muted">This team is full.</p>` : ""}
 
       ${
-        isLeader && !locked
+        isLeader && !editsBlocked
           ? `<form method="post" action="/catalyst/dashboard/team" style="margin-top:10px" data-confirm="This kills the old invite link. Continue?">
                <input type="hidden" name="action" value="regenerate" />
                ${button("Regenerate invite link", { type: "submit", variant: "ghost" })}
              </form>`
           : ""
       }
+
+      ${
+        isLeader && !locked
+          ? finalized
+            ? `<form method="post" action="/catalyst/dashboard/team" style="margin-top:10px">
+                 <input type="hidden" name="action" value="unfinalize" />
+                 ${button("Changed my mind — reopen team", { type: "submit", variant: "ghost" })}
+               </form>`
+            : `<form method="post" action="/catalyst/dashboard/team" style="margin-top:10px">
+                 <input type="hidden" name="action" value="finalize" />
+                 ${button("These are all my members — continue", { type: "submit" })}
+               </form>
+               ${!allRegistered ? `<p class="cat-muted" style="margin-top:6px">Everyone needs to finish their own profile + application first.</p>` : ""}`
+          : ""
+      }
     </div>
 
-    ${!locked ? `
+    ${!editsBlocked ? `
     <form method="post" action="/catalyst/dashboard/team" data-confirm="${isLeader && members.length > 1 ? "Pass leadership to someone else first, or this won\\'t work." : "Leave this team?"}">
       <input type="hidden" name="action" value="leave" />
       ${button("Leave team", { type: "submit", variant: "danger" })}
@@ -165,9 +186,18 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) 
   const cfg = await getConfig(db);
   const locked = isTeamLocked(cfg);
 
-  const lockedActions = new Set(["create", "join_code", "leave", "remove", "regenerate", "make_leader"]);
+  const lockedActions = new Set(["create", "join_code", "leave", "remove", "regenerate", "make_leader", "finalize"]);
   if (locked && lockedActions.has(action)) {
     return redirect("/catalyst/dashboard/team?error=" + encodeURIComponent("Team changes are closed for CATALYST."));
+  }
+
+  // A leader-finalized team additionally blocks roster edits until they
+  // reopen it — distinct from the admin-only lock above.
+  if (participant.team_id && ["leave", "remove", "regenerate", "make_leader"].includes(action)) {
+    const team = await getTeamById(db, participant.team_id);
+    if (team?.finalized_at) {
+      return redirect("/catalyst/dashboard/team?error=" + encodeURIComponent("Reopen the team before making changes."));
+    }
   }
 
   if (action === "create") {
@@ -209,6 +239,18 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) 
 
   if (action === "regenerate") {
     const result = await regenerateInvite(db, participant.id);
+    if (!result.ok) return redirect("/catalyst/dashboard/team?error=" + encodeURIComponent(result.error));
+    return redirect("/catalyst/dashboard/team");
+  }
+
+  if (action === "finalize") {
+    const result = await finalizeTeam(db, participant.id);
+    if (!result.ok) return redirect("/catalyst/dashboard/team?error=" + encodeURIComponent(result.error));
+    return redirect("/catalyst/dashboard/team");
+  }
+
+  if (action === "unfinalize") {
+    const result = await unfinalizeTeam(db, participant.id);
     if (!result.ok) return redirect("/catalyst/dashboard/team?error=" + encodeURIComponent(result.error));
     return redirect("/catalyst/dashboard/team");
   }

@@ -36,8 +36,10 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     <div class="card">
       <h3>Who can join</h3>
       <p>Class 10, 11, 12 and gap-year students from Kaski District. Teams of 1&ndash;4 — solo is welcome.</p>
-      <p class="cat-muted">Organized by ISTSOS at SOS Hermann Gmeiner Secondary School Gandaki, Pokhara. Supported by UNDP.</p>
+      <p class="cat-muted">Organized by ISTSOS at SOS Hermann Gmeiner Secondary School Gandaki, Pokhara. Supported by BPC.</p>
     </div>
+
+    <p style="text-align:center"><a href="/catalyst/rules">Read the full Rules &amp; Conditions &rarr;</a></p>
   `;
 
   return htmlResponse(page({ title: `${cfg.event_name} — Register`, body }));

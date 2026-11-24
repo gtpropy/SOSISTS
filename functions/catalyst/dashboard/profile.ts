@@ -38,7 +38,7 @@ function renderForm(p: ParticipantRow, error?: string | null) {
         </label>
         <label class="cat-checkbox">
           <input type="checkbox" name="rules_agreed" required ${p.rules_agreed_at ? "checked" : ""} />
-          <span>I agree to the fair-play rules: no pre-built projects, hardware is declared at check-in, and AI use is disclosed. *</span>
+          <span>I have read the <a href="/catalyst/rules" target="_blank" rel="noopener">Rules &amp; Conditions</a> and agree to follow them. *</span>
         </label>
         ${button(onboarding ? "Next: Tell us why →" : "Save profile", { type: "submit" })}
       </form>

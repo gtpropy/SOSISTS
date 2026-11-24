@@ -8,6 +8,7 @@ interface TeamSummary {
   name: string;
   code: string;
   locked: number;
+  finalized_at: string | null;
   member_count: number;
   verified_count: number;
 }
@@ -16,7 +17,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const notice = new URL(request.url).searchParams.get("notice");
   const { results } = await env.CATALYST_DB
     .prepare(
-      `SELECT t.id, t.name, t.code, t.locked,
+      `SELECT t.id, t.name, t.code, t.locked, t.finalized_at,
               (SELECT COUNT(*) FROM participants WHERE team_id = t.id AND removed_at IS NULL) as member_count,
               (SELECT COUNT(DISTINCT p.id) FROM participants p
                  JOIN payments pay ON pay.participant_id = p.id AND pay.status = 'verified'
@@ -39,7 +40,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
             <td>${esc(t.code)}</td>
             <td>${t.member_count}/4</td>
             <td>${t.verified_count}/${t.member_count}</td>
-            <td>${t.verified_count === t.member_count && t.member_count > 0 ? "Complete" : "Incomplete"} ${t.locked ? "🔒" : ""}</td>
+            <td>${t.verified_count === t.member_count && t.member_count > 0 ? "Complete" : "Incomplete"} ${t.finalized_at ? "✓ Finalized" : ""} ${t.locked ? "🔒" : ""}</td>
             <td style="white-space:nowrap">
               <form method="post" action="/catalyst/admin/teams" style="display:inline">
                 <input type="hidden" name="action" value="${t.locked ? "unlock" : "lock"}" />

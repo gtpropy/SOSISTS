@@ -14,7 +14,9 @@
     "migrate:local:0002": "wrangler d1 execute catalyst-db --local --file=./functions/catalyst/_migrations/0002_application.sql",
     "migrate:remote:0002": "wrangler d1 execute catalyst-db --remote --file=./functions/catalyst/_migrations/0002_application.sql",
     "migrate:local:0003": "wrangler d1 execute catalyst-db --local --file=./functions/catalyst/_migrations/0003_verify_code.sql",
-    "migrate:remote:0003": "wrangler d1 execute catalyst-db --remote --file=./functions/catalyst/_migrations/0003_verify_code.sql"
+    "migrate:remote:0003": "wrangler d1 execute catalyst-db --remote --file=./functions/catalyst/_migrations/0003_verify_code.sql",
+    "migrate:local:0004": "wrangler d1 execute catalyst-db --local --file=./functions/catalyst/_migrations/0004_team_finalize.sql",
+    "migrate:remote:0004": "wrangler d1 execute catalyst-db --remote --file=./functions/catalyst/_migrations/0004_team_finalize.sql"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
