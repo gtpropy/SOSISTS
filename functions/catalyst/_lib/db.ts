@@ -44,6 +44,7 @@ export interface PaymentRow {
   screenshot_key: string | null;
   status: string;
   reject_reason: string | null;
+  flag_note: string | null;
   paid_for_by_id: number | null;
   receipt_no: string | null;
   verified_by: number | null;

@@ -25,6 +25,7 @@ function renderForm(error: string | null | undefined, values: Record<string, str
       </form>
     </div>
     <p style="text-align:center"><a href="/catalyst/signup${invite ? `?invite=${esc(invite)}` : ""}">New here? Register</a></p>
+    <p style="text-align:center"><a href="/catalyst/forgot-pin">Forgot your PIN?</a></p>
   `;
 }
 

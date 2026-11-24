@@ -43,13 +43,19 @@ CREATE TABLE IF NOT EXISTS payments (
   participant_id INTEGER NOT NULL REFERENCES participants(id),
   method TEXT NOT NULL CHECK (method IN ('esewa', 'khalti', 'bank', 'cash')),
   amount INTEGER NOT NULL,
-  transaction_id TEXT UNIQUE,
+  -- Intentionally NOT unique: a leader paying for N teammates in one
+  -- transaction legitimately creates N payment rows sharing one
+  -- transaction_id. True duplicate/reused transaction IDs (a different
+  -- *payer group*) are instead soft-flagged via flag_note for an admin to
+  -- review, per the spec's edge-case note — not hard-rejected at the DB.
+  transaction_id TEXT,
   payer_phone TEXT,
   screenshot_key TEXT,
   status TEXT NOT NULL DEFAULT 'unpaid' CHECK (
     status IN ('unpaid', 'submitted', 'cash_pending', 'verified', 'rejected', 'refunded')
   ),
   reject_reason TEXT,
+  flag_note TEXT,
   paid_for_by_id INTEGER REFERENCES participants(id),
   receipt_no TEXT UNIQUE,
   verified_by INTEGER REFERENCES admins(id),
@@ -111,6 +117,7 @@ CREATE TABLE IF NOT EXISTS waitlist (
 CREATE INDEX IF NOT EXISTS idx_participants_team ON participants(team_id);
 CREATE INDEX IF NOT EXISTS idx_payments_participant ON payments(participant_id);
 CREATE INDEX IF NOT EXISTS idx_payments_status ON payments(status);
+CREATE INDEX IF NOT EXISTS idx_payments_txn ON payments(transaction_id);
 CREATE INDEX IF NOT EXISTS idx_scans_participant ON scans(participant_id);
 
 -- Seed default config values. Real payment account details are intentionally
