@@ -116,10 +116,21 @@ p { margin: 0 0 1em; }
   background-repeat: no-repeat; background-size: 100% 100%; pointer-events: none;
 }
 
-.cat-wizard { margin: 0 0 18px; }
-.cat-wizard-label { margin: 0 0 8px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--ink-soft); }
-.cat-wizard-bar { background: var(--border); border-radius: 999px; height: 8px; overflow: hidden; }
-.cat-wizard-fill { background: var(--amber); height: 100%; transition: width 0.25s ease; }
+.cat-wizard { margin: 0 0 22px; }
+.cat-wizard-dots { display: flex; align-items: flex-start; }
+.cat-wizard-dot { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; width: 76px; }
+.cat-wizard-circle {
+  width: 32px; height: 32px; border-radius: 999px; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.9rem; border: 2px solid var(--border-strong); background: var(--paper-card); color: var(--ink-faint);
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.cat-wizard-dot-active .cat-wizard-circle { border-color: var(--amber); color: var(--amber); background: var(--amber-bg); }
+.cat-wizard-dot-done .cat-wizard-circle { border-color: var(--good); background: var(--good); color: #fff; }
+.cat-wizard-dot-label { font-size: 0.68rem; text-align: center; color: var(--ink-faint); line-height: 1.2; }
+.cat-wizard-dot-active .cat-wizard-dot-label { color: var(--ink); font-weight: 700; }
+.cat-wizard-dot-done .cat-wizard-dot-label { color: var(--ink-soft); }
+.cat-wizard-line { flex: 1; height: 2px; background: var(--border); margin: 15px -4px 0; }
+.cat-wizard-line-done { background: var(--good); }
 
 .cat-checklist { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 10px; }
 .cat-checklist li {

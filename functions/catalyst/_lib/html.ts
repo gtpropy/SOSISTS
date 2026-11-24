@@ -54,22 +54,31 @@ function shell(body: string): string {
   return `
 <header class="cat-header">
   <a href="/catalyst" class="cat-brand">CATALYST<span class="cat-brand-dot">.</span></a>
-  <span class="cat-header-sub">by ISTSOS &middot; Supported by BPC</span>
+  <span class="cat-header-sub">by ISTSOS &middot; Supported by <img src="/catalyst/bpc-logo.png" alt="BPC" /></span>
 </header>
 <main class="cat-main">${body}</main>
 <footer class="cat-footer">
   <p>ISTS CATALYST &middot; SOS Hermann Gmeiner Secondary School Gandaki, Pokhara</p>
-  <p class="cat-footer-sponsor">Supported by BPC</p>
+  <p class="cat-footer-sponsor">Supported by <img src="/catalyst/bpc-logo.png" alt="Business Promotion Center (BPC)" /></p>
 </footer>`;
 }
 
-/** Renders the "Step X of Y" onboarding progress header. */
+/** Renders the onboarding step tracker: connected dots, one per step. */
 export function wizardSteps(current: number, labels: string[]): string {
   const total = labels.length;
-  const pct = Math.round((current / total) * 100);
   return `<div class="cat-wizard">
-    <p class="cat-wizard-label">Step ${current} of ${total} &middot; ${esc(labels[current - 1] ?? "")}</p>
-    <div class="cat-wizard-bar"><div class="cat-wizard-fill" style="width:${pct}%"></div></div>
+    <div class="cat-wizard-dots">
+      ${labels
+        .map((label, i) => {
+          const step = i + 1;
+          const state = step < current ? "done" : step === current ? "active" : "upcoming";
+          return `<div class="cat-wizard-dot cat-wizard-dot-${state}">
+            <span class="cat-wizard-circle">${state === "done" ? "✓" : step}</span>
+            <span class="cat-wizard-dot-label">${esc(label)}</span>
+          </div>${step < total ? `<div class="cat-wizard-line cat-wizard-line-${state === "done" ? "done" : "upcoming"}"></div>` : ""}`;
+        })
+        .join("")}
+    </div>
   </div>`;
 }
 

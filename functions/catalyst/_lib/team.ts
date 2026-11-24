@@ -1,6 +1,6 @@
 import type { D1Database } from "./env";
 import { generateTeamCode, randomToken } from "./regno";
-import { getParticipantById, getTeamById, getTeamMembers } from "./db";
+import { getParticipantById, getTeamById, getTeamMembers, isFullyRegistered } from "./db";
 
 export const MAX_TEAM_SIZE = 4;
 
@@ -157,6 +157,34 @@ export async function regenerateInvite(db: D1Database, leaderId: number): Promis
   const token = randomToken();
   await db.prepare("UPDATE teams SET invite_token = ?1 WHERE id = ?2").bind(token, team.id).run();
   return { ok: true, token };
+}
+
+export async function finalizeTeam(db: D1Database, leaderId: number): Promise<TeamOpResult> {
+  const leader = await getParticipantById(db, leaderId);
+  if (!leader?.team_id) return { ok: false, error: "Team not found." };
+  const team = await getTeamById(db, leader.team_id);
+  if (!team || team.leader_id !== leaderId) return { ok: false, error: "Only the team leader can do that." };
+  if (team.locked) return { ok: false, error: "Team changes are closed — ask an organizer for help." };
+
+  const members = await getTeamMembers(db, team.id);
+  const unfinished = members.find((m) => !isFullyRegistered(m));
+  if (unfinished) {
+    return { ok: false, error: `${unfinished.name} hasn't finished their own registration yet (profile + application).` };
+  }
+
+  await db.prepare("UPDATE teams SET finalized_at = ?1 WHERE id = ?2").bind(new Date().toISOString(), team.id).run();
+  return { ok: true };
+}
+
+export async function unfinalizeTeam(db: D1Database, leaderId: number): Promise<TeamOpResult> {
+  const leader = await getParticipantById(db, leaderId);
+  if (!leader?.team_id) return { ok: false, error: "Team not found." };
+  const team = await getTeamById(db, leader.team_id);
+  if (!team || team.leader_id !== leaderId) return { ok: false, error: "Only the team leader can do that." };
+  if (team.locked) return { ok: false, error: "Team changes are closed — ask an organizer for help." };
+
+  await db.prepare("UPDATE teams SET finalized_at = NULL WHERE id = ?1").bind(team.id).run();
+  return { ok: true };
 }
 
 export async function setSoloMode(

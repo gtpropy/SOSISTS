@@ -1,6 +1,6 @@
 import type { Env, PagesFunction } from "../_lib/env";
 import { banner, htmlResponse, page, statusPill } from "../_lib/html";
-import { deriveStatus, getLatestPayment, hasApplication, hasCompleteProfile, hasTeam, STATUS_LABELS, type ParticipantRow } from "../_lib/db";
+import { deriveStatus, getLatestPayment, hasApplication, hasCompleteProfile, isTeamReady, STATUS_LABELS, type ParticipantRow } from "../_lib/db";
 import { getConfig } from "../_lib/config";
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) => {
@@ -10,7 +10,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) =
 
   const profileDone = hasCompleteProfile(participant);
   const applicationDone = hasApplication(participant);
-  const teamDone = hasTeam(participant);
+  const teamDone = await isTeamReady(env.CATALYST_DB, participant);
   const payment = await getLatestPayment(env.CATALYST_DB, participant.id);
   const payDone = payment?.status === "verified";
   const status = await deriveStatus(env.CATALYST_DB, participant);
