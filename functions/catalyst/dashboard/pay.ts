@@ -1,6 +1,6 @@
 import type { Env, PagesFunction } from "../_lib/env";
 import { isSameOrigin } from "../_lib/auth";
-import { banner, button, esc, field, htmlResponse, page, redirect, statusPill } from "../_lib/html";
+import { banner, button, esc, field, htmlResponse, page, redirect, statusPill, wizardSteps } from "../_lib/html";
 import {
   getLatestPayment,
   getTeamMembers,
@@ -8,6 +8,7 @@ import {
   type ParticipantRow,
 } from "../_lib/db";
 import { getConfig } from "../_lib/config";
+import { ONBOARDING_STEPS } from "../signup";
 
 const MAX_SCREENSHOT_BYTES = 5 * 1024 * 1024;
 const ALLOWED_TYPES = new Set(["image/jpeg", "image/jpg", "image/png"]);
@@ -41,8 +42,10 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) =
     : [];
 
   const canSubmit = !payment || payment.status === "unpaid" || payment.status === "rejected";
+  const onboarding = !payment;
 
   const body = `
+    ${onboarding ? wizardSteps(5, ONBOARDING_STEPS) : ""}
     <div class="cat-row"><h1 style="margin:0">Payment</h1>${payment ? statusPill(payment.status.replace("_", " "), payment.status === "verified" ? "good" : payment.status === "rejected" ? "bad" : "warn") : ""}</div>
     ${banner(error)}
     ${payment ? statusView(payment.status, payment.reject_reason) : ""}

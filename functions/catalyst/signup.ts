@@ -5,7 +5,7 @@ import { banner, button, esc, field, htmlResponse, page, wizardSteps } from "./_
 import { firstIssueMessage, signupSchema } from "./_lib/validate";
 import { joinTeamByToken } from "./_lib/team";
 
-export const ONBOARDING_STEPS = ["Create account", "Guardian & consent", "Tell us why", "You're set"];
+export const ONBOARDING_STEPS = ["Create account", "Guardian & consent", "Tell us why", "Team", "Payment"];
 
 function renderForm(opts: { error?: string | null; invite?: string; values?: Record<string, string> } = {}) {
   const v = opts.values ?? {};

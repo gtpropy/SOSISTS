@@ -18,6 +18,7 @@ export const loginSchema = z.object({
 });
 
 export const profileSchema = z.object({
+  email: z.string().trim().toLowerCase().email("Enter a valid email address"),
   guardian_name: z.string().trim().min(2, "Enter a guardian name").max(80),
   guardian_phone: z
     .string()

@@ -1,7 +1,8 @@
 import type { Env, PagesFunction } from "../_lib/env";
 import { isSameOrigin } from "../_lib/auth";
-import { banner, button, esc, field, htmlResponse, page, redirect } from "../_lib/html";
-import { getTeamById, getTeamMembers, isFullyRegistered, type ParticipantRow } from "../_lib/db";
+import { banner, button, esc, field, htmlResponse, page, redirect, wizardSteps } from "../_lib/html";
+import { getLatestPayment, getTeamById, getTeamMembers, isFullyRegistered, type ParticipantRow } from "../_lib/db";
+import { ONBOARDING_STEPS } from "../signup";
 import {
   createTeam,
   finalizeTeam,
@@ -16,8 +17,9 @@ import {
 import { firstIssueMessage, teamCreateSchema } from "../_lib/validate";
 import { getConfig, isTeamLocked } from "../_lib/config";
 
-async function renderNoTeam(error?: string | null, locked?: boolean) {
+async function renderNoTeam(error?: string | null, locked?: boolean, onboarding?: boolean) {
   return `
+    ${onboarding ? wizardSteps(4, ONBOARDING_STEPS) : ""}
     ${banner(error)}
     ${locked ? banner("Team changes are closed for CATALYST. Contact an organizer if you still need help.", "warn") : ""}
     <div class="card">
@@ -62,22 +64,27 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) =
   const error = url.searchParams.get("error");
   const cfg = await getConfig(env.CATALYST_DB);
   const locked = isTeamLocked(cfg);
+  const payment = await getLatestPayment(env.CATALYST_DB, participant.id);
+  const onboarding = !payment;
 
   if (!participant.team_id) {
     if (participant.solo_mode !== "none") {
       const body = `
+        ${onboarding ? wizardSteps(4, ONBOARDING_STEPS) : ""}
         <div class="card" style="text-align:center">
           <h1>You're going solo</h1>
           <p>${participant.solo_mode === "match" ? "An organizer will group you with other solo participants before the deadline." : "You'll take part as a team of one."}</p>
           ${!locked ? `<form method="post" action="/catalyst/dashboard/team"><input type="hidden" name="action" value="undo_solo" />${button("Changed my mind — show team options", { type: "submit", variant: "ghost" })}</form>` : ""}
-        </div>`;
+        </div>
+        ${onboarding ? `<a class="cat-btn cat-btn-primary cat-btn-block" href="/catalyst/dashboard/pay">Next: Payment &rarr;</a>` : ""}
+      `;
       return htmlResponse(page({ title: "Team — CATALYST", body }));
     }
-    return htmlResponse(page({ title: "Team — CATALYST", body: await renderNoTeam(error, locked) }));
+    return htmlResponse(page({ title: "Team — CATALYST", body: await renderNoTeam(error, locked, onboarding) }));
   }
 
   const team = await getTeamById(env.CATALYST_DB, participant.team_id);
-  if (!team) return htmlResponse(page({ title: "Team — CATALYST", body: await renderNoTeam(error, locked) }));
+  if (!team) return htmlResponse(page({ title: "Team — CATALYST", body: await renderNoTeam(error, locked, onboarding) }));
 
   const members = await getTeamMembers(env.CATALYST_DB, team.id);
   const isLeader = team.leader_id === participant.id;
@@ -88,6 +95,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) =
   const allRegistered = members.every((m) => isFullyRegistered(m));
 
   const body = `
+    ${onboarding ? wizardSteps(4, ONBOARDING_STEPS) : ""}
     ${banner(error)}
     <div class="card">
       <div class="cat-row">
@@ -162,6 +170,8 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) =
           : ""
       }
     </div>
+
+    ${onboarding ? `<a class="cat-btn cat-btn-primary cat-btn-block" style="margin-top:10px" href="/catalyst/dashboard/pay">Next: Payment &rarr;</a>` : ""}
 
     ${!editsBlocked ? `
     <form method="post" action="/catalyst/dashboard/team" data-confirm="${isLeader && members.length > 1 ? "Pass leadership to someone else first, or this won\\'t work." : "Leave this team?"}">

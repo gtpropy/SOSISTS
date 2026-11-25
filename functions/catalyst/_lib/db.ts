@@ -25,6 +25,7 @@ export interface ParticipantRow {
   why_join: string | null;
   cv_key: string | null;
   verify_code: string | null;
+  email: string | null;
 }
 
 export interface TeamRow {

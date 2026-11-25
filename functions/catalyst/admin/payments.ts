@@ -1,8 +1,9 @@
 import type { Env, PagesFunction } from "../_lib/env";
 import { type AdminSession, isSameOrigin } from "../_lib/auth";
-import { banner, button, esc, htmlResponse, page } from "../_lib/html";
+import { adminPage, banner, button, esc, htmlResponse } from "../_lib/html";
 import { generateReceiptNo } from "../_lib/regno";
 import { logAction } from "../_lib/audit";
+import { notifyPaymentVerified } from "../_lib/notify";
 
 interface QueueRow {
   id: number;
@@ -20,7 +21,8 @@ interface QueueRow {
   created_at: string;
 }
 
-export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
+export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) => {
+  const admin = data.admin as AdminSession;
   const url = new URL(request.url);
   const notice = url.searchParams.get("notice");
 
@@ -82,7 +84,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     </form>
   `;
 
-  return htmlResponse(page({ title: "Payments — CATALYST Admin", body }));
+  return htmlResponse(adminPage({ title: "Payments — CATALYST Admin", body, path: url.pathname, role: admin.role }));
 };
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) => {
@@ -91,6 +93,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) 
   const db = env.CATALYST_DB;
   const form = await request.formData();
   const action = String(form.get("action") ?? "");
+
+  const origin = new URL(request.url).origin;
 
   async function verify(paymentId: number): Promise<boolean> {
     const receiptNo = await generateReceiptNo(db);
@@ -102,7 +106,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) 
       .bind(receiptNo, admin.adminId, new Date().toISOString(), paymentId)
       .run();
     const changed = (result.meta.changes ?? 0) > 0;
-    if (changed) await logAction(db, admin.adminId, "verify_payment", `payment:${paymentId}`, `receipt=${receiptNo}`);
+    if (changed) {
+      await logAction(db, admin.adminId, "verify_payment", `payment:${paymentId}`, `receipt=${receiptNo}`);
+      const payment = await db.prepare("SELECT participant_id FROM payments WHERE id = ?1").bind(paymentId).first<{ participant_id: number }>();
+      if (payment) await notifyPaymentVerified(env, db, payment.participant_id, origin);
+    }
     return changed;
   }
 

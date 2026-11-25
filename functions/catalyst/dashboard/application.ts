@@ -26,7 +26,7 @@ function renderForm(p: ParticipantRow, error?: string | null) {
           <input type="file" id="f_cv" name="cv" accept="application/pdf" class="cat-input" />
           <span class="cat-field-help">${p.cv_key ? "You've already uploaded one — pick a file here only if you want to replace it." : "Not required, but it helps us get to know you."}</span>
         </label>
-        ${button(onboarding ? "Finish application →" : "Save", { type: "submit" })}
+        ${button(onboarding ? "Next: Team →" : "Save", { type: "submit" })}
       </form>
     </div>
     ${onboarding ? "" : `<p style="text-align:center"><a href="/catalyst/dashboard">&larr; Back to dashboard</a></p>`}
@@ -83,7 +83,5 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) 
     .run();
 
   const wasOnboarding = !hasApplication(participant);
-  return redirect(
-    wasOnboarding ? "/catalyst/dashboard?notice=" + encodeURIComponent("Application received — welcome to CATALYST!") : "/catalyst/dashboard",
-  );
+  return redirect(wasOnboarding ? "/catalyst/dashboard/team" : "/catalyst/dashboard");
 };
