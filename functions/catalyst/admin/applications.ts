@@ -1,5 +1,6 @@
 import type { Env, PagesFunction } from "../_lib/env";
-import { esc, htmlResponse, page } from "../_lib/html";
+import { type AdminSession } from "../_lib/auth";
+import { adminPage, esc, htmlResponse } from "../_lib/html";
 
 interface Row {
   id: number;
@@ -12,7 +13,8 @@ interface Row {
   cv_key: string | null;
 }
 
-export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
+export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) => {
+  const admin = data.admin as AdminSession;
   const url = new URL(request.url);
   const q = url.searchParams.get("q")?.trim() ?? "";
 
@@ -64,5 +66,5 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     }
   `;
 
-  return htmlResponse(page({ title: "Applications — CATALYST Admin", body }));
+  return htmlResponse(adminPage({ title: "Applications — CATALYST Admin", body, path: url.pathname, role: admin.role }));
 };

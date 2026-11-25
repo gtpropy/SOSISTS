@@ -12,6 +12,8 @@ export const onRequest: PagesFunction<Env> = async ({ request, env, next, data }
 
   data.admin = session;
 
+  if (url.pathname === "/catalyst/admin/logout") return next();
+
   // Volunteers only get the scanner + badge pages — everything else in the
   // admin area (payments, participants, config, exports, audit log) is
   // admin-only.

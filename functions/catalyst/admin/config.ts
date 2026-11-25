@@ -1,6 +1,6 @@
 import type { Env, PagesFunction } from "../_lib/env";
 import { type AdminSession, hashSecret, isSameOrigin } from "../_lib/auth";
-import { banner, button, esc, field, htmlResponse, page } from "../_lib/html";
+import { adminPage, banner, button, esc, field, htmlResponse } from "../_lib/html";
 import { getConfig, setConfigValue } from "../_lib/config";
 import { logAction } from "../_lib/audit";
 
@@ -119,9 +119,17 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) =
       </div>
       ${button("Save config", { type: "submit" })}
     </form>
+
+    <div class="card">
+      <h3>Email notifications</h3>
+      <p class="cat-muted">Participants get a "you're confirmed" email when their payment is verified. This isn't set up yet — nothing breaks without it, emails just won't send until you run:</p>
+      <pre style="background:var(--paper);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;font-size:0.82rem;overflow-x:auto">wrangler pages secret put GMAIL_ADDRESS
+wrangler pages secret put GMAIL_APP_PASSWORD</pre>
+      <p class="cat-muted">Use a Gmail address and an <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">app password</a> (not your regular Gmail password) — these are secrets, so they're set via the command line, never stored here.</p>
+    </div>
   `;
 
-  return htmlResponse(page({ title: "Config — CATALYST Admin", body }));
+  return htmlResponse(adminPage({ title: "Config — CATALYST Admin", body, path: new URL(request.url).pathname, role: self.role }));
 };
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) => {

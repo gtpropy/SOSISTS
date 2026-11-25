@@ -1,6 +1,7 @@
 import QRCode from "qrcode";
 import type { Env, PagesFunction } from "../_lib/env";
-import { esc, htmlResponse, page } from "../_lib/html";
+import { type AdminSession } from "../_lib/auth";
+import { adminPage, esc, htmlResponse } from "../_lib/html";
 
 interface Row {
   reg_no: string;
@@ -10,7 +11,8 @@ interface Row {
   team_name: string | null;
 }
 
-export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
+export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) => {
+  const admin = data.admin as AdminSession;
   const { results } = await env.CATALYST_DB
     .prepare(
       `SELECT p.reg_no, p.verify_code, p.name, p.school, t.name as team_name
@@ -72,5 +74,5 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
     }
   </style>`;
 
-  return htmlResponse(page({ title: "ID card sheet — CATALYST Admin", body, head }));
+  return htmlResponse(adminPage({ title: "ID card sheet — CATALYST Admin", body, head, path: new URL(request.url).pathname, role: admin.role }));
 };
