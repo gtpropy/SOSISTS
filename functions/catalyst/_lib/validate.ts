@@ -12,8 +12,10 @@ export const signupSchema = z.object({
 });
 
 export const loginSchema = z.object({
-  reg_no: z.string().trim().min(3),
-  name: z.string().trim().min(1),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^[0-9+\s-]{7,15}$/, "Enter a valid phone number"),
   pin: z.string().regex(/^\d{4}$/, "PIN must be 4 digits"),
 });
 
@@ -59,6 +61,14 @@ export const paymentOnlineSchema = z.object({
 /** Normalizes a name for case/space-insensitive comparisons (login, duplicate checks). */
 export function normalizeName(name: string): string {
   return name.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+/** Strips spaces/dashes so "981 234 5678" and "981-234-5678" are the same
+ * phone number for login/duplicate-check purposes — phone is now the
+ * primary login identifier, so formatting differences can't cause a
+ * false mismatch. */
+export function normalizePhone(phone: string): string {
+  return phone.trim().replace(/[\s-]/g, "");
 }
 
 export function firstIssueMessage(error: z.ZodError): string {

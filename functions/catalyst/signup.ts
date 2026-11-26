@@ -2,7 +2,7 @@ import type { Env, PagesFunction } from "./_lib/env";
 import { createParticipantSession, hashSecret, isSameOrigin } from "./_lib/auth";
 import { generateRegNo, generateVerifyCode } from "./_lib/regno";
 import { banner, button, esc, field, htmlResponse, page, wizardSteps } from "./_lib/html";
-import { firstIssueMessage, signupSchema } from "./_lib/validate";
+import { firstIssueMessage, normalizePhone, signupSchema } from "./_lib/validate";
 import { joinTeamByToken } from "./_lib/team";
 
 export const ONBOARDING_STEPS = ["Create account", "Guardian & consent", "Tell us why", "Team", "Payment"];
@@ -32,7 +32,7 @@ function renderForm(opts: { error?: string | null; invite?: string; values?: Rec
             { value: "gap", label: "Gap year" },
           ],
         })}
-        ${field({ label: "Choose a 4-digit PIN", name: "pin", type: "tel", required: true, pattern: "[0-9]{4}", maxLength: 4, help: "You'll use this to log back in — remember it, there's no email recovery." })}
+        ${field({ label: "Choose a 4-digit PIN", name: "pin", type: "tel", required: true, pattern: "[0-9]{4}", maxLength: 4, help: "You'll use this with your phone number to log back in — remember it, there's no email recovery." })}
         ${button("Register", { type: "submit" })}
       </form>
     </div>
@@ -46,7 +46,7 @@ function renderSuccess(regNo: string, name: string, waMessage: string) {
     ${wizardSteps(1, ONBOARDING_STEPS)}
     <div class="card" style="text-align:center">
       <h1>You're in, ${esc(name.split(" ")[0])}! 🎉</h1>
-      <p>This is your Reg.No — you'll need it to log in. <strong>Save it now.</strong></p>
+      <p>This is your Reg.No — organizers use it to look you up, and it's on your ticket. <strong>Save it now.</strong> (To log back in later, just use your phone number and PIN — no need to remember this.)</p>
       <div class="cat-regno">${esc(regNo)}</div>
       <div class="cat-row" style="justify-content:center;gap:10px">
         ${button("Copy", { type: "button", variant: "ghost", attrs: `data-copy="${esc(regNo)}"` })}
@@ -109,7 +109,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       { status: 400 },
     );
   }
-  const data = parsed.data;
+  const data = { ...parsed.data, phone: normalizePhone(parsed.data.phone) };
 
   const existingPhone = await env.CATALYST_DB
     .prepare("SELECT reg_no FROM participants WHERE phone = ?1 AND removed_at IS NULL")

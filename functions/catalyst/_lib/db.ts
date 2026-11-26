@@ -69,6 +69,13 @@ export async function getParticipantByRegNo(db: D1Database, regNo: string): Prom
     .first<ParticipantRow>();
 }
 
+export async function getParticipantByPhone(db: D1Database, phone: string): Promise<ParticipantRow | null> {
+  return db
+    .prepare("SELECT * FROM participants WHERE phone = ?1 AND removed_at IS NULL")
+    .bind(phone.trim())
+    .first<ParticipantRow>();
+}
+
 export async function getTeamById(db: D1Database, id: number): Promise<TeamRow | null> {
   return db.prepare("SELECT * FROM teams WHERE id = ?1").bind(id).first<TeamRow>();
 }

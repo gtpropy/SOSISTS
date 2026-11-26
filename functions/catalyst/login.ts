@@ -1,14 +1,14 @@
 import type { Env, PagesFunction } from "./_lib/env";
 import { createParticipantSession, isSameOrigin, verifySecret } from "./_lib/auth";
 import { banner, button, esc, field, htmlResponse, page } from "./_lib/html";
-import { loginSchema, normalizeName } from "./_lib/validate";
-import { getParticipantByRegNo } from "./_lib/db";
+import { loginSchema, normalizePhone } from "./_lib/validate";
+import { getParticipantByPhone } from "./_lib/db";
 import { joinTeamByToken } from "./_lib/team";
 
 const MAX_ATTEMPTS = 5;
 const WINDOW_MS = 15 * 60 * 1000;
 const LOCK_MS = 15 * 60 * 1000;
-const GENERIC_ERROR = "Reg.No, name or PIN didn't match. Double check and try again.";
+const GENERIC_ERROR = "Phone number or PIN didn't match. Double check and try again.";
 
 function renderForm(error: string | null | undefined, values: Record<string, string> | undefined, invite?: string) {
   const v = values ?? {};
@@ -18,8 +18,7 @@ function renderForm(error: string | null | undefined, values: Record<string, str
       <h1>Log in</h1>
       <form method="post" action="/catalyst/login${invite ? `?invite=${esc(invite)}` : ""}">
         ${invite ? `<input type="hidden" name="invite" value="${esc(invite)}" />` : ""}
-        ${field({ label: "Reg.No", name: "reg_no", required: true, value: v.reg_no, placeholder: "CAT-XXXX" })}
-        ${field({ label: "Full name", name: "name", required: true, value: v.name })}
+        ${field({ label: "Phone number", name: "phone", type: "tel", required: true, value: v.phone, autocomplete: "tel" })}
         ${field({ label: "4-digit PIN", name: "pin", type: "tel", required: true, pattern: "[0-9]{4}", maxLength: 4 })}
         ${button("Log in", { type: "submit" })}
       </form>
@@ -40,8 +39,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const form = await request.formData();
   const invite = String(form.get("invite") ?? "") || undefined;
   const raw = {
-    reg_no: String(form.get("reg_no") ?? ""),
-    name: String(form.get("name") ?? ""),
+    phone: String(form.get("phone") ?? ""),
     pin: String(form.get("pin") ?? ""),
   };
 
@@ -52,11 +50,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     });
   }
 
-  const regNo = parsed.data.reg_no.trim().toUpperCase();
-  const participant = await getParticipantByRegNo(env.CATALYST_DB, regNo);
+  const phone = normalizePhone(parsed.data.phone);
+  const participant = await getParticipantByPhone(env.CATALYST_DB, phone);
 
-  // Always compare against *something* even when the Reg.No doesn't exist,
-  // so response timing doesn't reveal whether a Reg.No is registered.
+  // Always compare against *something* even when the phone number doesn't
+  // exist, so response timing doesn't reveal whether it's registered.
   const decoyHash = "$2a$10$CwTycUXWue0Thq9StjUM0uJ8n0g6a4z8nE9z3H9r9m2k8l9r7e8W6";
   const pinMatches = await verifySecret(parsed.data.pin, participant?.pin_hash ?? decoyHash);
 
@@ -77,9 +75,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     );
   }
 
-  const nameMatches = normalizeName(participant.name) === normalizeName(parsed.data.name);
-
-  if (!nameMatches || !pinMatches) {
+  if (!pinMatches) {
     const windowStillOpen =
       participant.first_failed_at && now - new Date(participant.first_failed_at).getTime() < WINDOW_MS;
     const failed = windowStillOpen ? participant.failed_logins + 1 : 1;
