@@ -24,7 +24,9 @@ export interface ParticipantRow {
   created_at: string;
   why_join: string | null;
   cv_key: string | null;
+  eligibility_doc_key: string | null;
   verify_code: string | null;
+  email: string | null;
 }
 
 export interface TeamRow {
@@ -67,6 +69,13 @@ export async function getParticipantByRegNo(db: D1Database, regNo: string): Prom
     .first<ParticipantRow>();
 }
 
+export async function getParticipantByPhone(db: D1Database, phone: string): Promise<ParticipantRow | null> {
+  return db
+    .prepare("SELECT * FROM participants WHERE phone = ?1 AND removed_at IS NULL")
+    .bind(phone.trim())
+    .first<ParticipantRow>();
+}
+
 export async function getTeamById(db: D1Database, id: number): Promise<TeamRow | null> {
   return db.prepare("SELECT * FROM teams WHERE id = ?1").bind(id).first<TeamRow>();
 }
@@ -102,7 +111,14 @@ export function hasTeam(p: ParticipantRow): boolean {
 }
 
 export function hasApplication(p: ParticipantRow): boolean {
-  return Boolean(p.why_join);
+  return Boolean(p.why_join) && Boolean(p.eligibility_doc_key);
+}
+
+/** "Student ID card" for enrolled Class 10/11/12 students; gap-year
+ * participants have no current school ID, so a Class 12 pass certificate
+ * proves eligibility instead. */
+export function eligibilityDocLabel(p: Pick<ParticipantRow, "class">): string {
+  return p.class === "gap" ? "Class 12 pass certificate" : "Student ID card";
 }
 
 export function isFullyRegistered(p: ParticipantRow): boolean {

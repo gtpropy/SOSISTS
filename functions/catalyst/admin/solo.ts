@@ -1,6 +1,6 @@
 import type { Env, PagesFunction } from "../_lib/env";
 import { type AdminSession, isSameOrigin } from "../_lib/auth";
-import { banner, button, esc, field, htmlResponse, page } from "../_lib/html";
+import { adminPage, banner, button, esc, field, htmlResponse } from "../_lib/html";
 import { generateTeamCode, randomToken } from "../_lib/regno";
 import { logAction } from "../_lib/audit";
 
@@ -12,7 +12,8 @@ interface SoloRow {
   class: string;
 }
 
-export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
+export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) => {
+  const admin = data.admin as AdminSession;
   const notice = new URL(request.url).searchParams.get("notice");
   const { results } = await env.CATALYST_DB
     .prepare(
@@ -38,7 +39,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     </form>
   `;
 
-  return htmlResponse(page({ title: "Solo matching — CATALYST Admin", body }));
+  return htmlResponse(adminPage({ title: "Solo matching — CATALYST Admin", body, path: new URL(request.url).pathname, role: admin.role }));
 };
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) => {

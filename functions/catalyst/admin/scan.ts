@@ -1,5 +1,6 @@
 import type { Env, PagesFunction } from "../_lib/env";
-import { htmlResponse, page } from "../_lib/html";
+import { type AdminSession } from "../_lib/auth";
+import { adminPage, htmlResponse } from "../_lib/html";
 
 const MODES = [
   { value: "checkin_d1", label: "Day 1 Check-in" },
@@ -9,7 +10,8 @@ const MODES = [
   { value: "food_3", label: "Food Round 3" },
 ];
 
-export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
+export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) => {
+  const admin = data.admin as AdminSession;
   const counts = await Promise.all(
     MODES.map((m) =>
       env.CATALYST_DB.prepare("SELECT COUNT(*) as n FROM scans WHERE kind = ?1").bind(m.value).first<{ n: number }>(),
@@ -169,5 +171,5 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
 })();
 </script>`;
 
-  return htmlResponse(page({ title: "Scanner — CATALYST Admin", body, scripts }));
+  return htmlResponse(adminPage({ title: "Scanner — CATALYST Admin", body, scripts, path: new URL(request.url).pathname, role: admin.role }));
 };

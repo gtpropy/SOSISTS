@@ -46,6 +46,10 @@ export interface Env {
   CATALYST_UPLOADS: R2Bucket;
   SESSION_SECRET: string;
   UPLOAD_SIGNING_SECRET: string;
+  /** Gmail address + app password for sending notification emails. Both
+   * optional — email sending no-ops until these are configured. */
+  GMAIL_ADDRESS?: string;
+  GMAIL_APP_PASSWORD?: string;
 }
 
 export interface EventContext<E = Env, P extends string = string> {

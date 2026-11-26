@@ -1,8 +1,10 @@
 import type { Env, PagesFunction } from "../_lib/env";
-import { htmlResponse, page } from "../_lib/html";
+import { type AdminSession } from "../_lib/auth";
+import { adminPage, htmlResponse } from "../_lib/html";
 import { getConfig } from "../_lib/config";
 
-export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
+export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) => {
+  const admin = data.admin as AdminSession;
   const db = env.CATALYST_DB;
   const cfg = await getConfig(db);
 
@@ -48,22 +50,6 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
     </div>
 
     <div class="card">
-      <h3>Quick links</h3>
-      <div class="cat-grid-3">
-        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/payments">Payments queue</a>
-        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/participants">Participants</a>
-        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/applications">Applications</a>
-        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/teams">Teams</a>
-        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/solo">Solo matching</a>
-        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/config">Config</a>
-        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/audit">Audit log</a>
-        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/scan">Scanner</a>
-        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/badges">ID card sheet</a>
-        <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/roster">Verified roster</a>
-      </div>
-    </div>
-
-    <div class="card">
       <h3>Exports (CSV)</h3>
       <div class="cat-grid-3">
         <a class="cat-btn cat-btn-ghost" href="/catalyst/admin/export/participants">All participants</a>
@@ -76,5 +62,5 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
     </div>
   `;
 
-  return htmlResponse(page({ title: "Admin — CATALYST", body }));
+  return htmlResponse(adminPage({ title: "Admin — CATALYST", body, path: new URL(request.url).pathname, role: admin.role }));
 };

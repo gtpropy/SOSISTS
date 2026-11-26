@@ -1,9 +1,10 @@
 import type { Env, PagesFunction } from "../_lib/env";
 import { type AdminSession, hashSecret, isSameOrigin } from "../_lib/auth";
-import { banner, button, esc, htmlResponse, page } from "../_lib/html";
+import { adminPage, banner, button, esc, htmlResponse } from "../_lib/html";
 import { logAction } from "../_lib/audit";
 import { generateReceiptNo } from "../_lib/regno";
 import { getConfig } from "../_lib/config";
+import { notifyPaymentVerified } from "../_lib/notify";
 
 interface Row {
   id: number;
@@ -23,7 +24,8 @@ function randomPin(): string {
   return String(n).padStart(4, "0");
 }
 
-export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
+export const onRequestGet: PagesFunction<Env> = async ({ request, env, data }) => {
+  const admin = data.admin as AdminSession;
   const url = new URL(request.url);
   const q = url.searchParams.get("q")?.trim() ?? "";
   const notice = url.searchParams.get("notice");
@@ -91,7 +93,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     </div>
   `;
 
-  return htmlResponse(page({ title: "Participants — CATALYST Admin", body }));
+  return htmlResponse(adminPage({ title: "Participants — CATALYST Admin", body, path: url.pathname, role: admin.role }));
 };
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) => {
@@ -138,6 +140,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) 
         .run();
     }
     await logAction(env.CATALYST_DB, admin.adminId, "mark_verified", `participant:${id}`);
+    await notifyPaymentVerified(env, env.CATALYST_DB, id, new URL(request.url).origin);
     return Response.redirect(new URL("/catalyst/admin/participants?notice=Marked verified.", request.url).toString(), 303);
   }
 

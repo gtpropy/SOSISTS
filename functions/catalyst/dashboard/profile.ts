@@ -14,6 +14,7 @@ function renderForm(p: ParticipantRow, error?: string | null) {
       <h1>Your profile</h1>
       <p class="cat-muted">We need a guardian contact since CATALYST runs into the evening, plus a couple of consents.</p>
       <form method="post" action="/catalyst/dashboard/profile">
+        ${field({ label: "Email", name: "email", type: "email", required: true, value: p.email ?? "", help: "We'll email you once your payment is verified." })}
         ${field({ label: "Guardian name", name: "guardian_name", required: true, value: p.guardian_name ?? "" })}
         ${field({ label: "Guardian phone", name: "guardian_phone", type: "tel", required: true, value: p.guardian_phone ?? "" })}
         ${field({
@@ -57,6 +58,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) 
 
   const form = await request.formData();
   const raw = {
+    email: String(form.get("email") ?? ""),
     guardian_name: String(form.get("guardian_name") ?? ""),
     guardian_phone: String(form.get("guardian_phone") ?? ""),
     diet: String(form.get("diet") ?? ""),
@@ -78,11 +80,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env, data }) 
 
   await env.CATALYST_DB
     .prepare(
-      `UPDATE participants SET guardian_name = ?1, guardian_phone = ?2, diet = ?3,
-       photo_consent = ?4, guardian_permission = 1, rules_agreed_at = COALESCE(rules_agreed_at, ?5)
-       WHERE id = ?6`,
+      `UPDATE participants SET email = ?1, guardian_name = ?2, guardian_phone = ?3, diet = ?4,
+       photo_consent = ?5, guardian_permission = 1, rules_agreed_at = COALESCE(rules_agreed_at, ?6)
+       WHERE id = ?7`,
     )
     .bind(
+      parsed.data.email,
       parsed.data.guardian_name,
       parsed.data.guardian_phone,
       parsed.data.diet,

@@ -29,17 +29,21 @@ export interface PageOptions {
   bare?: boolean;
 }
 
+function headTags(title: string): string {
+  return `<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>${esc(title)}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/catalyst/notebook.css" />`;
+}
+
 export function page(opts: PageOptions): string {
   return `<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>${esc(opts.title)}</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/catalyst/notebook.css" />
+${headTags(opts.title)}
 ${opts.head ?? ""}
 </head>
 <body>
@@ -61,6 +65,68 @@ function shell(body: string): string {
   <p>ISTS CATALYST &middot; SOS Hermann Gmeiner Secondary School Gandaki, Pokhara</p>
   <p class="cat-footer-sponsor">Supported by <img src="/catalyst/bpc-logo.png" alt="Business Promotion Center (BPC)" /></p>
 </footer>`;
+}
+
+const ADMIN_NAV: { href: string; label: string }[] = [
+  { href: "/catalyst/admin", label: "Overview" },
+  { href: "/catalyst/admin/payments", label: "Payments" },
+  { href: "/catalyst/admin/participants", label: "Participants" },
+  { href: "/catalyst/admin/applications", label: "Applications" },
+  { href: "/catalyst/admin/teams", label: "Teams" },
+  { href: "/catalyst/admin/solo", label: "Solo matching" },
+  { href: "/catalyst/admin/config", label: "Config" },
+  { href: "/catalyst/admin/audit", label: "Audit log" },
+  { href: "/catalyst/admin/scan", label: "Scanner" },
+  { href: "/catalyst/admin/badges", label: "ID cards" },
+  { href: "/catalyst/admin/roster", label: "Roster" },
+];
+const VOLUNTEER_NAV_HREFS = new Set(["/catalyst/admin/scan", "/catalyst/admin/badges"]);
+
+export interface AdminPageOptions {
+  title: string;
+  body: string;
+  path: string;
+  role: "admin" | "volunteer";
+  head?: string;
+  scripts?: string;
+}
+
+/** The admin panel gets its own two-column (sidebar + content) shell,
+ * separate from the single-column participant-facing `page()` — this is
+ * an internal tool for organizers/volunteers, not the low-end-phone
+ * participant flow, so it can afford a denser, table-heavy layout. */
+export function adminPage(opts: AdminPageOptions): string {
+  const nav = opts.role === "volunteer" ? ADMIN_NAV.filter((n) => VOLUNTEER_NAV_HREFS.has(n.href)) : ADMIN_NAV;
+  const isActive = (href: string) => (href === "/catalyst/admin" ? opts.path === href : opts.path.startsWith(href));
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+${headTags(opts.title)}
+${opts.head ?? ""}
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+  <input type="checkbox" id="admin-nav-toggle" class="admin-nav-toggle-input" />
+  <header class="admin-topbar">
+    <label for="admin-nav-toggle" class="admin-nav-burger" aria-label="Menu">&#9776;</label>
+    <a href="/catalyst/admin" class="admin-topbar-brand">CATALYST<span class="cat-brand-dot">.</span> Admin</a>
+  </header>
+  <nav class="admin-sidebar">
+    <a href="/catalyst/admin" class="admin-sidebar-brand">CATALYST<span class="cat-brand-dot">.</span><span class="admin-sidebar-tag">${esc(opts.role)}</span></a>
+    <div class="admin-nav-links">
+      ${nav.map((n) => `<a href="${n.href}" class="admin-nav-link${isActive(n.href) ? " active" : ""}">${esc(n.label)}</a>`).join("")}
+    </div>
+    <form method="post" action="/catalyst/admin/logout" class="admin-sidebar-footer">
+      <button type="submit" class="admin-nav-link admin-nav-logout">Log out</button>
+    </form>
+  </nav>
+  <main class="admin-content">${opts.body}</main>
+</div>
+<script src="/catalyst/app.js"></script>
+${opts.scripts ?? ""}
+</body>
+</html>`;
 }
 
 /** Renders the onboarding step tracker: connected dots, one per step. */

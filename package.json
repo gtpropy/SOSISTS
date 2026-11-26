@@ -16,7 +16,11 @@
     "migrate:local:0003": "wrangler d1 execute catalyst-db --local --file=./functions/catalyst/_migrations/0003_verify_code.sql",
     "migrate:remote:0003": "wrangler d1 execute catalyst-db --remote --file=./functions/catalyst/_migrations/0003_verify_code.sql",
     "migrate:local:0004": "wrangler d1 execute catalyst-db --local --file=./functions/catalyst/_migrations/0004_team_finalize.sql",
-    "migrate:remote:0004": "wrangler d1 execute catalyst-db --remote --file=./functions/catalyst/_migrations/0004_team_finalize.sql"
+    "migrate:remote:0004": "wrangler d1 execute catalyst-db --remote --file=./functions/catalyst/_migrations/0004_team_finalize.sql",
+    "migrate:local:0005": "wrangler d1 execute catalyst-db --local --file=./functions/catalyst/_migrations/0005_email.sql",
+    "migrate:remote:0005": "wrangler d1 execute catalyst-db --remote --file=./functions/catalyst/_migrations/0005_email.sql",
+    "migrate:local:0006": "wrangler d1 execute catalyst-db --local --file=./functions/catalyst/_migrations/0006_eligibility_doc.sql",
+    "migrate:remote:0006": "wrangler d1 execute catalyst-db --remote --file=./functions/catalyst/_migrations/0006_eligibility_doc.sql"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

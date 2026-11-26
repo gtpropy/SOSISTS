@@ -17,3 +17,8 @@ bucket_name = "catalyst-uploads"
 #   wrangler pages secret put SESSION_SECRET
 #   wrangler pages secret put UPLOAD_SIGNING_SECRET
 # Generate each with: openssl rand -hex 32
+#
+# Optional — "you're confirmed" emails no-op silently until both are set:
+#   wrangler pages secret put GMAIL_ADDRESS
+#   wrangler pages secret put GMAIL_APP_PASSWORD
+# Use a Gmail app password (myaccount.google.com/apppasswords), not your real password.
